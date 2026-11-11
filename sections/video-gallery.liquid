@@ -1,6 +1,6 @@
-<section class="section page-width">
+<section class="section bg-{{ section.settings.bg }}"><div class="page-width">
   {%- if section.settings.heading != blank -%}
-    <h2 class="h2" style="margin-bottom:26px">{{ section.settings.heading }}</h2>
+    <div class="sec-head sec-head--center"><h2 class="h2">{{ section.settings.heading }}</h2>{%- if section.settings.text != blank -%}<p class="mute">{{ section.settings.text }}</p>{%- endif -%}</div>
   {%- endif -%}
   <div class="vids">
     {%- for block in section.blocks -%}
@@ -15,14 +15,16 @@
       </div>
     {%- endfor -%}
   </div>
-</section>
+</div></section>
 
 {% schema %}
 {
   "name": "Family videos",
   "tag": "div",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Cozy moments from Snuzzo families" }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your little ones in Snuzzo" },
+    { "type": "text", "id": "text", "label": "Text", "default": "So happy to have you here. Tag us @littlesnuzzo" },
+    { "type": "select", "id": "bg", "label": "Background", "default": "cream", "options": [ { "value": "white", "label": "White" }, { "value": "cream", "label": "Cream" } ] }
   ],
   "blocks": [
     {

@@ -48,7 +48,12 @@
     "trust_secure": "安心のショッピング",
     "trust_payments": "安全なお支払い",
     "trust_privacy": "プライバシー保護",
-    "trust_shipping": "全世界送料無料"
+    "trust_shipping": "全世界送料無料",
+    "add": "追加",
+    "from": "から",
+    "show_image": "画像{{ n }}を表示",
+    "pick_your": "{{ option }}を選択",
+    "step": "ステップ{{ n }}"
   },
   "collections": {
     "filter_sort": "絞り込み・並べ替え",

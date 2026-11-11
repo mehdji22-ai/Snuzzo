@@ -48,7 +48,12 @@
     "trust_secure": "Secure shopping",
     "trust_payments": "Safe payments",
     "trust_privacy": "Privacy protection",
-    "trust_shipping": "Free shipping worldwide"
+    "trust_shipping": "Free shipping worldwide",
+    "add": "Add",
+    "from": "From",
+    "show_image": "Show image {{ n }}",
+    "pick_your": "Pick your {{ option }}",
+    "step": "Step {{ n }}"
   },
   "collections": {
     "filter_sort": "Filter & sort",

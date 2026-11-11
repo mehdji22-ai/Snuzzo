@@ -20,22 +20,14 @@
       <meta name="description" content="{{ page_description | escape }}">
     {%- endif -%}
     {% render 'meta-tags' %}
-
-    {{ 'anton-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
-    {{ 'nunito-sans-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {{ 'instrument-sans.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
     <style>
-      @font-face { font-family: 'Anton'; font-style: normal; font-weight: 400; font-display: swap; src: url({{ 'anton-latin.woff2' | asset_url }}) format('woff2'); }
-      @font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 200 1000; font-display: swap; src: url({{ 'nunito-sans-latin.woff2' | asset_url }}) format('woff2'); }
+      @font-face { font-family: 'Instrument Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url({{ 'instrument-sans.woff2' | asset_url }}) format('woff2'); }
     </style>
 
     {{ 'snuzzo.css' | asset_url | stylesheet_tag }}
     <style>
-      :root {
-        --ink: {{ settings.color_ink }};
-        --yellow: {{ settings.color_accent }};
-        --light: {{ settings.color_light }};
-        --mute: {{ settings.color_mute }};
-      }
+      :root { --brand: {{ settings.color_brand }}; --ink: {{ settings.color_ink }}; }
     </style>
 
     <script>
@@ -60,7 +52,7 @@
     {{ content_for_header }}
   </head>
 
-  <body class="template-{{ template.name }}">
+  <body class="template-{{ template.name }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
     <a class="skip-link" href="#MainContent">{{ 'general.skip_to_content' | t }}</a>
 
     {% sections 'header-group' %}

@@ -1,35 +1,37 @@
 {%- comment -%}
-  Product card: image on light (4:5), heart top-right, then price, name, category.
-  Params: product, sizes, category (optional override)
+  Product card: rounded image with an "Add" pill (quick add), then name, stars, price.
+  Params: product, sizes, category (optional), step (optional small label above the name)
 {%- endcomment -%}
 {%- liquid
-  assign cat = category | default: product.metafields.custom.card_label.value | default: product.type
+  assign cat = category | default: product.metafields.custom.card_label.value
   assign img = product.featured_image
   assign card_sizes = sizes | default: '(min-width: 990px) 25vw, 50vw'
   assign card_alt = img.alt | default: product.title | escape
 -%}
 <div class="card">
-  <a class="card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
-    {%- if img -%}
-      {{ img | image_url: width: 900 | image_tag: widths: '300, 450, 600, 900', sizes: card_sizes, loading: 'lazy', alt: card_alt }}
-    {%- else -%}
-      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+  <div class="card__media-wrap">
+    <a class="card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+      {%- if img -%}
+        {{ img | image_url: width: 900 | image_tag: widths: '300, 450, 600, 900', sizes: card_sizes, loading: 'lazy', alt: card_alt }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </a>
+    {%- if product.available -%}
+      <button type="button" class="card__quick" data-quick-add="{{ product.handle }}" aria-haspopup="dialog" aria-label="{{ 'products.quick_add' | t: title: product.title | escape }}">{{ 'products.add' | t }}</button>
     {%- endif -%}
-  </a>
+  </div>
   {%- unless product.available -%}<span class="badge">{{ 'products.sold_out' | t }}</span>{%- endunless -%}
-  {%- if product.available -%}
-    <button type="button" class="card__quick" data-quick-add="{{ product.handle }}" aria-haspopup="dialog" aria-label="{{ 'products.quick_add' | t: title: product.title | escape }}">+</button>
+  {%- if product.compare_at_price > product.price and settings.show_save_badge -%}
+    {%- assign saved = product.compare_at_price | minus: product.price | money -%}
+    <span class="badge">{{ 'products.save' | t | replace: '[amount]', saved }}</span>
   {%- endif -%}
-  <button type="button" class="card__heart" data-heart="{{ product.handle }}" aria-pressed="false" aria-label="{{ 'general.save' | t: title: product.title | escape }}">{% render 'icon', name: 'heart', size: 20 %}</button>
-  <span class="card__price">
-    {%- if product.price_varies -%}{{ product.price_min | money }}+{%- else -%}{{ product.price | money }}{%- endif -%}
-    {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
-    {%- if product.compare_at_price > product.price and settings.show_save_badge -%}
-      {%- assign saved = product.compare_at_price | minus: product.price | money -%}
-      <span class="save">{{ 'products.save' | t | replace: '[amount]', saved }}</span>
-    {%- endif -%}
-  </span>
+  {%- if step != blank -%}<span class="set__step">{{ step }}</span>{%- endif -%}
   <a class="card__name" href="{{ product.url }}">{{ product.title }}</a>
-  {% render 'stars', product: product %}
   {%- if cat != blank -%}<span class="card__cat">{{ cat }}</span>{%- endif -%}
+  {% render 'stars', product: product %}
+  <span class="card__price">
+    {%- if product.price_varies -%}{{ 'products.from' | t }} {{ product.price_min | money }}{%- else -%}{{ product.price | money }}{%- endif -%}
+    {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+  </span>
 </div>

@@ -5,11 +5,29 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "news": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Cozy news, new animals and little surprises in your inbox",
+            "text": ""
+          }
+        },
         "shop": {
-          "type": "menu",
+          "type": "links",
           "settings": {
             "heading": "Shop",
-            "menu": "main-menu"
+            "label_1": "The Animal Onesies",
+            "link_1": "shopify://products/the-animal-onesies",
+            "label_2": "The Christmas Onesies",
+            "link_2": "shopify://products/the-christmas-onesies",
+            "label_3": "The Baby Snowsuit",
+            "link_3": "shopify://products/the-baby-snowsuit",
+            "label_4": "Mom & Baby",
+            "link_4": "shopify://collections/feeding-nursing",
+            "label_5": "Bath & Sleep",
+            "link_5": "shopify://collections/baby-comfort-essentials",
+            "label_6": "Gift Ideas",
+            "link_6": "shopify://collections/gift-ideas"
           }
         },
         "help": {
@@ -21,28 +39,19 @@
         "follow": {
           "type": "social",
           "settings": {
-            "heading": "Follow",
-            "facebook_count": "450K+",
-            "instagram_count": "21K+",
-            "youtube_count": "10K+"
-          }
-        },
-        "news": {
-          "type": "newsletter",
-          "settings": {
-            "heading": "Join our email list",
-            "text": "Get exclusive deals and early access to new products."
+            "heading": "Follow"
           }
         }
       },
       "block_order": [
+        "news",
         "shop",
         "help",
-        "follow",
-        "news"
+        "follow"
       ],
       "settings": {
-        "show_payment": true
+        "show_payment": true,
+        "news_heading": "Cozy news, new animals and little surprises in your inbox"
       }
     }
   },

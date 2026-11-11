@@ -1,23 +1,19 @@
 {%- assign c = section.settings.collection -%}
-<section class="section page-width">
-  <div class="picker__head">
+<section class="section page-width" data-carousel>
+  <div class="sec-head">
     <div>
-      {%- if section.settings.eyebrow != blank -%}<div class="eyebrow" style="margin-bottom:8px">{{ section.settings.eyebrow }}</div>{%- endif -%}
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="margin-bottom:10px">{{ section.settings.eyebrow }}</p>{%- endif -%}
       <h2 class="h2">{{ section.settings.heading }}</h2>
     </div>
-    {%- if section.settings.show_rating and settings.rating_text != blank -%}
-      <span class="picker__rating">{{ settings.rating_text }}</span>
-    {%- endif -%}
+    {%- if c != blank and section.settings.button != blank -%}<a class="btn btn--outline" href="{{ c.url }}">{{ section.settings.button }}</a>{%- endif -%}
   </div>
   {%- if c != blank and c.products_count > 0 -%}
-    <div class="grid-4">
+    <div class="{% if section.settings.layout == 'carousel' %}rail{% else %}grid-4{% endif %}" data-carousel-track>
       {%- for product in c.products limit: section.settings.limit -%}
-        {% render 'product-card', product: product %}
+        {% render 'product-card', product: product, sizes: '(min-width: 990px) 25vw, 72vw' %}
       {%- endfor -%}
     </div>
-    {%- if section.settings.button != blank -%}
-      <p style="margin-top:32px;text-align:center"><a class="btn btn--ink" href="{{ c.url }}">{{ section.settings.button }}</a></p>
-    {%- endif -%}
+    <div class="carousel-progress" aria-hidden="true"{% if section.settings.layout != 'carousel' %} hidden{% endif %}><span data-carousel-bar></span></div>
   {%- else -%}
     <div class="grid-4">
       {%- for i in (1..4) -%}
@@ -37,7 +33,8 @@
     { "type": "checkbox", "id": "show_rating", "label": "Show store rating", "default": true },
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "limit", "label": "Products to show", "min": 4, "max": 24, "step": 4, "default": 8 },
-    { "type": "text", "id": "button", "label": "Button label", "default": "Shop all best sellers" }
+    { "type": "text", "id": "button", "label": "Button label", "default": "Shop all" },
+    { "type": "select", "id": "layout", "label": "Layout", "default": "carousel", "options": [ { "value": "carousel", "label": "Swipe row" }, { "value": "grid", "label": "Grid" } ] }
   ],
   "presets": [{ "name": "Product grid" }]
 }

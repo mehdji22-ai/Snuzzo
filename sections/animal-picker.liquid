@@ -1,43 +1,59 @@
+{%- comment -%}
+  Animal picker. Product mode: one product whose first option is the animal (e.g. "The Animal Onesies"),
+  second option the size. Tapping an animal swaps the panel; the size buttons pick the exact variant.
+  Collection mode (fallback): one product per animal.
+{%- endcomment -%}
 {%- liquid
+  assign prod = section.settings.product
   assign coll = section.settings.collection
   assign default_bullets = section.settings.bullet_1 | append: '||' | append: section.settings.bullet_2 | append: '||' | append: section.settings.bullet_3 | split: '||'
   assign add_tpl = 'products.add_the' | t
   assign count_tpl = 'products.animal_count' | t
-  assign demo_names = 'Panda,Bunny,Duck,Lion,Penguin,Tiger,Monkey,Pig,Reindeer' | split: ','
-  assign demo_files = 'demo-panda.webp,demo-bunny.webp,demo-duck.webp,demo-lion.webp,demo-penguin.webp,demo-tiger.webp,demo-monkey.webp,demo-mom-pig.webp,demo-reindeer.webp' | split: ','
+  assign mode = 'none'
+  if prod != blank and prod.id != blank and prod.options.size > 0
+    assign mode = 'product'
+  elsif coll != blank and coll.products_count > 0
+    assign mode = 'collection'
+  endif
 -%}
-
 <section class="section page-width" data-picker>
   <div class="picker__head">
-    <h2 class="h2">{{ section.settings.heading }}</h2>
-    {%- if section.settings.show_rating and settings.rating_text != blank -%}
-      <span class="picker__rating">{{ settings.rating_text }}</span>
-    {%- endif -%}
+    <div>
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="margin-bottom:10px">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+    </div>
+    {%- if section.settings.show_rating and settings.rating_text != blank -%}<span class="picker__rating">{{ settings.rating_text }}</span>{%- endif -%}
   </div>
 
-  {%- if coll != blank and coll.products_count > 0 -%}
+  {%- if mode == 'product' -%}
+    {%- liquid
+      assign animal_values = prod.options_with_values.first.values
+      assign size_name = ''
+      if prod.options.size > 1
+        assign size_name = prod.options[1]
+      endif
+    -%}
     {%- capture json -%}
       [
-      {%- for product in coll.products limit: section.settings.limit -%}
+      {%- for val in animal_values -%}
         {%- liquid
-          assign short = product.metafields.custom.animal_name.value | default: product.title
-          assign short = short | remove: 'The Little ' | remove: 'The '
-          assign v = product.selected_or_first_available_variant
-          assign bl = product.metafields.custom.benefits.value | default: default_bullets
-          assign img = product.featured_image
+          assign avs = prod.variants | where: 'option1', val
+          assign firstv = avs | where: 'available', true | first | default: avs.first
+          assign vimg = firstv.featured_media | default: prod.featured_media
+          assign pretty = section.settings.name_prefix | append: val
         -%}
         {
-          "title": {{ product.title | json }},
-          "short": {{ short | json }},
-          "url": {{ product.url | json }},
-          "image": {% if img %}{{ img | image_url: width: 1100 | json }}{% else %}""{% endif %},
-          "srcset": {% if img %}{{ img | image_url: width: 600 | append: ' 600w, ' | append: img | image_url: width: 1100 | append: ' 1100w' | json }}{% else %}""{% endif %},
-          "alt": {{ img.alt | default: product.title | json }},
-          "price": {{ v.price | money | json }},
-          "available": {{ product.available | json }},
-          "variant": {{ v.id | json }},
-          "variants": [{% for vv in product.variants %}{"id": {{ vv.id }}, "title": {{ vv.title | json }}, "available": {{ vv.available | json }}, "price": {{ vv.price | money | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}],
-          "bullets": [{% for b in bl %}{% if b != blank %}{{ b | json }}{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}]
+          "title": {{ pretty | json }},
+          "short": {{ val | json }},
+          "url": {{ prod.url | append: '?variant=' | append: firstv.id | json }},
+          "image": {% if vimg %}{{ vimg | image_url: width: 1100 | json }}{% else %}""{% endif %},
+          "srcset": "",
+          "alt": {{ prod.title | append: ' – ' | append: val | json }},
+          "price": {% capture pr %}{{ firstv.price | money }}{% if firstv.compare_at_price > firstv.price %} <s>{{ firstv.compare_at_price | money }}</s>{% endif %}{% endcapture %}{{ pr | strip | json }},
+          "available": {{ firstv.available | json }},
+          "variant": {{ firstv.id | json }},
+          "variants": [{% for v in avs %}{"id": {{ v.id }}, "title": {{ v.option2 | default: v.title | json }}, "available": {{ v.available | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}],
+          "bullets": []
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
       ]
@@ -45,77 +61,99 @@
     <script type="application/json" data-picker-json>{{ json }}</script>
 
     <div class="picker__chips" role="group" aria-label="{{ section.settings.heading | escape }}">
-      {%- for product in coll.products limit: section.settings.limit -%}
-        {%- assign short = product.metafields.custom.animal_name.value | default: product.title | remove: 'The Little ' | remove: 'The ' -%}
-        {%- assign chip_img = product.metafields.custom.swatch.value | default: product.featured_image -%}
+      {%- for val in animal_values -%}
+        {%- assign v1 = prod.variants | where: 'option1', val | first -%}
+        {%- assign cimg = v1.featured_media | default: prod.featured_media -%}
         <button type="button" class="chip" data-chip data-index="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
-          {%- if chip_img -%}
-            {{ chip_img | image_url: width: 240, height: 240, crop: 'center' | image_tag: class: 'chip__img', alt: '', loading: 'lazy', width: 118, height: 118 }}
-          {%- else -%}
-            <span class="chip__img"></span>
-          {%- endif -%}
-          <span class="chip__label">{{ short }}</span>
+          {%- if cimg -%}{{ cimg | image_url: width: 220, height: 220, crop: 'center' | image_tag: class: 'chip__img', alt: '', loading: 'lazy', width: 96, height: 96 }}{%- else -%}<span class="chip__img"></span>{%- endif -%}
+          <span class="chip__label">{{ val }}</span>
         </button>
       {%- endfor -%}
     </div>
 
-    {%- assign first = coll.products.first -%}
-    {%- assign v = first.selected_or_first_available_variant -%}
-    {%- assign short = first.metafields.custom.animal_name.value | default: first.title | remove: 'The Little ' | remove: 'The ' -%}
-    {%- assign bl = first.metafields.custom.benefits.value | default: default_bullets -%}
+    {%- liquid
+      assign first_val = animal_values.first
+      assign avs = prod.variants | where: 'option1', first_val
+      assign firstv = avs | where: 'available', true | first | default: avs.first
+      assign vimg = firstv.featured_media | default: prod.featured_media
+    -%}
     <div class="feature">
-      <a href="{{ first.url }}" data-f-link tabindex="-1" aria-hidden="true">
-        {%- if first.featured_image -%}
-          {{ first.featured_image | image_url: width: 1100 | image_tag: class: 'feature__img', data-f-img: '', widths: '600, 1100', sizes: '(min-width: 750px) 55vw, 100vw', loading: 'lazy' }}
-        {%- else -%}
-          {{ 'product-1' | placeholder_svg_tag: 'feature__img placeholder-svg' }}
-        {%- endif -%}
+      <a href="{{ prod.url }}?variant={{ firstv.id }}" data-f-link tabindex="-1" aria-hidden="true">
+        {%- if vimg -%}{{ vimg | image_url: width: 1100 | image_tag: class: 'feature__img', data-f-img: '', sizes: '(min-width: 750px) 55vw, 100vw', loading: 'lazy', alt: prod.title }}{%- else -%}{{ 'product-1' | placeholder_svg_tag: 'feature__img placeholder-svg' }}{%- endif -%}
       </a>
-      {%- form 'product', first, class: 'feature__body', data-ajax-add: '' -%}
-        <div class="eyebrow" data-f-count data-template="{{ count_tpl | escape }}">{{ count_tpl | replace: '[n]', '1' | replace: '[total]', coll.products.size }}</div>
-        <h3 class="feature__name" data-f-name>{{ first.title }}</h3>
-        <ul class="bullets" data-f-bullets>
-          {%- for b in bl -%}{%- if b != blank -%}<li>{{ b }}</li>{%- endif -%}{%- endfor -%}
-        </ul>
-        <div class="feature__price" data-f-price>{{ v.price | money }}</div>
-        <label class="visually-hidden" for="PickerVariant-{{ section.id }}">{{ 'products.choose' | t: option: first.options.first }}</label>
-        <select id="PickerVariant-{{ section.id }}" name="id" data-f-id class="picker__variant" {% if first.has_only_default_variant %}hidden{% endif %}>
-          {%- for vv in first.variants -%}
-            <option value="{{ vv.id }}"{% if vv.id == v.id %} selected{% endif %}{% unless vv.available %} disabled{% endunless %}>{{ vv.title }}</option>
-          {%- endfor -%}
-        </select>
-        <button type="submit" class="btn btn--ink" data-f-btn data-template="{{ add_tpl | escape }}"{% unless first.available %} disabled{% endunless %}>
-          {%- if first.available -%}{{ add_tpl | replace: '[animal]', short }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
-        </button>
+      {%- form 'product', prod, class: 'feature__body', data-ajax-add: '' -%}
+        <div class="eyebrow" data-f-count data-template="{{ count_tpl | escape }}">{{ count_tpl | replace: '[n]', '1' | replace: '[total]', animal_values.size }}</div>
+        <h3 class="feature__name" data-f-name>{{ section.settings.name_prefix }}{{ first_val }}</h3>
+        <ul class="bullets">{%- for b in default_bullets -%}{%- if b != blank -%}<li>{{ b }}</li>{%- endif -%}{%- endfor -%}</ul>
+        <div class="feature__price" data-f-price>{{ firstv.price | money }}{% if firstv.compare_at_price > firstv.price %} <s>{{ firstv.compare_at_price | money }}</s>{% endif %}</div>
+        <input type="hidden" name="id" value="{{ firstv.id }}" data-f-id>
+        {%- if size_name != blank -%}
+          <fieldset class="feature__sizes" data-f-sizes>
+            <legend class="pdp__group-head">{{ size_name }}</legend>
+            {%- for v in avs -%}
+              <label class="size{% unless v.available %} is-unavailable{% endunless %}"><input type="radio" name="picker-size-{{ section.id }}" value="{{ v.id }}"{% if v.id == firstv.id %} checked{% endif %}{% unless v.available %} disabled{% endunless %}><span>{{ v.option2 }}</span></label>
+            {%- endfor -%}
+          </fieldset>
+        {%- endif -%}
+        <button type="submit" class="btn btn--ink" data-f-btn data-template="{{ add_tpl | escape }}"{% unless firstv.available %} disabled{% endunless %}>{{ add_tpl | replace: '[animal]', first_val }}</button>
         <p class="buy-msg" data-buy-msg role="status" aria-live="polite"></p>
         {%- if settings.shipping_note != blank -%}<div class="feature__note">{{ settings.shipping_note }}</div>{%- endif -%}
       {%- endform -%}
     </div>
 
-  {%- else -%}
-    {%- comment -%} Demo mode: shown until a collection is picked in the theme editor {%- endcomment -%}
+  {%- elsif mode == 'collection' -%}
     {%- capture json -%}
-      [{%- for n in demo_names -%}{"title": {{ 'The ' | append: n | json }}, "short": {{ n | json }}, "url": {{ routes.all_products_collection_url | json }}, "image": {{ demo_files[forloop.index0] | asset_url | json }}, "alt": {{ 'Toddler in a ' | append: n | downcase | append: ' onesie' | json }}, "price": "", "available": true, "variant": "", "variants": [], "bullets": []}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+      [
+      {%- for product in coll.products limit: section.settings.limit -%}
+        {%- liquid
+          assign short = product.metafields.custom.animal_name.value | default: product.title | remove: 'The Little ' | remove: 'The '
+          assign v = product.selected_or_first_available_variant
+          assign img = product.featured_image
+        -%}
+        {"title": {{ product.title | json }}, "short": {{ short | json }}, "url": {{ product.url | json }},
+         "image": {% if img %}{{ img | image_url: width: 1100 | json }}{% else %}""{% endif %}, "srcset": "",
+         "alt": {{ img.alt | default: product.title | json }}, "price": {{ v.price | money | json }}, "available": {{ product.available | json }},
+         "variant": {{ v.id | json }},
+         "variants": [{% for vv in product.variants %}{"id": {{ vv.id }}, "title": {{ vv.title | json }}, "available": {{ vv.available | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}],
+         "bullets": []}{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+      ]
     {%- endcapture -%}
     <script type="application/json" data-picker-json>{{ json }}</script>
     <div class="picker__chips" role="group" aria-label="{{ section.settings.heading | escape }}">
-      {%- for n in demo_names -%}
+      {%- for product in coll.products limit: section.settings.limit -%}
+        {%- assign short = product.metafields.custom.animal_name.value | default: product.title | remove: 'The Little ' | remove: 'The ' -%}
         <button type="button" class="chip" data-chip data-index="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
-          <img class="chip__img" src="{{ demo_files[forloop.index0] | asset_url }}" alt="" loading="lazy" width="118" height="118">
-          <span class="chip__label">{{ n }}</span>
+          {%- if product.featured_image -%}{{ product.featured_image | image_url: width: 220, height: 220, crop: 'center' | image_tag: class: 'chip__img', alt: '', loading: 'lazy', width: 96, height: 96 }}{%- else -%}<span class="chip__img"></span>{%- endif -%}
+          <span class="chip__label">{{ short }}</span>
         </button>
       {%- endfor -%}
     </div>
+    {%- assign first = coll.products.first -%}
+    {%- assign v = first.selected_or_first_available_variant -%}
+    {%- assign short = first.metafields.custom.animal_name.value | default: first.title | remove: 'The Little ' | remove: 'The ' -%}
     <div class="feature">
-      <a href="{{ routes.all_products_collection_url }}" data-f-link tabindex="-1" aria-hidden="true"><img class="feature__img" data-f-img src="{{ 'demo-panda.webp' | asset_url }}" width="820" height="820" alt="Toddler in a panda onesie" loading="lazy"></a>
-      <div class="feature__body">
-        <div class="eyebrow" data-f-count data-template="{{ count_tpl | escape }}">{{ count_tpl | replace: '[n]', '1' | replace: '[total]', demo_names.size }}</div>
-        <h3 class="feature__name" data-f-name>The Panda</h3>
-        <ul class="bullets">{%- for b in default_bullets -%}<li>{{ b }}</li>{%- endfor -%}</ul>
-        <a class="btn btn--ink" href="{{ routes.all_products_collection_url }}">Shop the animals</a>
-        <div class="feature__note">Demo mode: pick your animal collection in the theme editor to show real products and prices.</div>
-      </div>
+      <a href="{{ first.url }}" data-f-link tabindex="-1" aria-hidden="true">
+        {%- if first.featured_image -%}{{ first.featured_image | image_url: width: 1100 | image_tag: class: 'feature__img', data-f-img: '', sizes: '(min-width: 750px) 55vw, 100vw', loading: 'lazy' }}{%- else -%}{{ 'product-1' | placeholder_svg_tag: 'feature__img placeholder-svg' }}{%- endif -%}
+      </a>
+      {%- form 'product', first, class: 'feature__body', data-ajax-add: '' -%}
+        <div class="eyebrow" data-f-count data-template="{{ count_tpl | escape }}">{{ count_tpl | replace: '[n]', '1' | replace: '[total]', coll.products.size }}</div>
+        <h3 class="feature__name" data-f-name>{{ first.title }}</h3>
+        <ul class="bullets">{%- for b in default_bullets -%}{%- if b != blank -%}<li>{{ b }}</li>{%- endif -%}{%- endfor -%}</ul>
+        <div class="feature__price" data-f-price>{{ v.price | money }}</div>
+        <input type="hidden" name="id" value="{{ v.id }}" data-f-id>
+        <fieldset class="feature__sizes" data-f-sizes{% if first.has_only_default_variant %} hidden{% endif %}>
+          {%- for vv in first.variants -%}
+            <label class="size{% unless vv.available %} is-unavailable{% endunless %}"><input type="radio" name="picker-size-{{ section.id }}" value="{{ vv.id }}"{% if vv.id == v.id %} checked{% endif %}{% unless vv.available %} disabled{% endunless %}><span>{{ vv.title }}</span></label>
+          {%- endfor -%}
+        </fieldset>
+        <button type="submit" class="btn btn--ink" data-f-btn data-template="{{ add_tpl | escape }}"{% unless first.available %} disabled{% endunless %}>{{ add_tpl | replace: '[animal]', short }}</button>
+        <p class="buy-msg" data-buy-msg role="status" aria-live="polite"></p>
+        {%- if settings.shipping_note != blank -%}<div class="feature__note">{{ settings.shipping_note }}</div>{%- endif -%}
+      {%- endform -%}
     </div>
+  {%- else -%}
+    <p class="mute">Pick your animal product in the theme editor.</p>
   {%- endif -%}
 </section>
 
@@ -124,15 +162,17 @@
   "name": "Animal picker",
   "tag": "div",
   "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small line above" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Who are they tonight?" },
-    { "type": "checkbox", "id": "show_rating", "label": "Show store rating (from Theme settings)", "default": true },
-    { "type": "collection", "id": "collection", "label": "Animal collection", "info": "Put every animal onesie in one collection, e.g. 'animal-onesies'." },
-    { "type": "range", "id": "limit", "label": "Max animals", "min": 3, "max": 16, "step": 1, "default": 12 },
-    { "type": "header", "content": "Default benefits" },
-    { "type": "paragraph", "content": "Used when a product has no 'custom.benefits' metafield." },
-    { "type": "text", "id": "bullet_1", "label": "Benefit 1", "default": "Padded 3D hood that's soft when they roll back" },
+    { "type": "checkbox", "id": "show_rating", "label": "Show store rating", "default": false },
+    { "type": "product", "id": "product", "label": "Animal product (one product, animal + size options)" },
+    { "type": "text", "id": "name_prefix", "label": "Name before the animal", "default": "The " },
+    { "type": "collection", "id": "collection", "label": "Or: collection with one product per animal", "info": "Used when the product above is empty or not visible yet." },
+    { "type": "range", "id": "limit", "label": "Max animals (collection mode)", "min": 3, "max": 16, "step": 1, "default": 12 },
+    { "type": "header", "content": "Benefits" },
+    { "type": "text", "id": "bullet_1", "label": "Benefit 1", "default": "Padded 3D hood, comfy when they roll back" },
     { "type": "text", "id": "bullet_2", "label": "Benefit 2", "default": "Chin-guard zip for quick 3 a.m. changes" },
-    { "type": "text", "id": "bullet_3", "label": "Benefit 3", "default": "Cloud-soft plush with a smooth fleece lining" }
+    { "type": "text", "id": "bullet_3", "label": "Benefit 3", "default": "Cloud-soft plush, soft wash after wash" }
   ],
   "presets": [{ "name": "Animal picker" }]
 }

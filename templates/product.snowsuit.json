@@ -1,0 +1,391 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "q0": {
+          "type": "question",
+          "settings": {
+            "question": "How does sizing work?"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Can they wear layers underneath?"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How do I wash it?"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return it?"
+          }
+        },
+        "i0": {
+          "type": "icon",
+          "settings": {
+            "icon": "zip",
+            "text": "One-piece zip"
+          }
+        },
+        "i1": {
+          "type": "icon",
+          "settings": {
+            "icon": "hood",
+            "text": "Warm hood"
+          }
+        },
+        "i2": {
+          "type": "icon",
+          "settings": {
+            "icon": "truck",
+            "text": "Free shipping"
+          }
+        },
+        "i3": {
+          "type": "icon",
+          "settings": {
+            "icon": "return",
+            "text": "30-day returns"
+          }
+        },
+        "care": {
+          "type": "accordion",
+          "settings": {
+            "title": "Fabric and care",
+            "content": "<p>Follow the care label inside. Wash on a gentle, cool cycle and let it air dry.</p>",
+            "metafield_key": "fabric_care"
+          }
+        },
+        "ship": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping and 30-day returns",
+            "content": "<p>Free shipping worldwide. Try it for 30 days: if it isn't right for your little one, send it back for a full refund.</p>",
+            "metafield_key": ""
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3",
+        "i0",
+        "i1",
+        "i2",
+        "i3",
+        "care",
+        "ship"
+      ],
+      "settings": {
+        "max_images": 40,
+        "tagline": "Three colours · 2 months to 3 years",
+        "promise": "A cozy one-piece snowsuit with a warm hood, made to keep them comfy from the stroller to the snowman.",
+        "show_rating": true,
+        "size_chart": "shopify://shop_images/Tableau_de_mensurations_bebe_illustre.png",
+        "size_note": "<p>Roomy, comfortable fit. Between sizes? Choose the larger one, so there's space to wiggle and grow.</p>",
+        "show_quantity": false,
+        "guarantee": "Try it for 30 days. Love it or get your money back.",
+        "show_delivery": true,
+        "ship_days": 1,
+        "delivery_min": 7,
+        "delivery_max": 7,
+        "show_trust": true,
+        "show_description": true,
+        "description_title": "Why parents love it",
+        "open_description": false
+      }
+    },
+    "story": {
+      "type": "story-panels",
+      "blocks": {
+        "p0": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/Navyquiltedbabysnowsuitflatlay.png",
+            "alt": "The snowsuit laid flat",
+            "cover": false,
+            "title": "One piece, one zip",
+            "text": "On and off in seconds, even with cold little hands and a wriggly toddler.",
+            "bg": "sky"
+          }
+        },
+        "p1": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/PortraitdeNoelencombinaisonrose.png",
+            "alt": "Baby in the pink snowsuit",
+            "cover": false,
+            "title": "Warm, head to toe",
+            "text": "A cozy hood keeps ears covered on windy walks.",
+            "bg": "blush"
+          }
+        },
+        "p2": {
+          "type": "panel",
+          "settings": {
+            "image": "shopify://shop_images/Tout-petitenhabitdeneigebleumarine.png",
+            "alt": "Toddler in the blue snowsuit",
+            "cover": true,
+            "title": "Room for layers",
+            "text": "A roomy fit with space for a layer underneath and room to grow.",
+            "bg": "white"
+          }
+        }
+      },
+      "block_order": [
+        "p0",
+        "p1",
+        "p2"
+      ],
+      "settings": {
+        "heading": "Ready for\ntheir first snow",
+        "bg": "sky"
+      }
+    },
+    "videos": {
+      "type": "video-gallery",
+      "blocks": {
+        "v0": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/43b6a38dca074772a6d0d6894097164e.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v1": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/800d89d6aec64ee888d4bae9b4860162.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v2": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/a2d04ab95db54568a2393945e7096331.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/6e922f177d534c988e56ba92ea6d74c0.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v4": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/e1da5eaf95ef47408d67491fa9e0f1bf.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v5": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/345bee47b61248c3bc8d4cdb00d8a36a.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v6": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/71805a83fccb45598eb167c18a8fa96d.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v7": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/ed66101c2d2f4a4d8d9af738912a2b69.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v8": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/ee9da2a096ef479196a396ff6b997c26.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v9": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/ef18b57cc1554162aa1bab038cc0771a.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v10": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/a9c8ac83baec4aa0aa5e809533ccc204.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v11": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/0c77f87f785747d68d5e03369c32489e.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v12": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/d08867c4548b4f05aa00d6bae0249879.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v13": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/3ee35127ba3c42e9b0126771eb812573.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        }
+      },
+      "block_order": [
+        "v0",
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "v5",
+        "v6",
+        "v7",
+        "v8",
+        "v9",
+        "v10",
+        "v11",
+        "v12",
+        "v13"
+      ],
+      "settings": {
+        "heading": "Your little ones in Snuzzo",
+        "text": "So happy to have you here. Tag us @littlesnuzzo",
+        "bg": "cream"
+      }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "What do parents think?",
+        "per_page": 8,
+        "moderate": false,
+        "firebase_config": "{\n \"apiKey\": \"AIzaSyDG86cNHeZC5ydFv_JWEaTV6ZkfpNTqNVo\",\n \"authDomain\": \"fut-bol-max.firebaseapp.com\",\n \"databaseURL\": \"https://fut-bol-max-default-rtdb.firebaseio.com\",\n \"projectId\": \"fut-bol-max\",\n \"storageBucket\": \"fut-bol-max.appspot.com\",\n \"messagingSenderId\": \"903384077428\",\n \"appId\": \"1:903384077428:web:327dee78b273f2f11e2d21\"\n}",
+        "node": "snuzzo_reviews",
+        "emails_node": "snuzzo_review_emails"
+      }
+    },
+    "related": {
+      "type": "related-tabs",
+      "blocks": {
+        "r1": {
+          "type": "tab",
+          "settings": {
+            "label": "You might also like",
+            "collection": "best-sellers"
+          }
+        },
+        "r2": {
+          "type": "tab",
+          "settings": {
+            "label": "Bath & Sleep",
+            "collection": "baby-comfort-essentials"
+          }
+        },
+        "r3": {
+          "type": "tab",
+          "settings": {
+            "label": "Mom & Baby",
+            "collection": "feeding-nursing"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "label": "You might also like",
+        "shop_all": "shopify://collections/best-sellers"
+      }
+    },
+    "banner": {
+      "type": "banner",
+      "settings": {
+        "image": "shopify://shop_images/Tendressemere-bebeensherpacaramel.png",
+        "alt": "Parent and baby in a carrier hoodie",
+        "eyebrow": "Next step",
+        "heading": "Room for two",
+        "text": "Carrier hoodies that zip around you and your baby.",
+        "button": "Shop Mom & Baby",
+        "link": "shopify://collections/feeding-nursing",
+        "height": 600
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q0": {
+          "type": "question",
+          "settings": {
+            "question": "How does sizing work?",
+            "answer": "<p>Each size is listed by age, from 2-5 months to 30-36 months. The fit is roomy, so if your little one is between sizes, choose the larger one. Tap “Size guide” above for the measurements.</p>"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Can they wear layers underneath?",
+            "answer": "<p>Yes. The roomy fit leaves space for a light layer underneath on colder days.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How do I wash it?",
+            "answer": "<p>Wash it inside out on a gentle, cool cycle and follow the care label. That keeps it soft wash after wash.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return it?",
+            "answer": "<p>Yes. Every order is covered by our 30-day money-back guarantee. If it isn't right for your little one, we'll refund you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ],
+      "settings": {
+        "heading": "Questions, answered",
+        "text": "",
+        "note": "Still unsure? Every order is covered by our 30-day money-back guarantee.",
+        "bg": "cream"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "story",
+    "videos",
+    "reviews",
+    "related",
+    "banner",
+    "faq"
+  ]
+}

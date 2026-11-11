@@ -1,0 +1,45 @@
+<section class="split{% if section.settings.image_right %} split--reverse{% endif %} bg-{{ section.settings.bg }}">
+  <div class="split__media">
+    {%- if section.settings.video_url != blank -%}
+      <video data-lazy-video="{{ section.settings.video_url }}" loop muted playsinline preload="none" aria-label="{{ section.settings.alt | escape }}"></video>
+    {%- else -%}
+      {% render 'media', image: section.settings.image, demo: section.settings.demo, alt: section.settings.alt, sizes: '(min-width: 750px) 50vw, 100vw' %}
+    {%- endif -%}
+  </div>
+  <div class="split__body">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h2 class="h2">{{ section.settings.heading | newline_to_br }}</h2>
+    {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    {%- if section.settings.checklist != blank -%}
+      <ul class="checklist">
+        {%- assign lines = section.settings.checklist | newline_to_br | split: '<br />' -%}
+        {%- for line in lines -%}{%- assign l = line | strip -%}{%- if l != blank -%}<li>{{ l }}</li>{%- endif -%}{%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- if section.settings.button != blank -%}<a class="btn btn--ink" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.button }}</a>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image + text",
+  "tag": "div",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "video_url", "label": "Or a video link (.mp4)" },
+    { "type": "text", "id": "alt", "label": "Image description" },
+    { "type": "text", "id": "demo", "label": "Demo image (advanced)" },
+    { "type": "checkbox", "id": "image_right", "label": "Image on the right", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Small line above" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Built for 3 a.m." },
+    { "type": "textarea", "id": "text", "label": "Text" },
+    { "type": "textarea", "id": "checklist", "label": "Checklist (one item per line)" },
+    { "type": "text", "id": "button", "label": "Button" },
+    { "type": "url", "id": "link", "label": "Button link" },
+    { "type": "select", "id": "bg", "label": "Background", "default": "white", "options": [
+      { "value": "white", "label": "White" }, { "value": "cream", "label": "Cream" }, { "value": "sky", "label": "Soft blue" },
+      { "value": "butter", "label": "Butter" }, { "value": "blush", "label": "Blush" }, { "value": "mint", "label": "Mint" } ] }
+  ],
+  "presets": [{ "name": "Image + text" }]
+}
+{% endschema %}

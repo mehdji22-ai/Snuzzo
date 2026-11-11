@@ -1,24 +1,20 @@
 {
   "sections": {
+    "hero": {
+      "type": "collection-hero",
+      "settings": {
+        "height": 460,
+        "show_description": true
+      }
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
-        "promo": {
-          "type": "promo",
-          "settings": {
-            "title": "Same toddler.\nSame sofa.\nPanda.",
-            "link_label": "See the before & after",
-            "position": 5,
-            "image_1": "shopify://shop_images/Panda_before.png",
-            "image_2": "shopify://shop_images/Panda_After.png",
-            "link": "/#before-after"
-          }
-        },
         "c1": {
           "type": "chip",
           "settings": {
-            "label": "All animals",
-            "collection": "animal-onesies"
+            "label": "Onesies",
+            "collection": "onesies"
           }
         },
         "c2": {
@@ -31,22 +27,40 @@
         "c3": {
           "type": "chip",
           "settings": {
-            "label": "Best sellers",
-            "collection": "best-sellers"
+            "label": "Snowsuits",
+            "collection": "coats-snowsuits"
           }
         },
         "c4": {
           "type": "chip",
           "settings": {
-            "label": "Snowsuits",
-            "collection": "coats-snowsuits"
+            "label": "Mom & Baby",
+            "collection": "feeding-nursing"
           }
         },
         "c5": {
           "type": "chip",
           "settings": {
-            "label": "Matching for two",
-            "collection": "feeding-nursing"
+            "label": "Bath & Sleep",
+            "collection": "baby-comfort-essentials"
+          }
+        },
+        "c6": {
+          "type": "chip",
+          "settings": {
+            "label": "Gift Ideas",
+            "collection": "gift-ideas"
+          }
+        },
+        "promo": {
+          "type": "promo",
+          "settings": {
+            "title": "Same toddler.\nSame sofa.\nPanda.",
+            "image_1": "shopify://shop_images/Panda_before.png",
+            "image_2": "shopify://shop_images/Panda_After.png",
+            "link": "/#before-after",
+            "link_label": "See the before & after",
+            "position": 5
           }
         }
       },
@@ -56,10 +70,25 @@
         "c3",
         "c4",
         "c5",
+        "c6",
         "promo"
       ],
       "settings": {
-        "per_page": 16
+        "per_page": 16,
+        "show_heading": false
+      }
+    },
+    "set": {
+      "type": "product-set",
+      "settings": {
+        "heading": "The Bedtime Set",
+        "text": "Bath, onesie, lights low. Three little helpers for an easier wind-down.",
+        "products": [
+          "the-snuzzo-splashshield",
+          "the-animal-onesies",
+          "the-snuzzo-calmbuds"
+        ],
+        "button": ""
       }
     },
     "trust": {
@@ -103,7 +132,9 @@
     }
   },
   "order": [
+    "hero",
     "main",
+    "set",
     "trust"
   ]
 }

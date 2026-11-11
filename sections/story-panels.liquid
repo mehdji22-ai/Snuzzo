@@ -1,0 +1,46 @@
+<div class="story-wrap">
+  {%- if section.settings.heading != blank -%}
+    <div class="story-intro bg-{{ section.settings.bg }}"><h2 class="display">{{ section.settings.heading | newline_to_br }}</h2></div>
+  {%- endif -%}
+  {%- for block in section.blocks -%}
+    <section class="story{% if block.settings.cover %} story--cover{% endif %} bg-{{ block.settings.bg }}" {{ block.shopify_attributes }}>
+      <div class="story__media">
+        {% render 'media', image: block.settings.image, alt: block.settings.alt, sizes: '(min-width: 750px) 60vw, 90vw' %}
+      </div>
+      <div class="story__text">
+        <h3 class="h2">{{ block.settings.title }}</h3>
+        {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+      </div>
+    </section>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Benefit story",
+  "tag": "div",
+  "settings": [
+    { "type": "textarea", "id": "heading", "label": "Big intro line", "default": "Finally, a onesie\nyou'll both love" },
+    { "type": "select", "id": "bg", "label": "Intro background", "default": "sky", "options": [
+      { "value": "white", "label": "White" }, { "value": "cream", "label": "Cream" }, { "value": "sky", "label": "Soft blue" },
+      { "value": "butter", "label": "Butter" }, { "value": "blush", "label": "Blush" }, { "value": "mint", "label": "Mint" } ] }
+  ],
+  "blocks": [
+    {
+      "type": "panel",
+      "name": "Benefit screen",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "alt", "label": "Image description" },
+        { "type": "checkbox", "id": "cover", "label": "Image fills the whole screen", "default": false },
+        { "type": "text", "id": "title", "label": "Benefit headline", "default": "Built for 3 a.m." },
+        { "type": "textarea", "id": "text", "label": "One or two sentences" },
+        { "type": "select", "id": "bg", "label": "Background", "default": "sky", "options": [
+          { "value": "white", "label": "White" }, { "value": "cream", "label": "Cream" }, { "value": "sky", "label": "Soft blue" },
+          { "value": "butter", "label": "Butter" }, { "value": "blush", "label": "Blush" }, { "value": "mint", "label": "Mint" } ] }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Benefit story", "blocks": [{ "type": "panel" }, { "type": "panel" }] }]
+}
+{% endschema %}

@@ -4,10 +4,12 @@ This repo is the Shopify Online Store 2.0 theme for **Snuzzo** (plush animal one
 It is connected to Shopify through the Shopify GitHub integration on branch `main`, so a push to
 `main` updates the connected theme. The owner is a beginner: explain in plain words, no jargon.
 
-- Design source of truth: `docs/handoff/HANDOFF.md` and the comps in `docs/handoff/design/`.
-  Square corners, one accent (yellow), Anton (display, caps) + Nunito Sans only, ink `#1E1611`.
+- Design: look "A" chosen by the owner (Nov 2026), structure inspired by coterie.com: light, airy, rounded cards,
+  pill buttons in Snuzzo brown `#3C2820`, cream/pastel panels, one font (Instrument Sans, self-hosted).
+  Copy is original Snuzzo text written on that model (short benefit headline + 1-2 sentences, calm tone).
+  Never copy another site's text, photos or logos. Older brief: `docs/handoff/` (superseded look).
 - Styles: `assets/snuzzo.css`. Scripts: `assets/snuzzo.js` (no frameworks).
-- Fonts are self-hosted in `assets/` — don't add Google Fonts links.
+- Font is self-hosted in `assets/instrument-sans.woff2` — don't add Google Fonts links.
 - Demo photos `assets/demo-*.webp` are fallbacks used until real images are picked in the editor.
 - Shopify's theme editor also commits to `main` (settings JSON in `templates/*.json`, `config/settings_data.json`,
   `sections/*-group.json`). Always pull before editing so you don't overwrite the owner's changes.
@@ -25,3 +27,5 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   session proxy injects the app's Client ID/secret, the script exchanges them for a 24h token (cached in
   `~/.cache`, never committed). Needs the "snuzzo" cloud environment. Always confirm with the owner before
   changing live store data (prices, products, publishing).
+- Grouped products (drafts until launch): The Animal Onesies (default product template), The Christmas Onesies
+  (`product.christmas`), The Baby Snowsuit (`product.snowsuit`). The old one-per-animal products stay live until launch.

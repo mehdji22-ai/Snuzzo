@@ -3,108 +3,163 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "fabric": {
+        "q0": {
+          "type": "question",
+          "settings": {
+            "question": "How does sizing work?"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Is it warm enough?"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How do I wash it?"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Is it a good gift?"
+          }
+        },
+        "i0": {
+          "type": "icon",
+          "settings": {
+            "icon": "zip",
+            "text": "Chin-guard zip"
+          }
+        },
+        "i1": {
+          "type": "icon",
+          "settings": {
+            "icon": "hood",
+            "text": "Padded 3D hood"
+          }
+        },
+        "i2": {
+          "type": "icon",
+          "settings": {
+            "icon": "leaf",
+            "text": "Gentle on skin"
+          }
+        },
+        "i3": {
+          "type": "icon",
+          "settings": {
+            "icon": "gift",
+            "text": "Gift-ready"
+          }
+        },
+        "care": {
           "type": "accordion",
           "settings": {
             "title": "Fabric and care",
-            "metafield_key": "fabric_care",
-            "content": ""
+            "content": "<p>Wash inside out on a gentle, cool cycle and follow the care label inside. That keeps the plush soft wash after wash.</p>",
+            "metafield_key": "fabric_care"
           }
         },
-        "shipping": {
+        "ship": {
           "type": "accordion",
           "settings": {
             "title": "Shipping and 30-day returns",
-            "content": "<p>Free shipping worldwide. Easy return within 30 days of purchase: if it isn't right for your little one, we'll refund you.</p>"
-          }
-        },
-        "bundle": {
-          "type": "bundle",
-          "settings": {
-            "title": "Complete the bedtime set",
-            "products": [
-              "the-snuzzo-splashshield",
-              "the-little-panda",
-              "the-snuzzo-calmbuds"
-            ]
+            "content": "<p>Free shipping worldwide. Try it for 30 days: if it isn't right for your little one, send it back for a full refund.</p>",
+            "metafield_key": ""
           }
         }
       },
       "block_order": [
-        "fabric",
-        "shipping",
-        "bundle"
+        "q0",
+        "q1",
+        "q2",
+        "q3",
+        "i0",
+        "i1",
+        "i2",
+        "i3",
+        "care",
+        "ship"
       ],
       "settings": {
-        "max_images": 20,
+        "max_images": 40,
+        "tagline": "Ten animals · 2 months to 3 years",
+        "promise": "A plush animal onesie with a padded hood and a chin-guard zip, made for cozy evenings and quick changes.",
         "show_rating": true,
-        "siblings_label": "Animals",
-        "show_description": true,
-        "description_title": "Why it's easier at 3 a.m.",
-        "open_description": false,
-        "siblings_collection": "animal-onesies",
         "size_chart": "shopify://shop_images/Tableau_de_mensurations_bebe_illustre.png",
-        "show_quantity": true,
+        "size_note": "<p>Roomy, comfortable fit. Between sizes? Choose the larger one, so there's space to wiggle and grow.</p>",
+        "show_quantity": false,
         "guarantee": "Try it for 30 days. Love it or get your money back.",
         "show_delivery": true,
         "ship_days": 1,
         "delivery_min": 7,
         "delivery_max": 7,
-        "show_trust": true
+        "show_trust": true,
+        "show_description": true,
+        "description_title": "Why parents love it",
+        "open_description": false
       }
     },
-    "related": {
-      "type": "related-tabs",
+    "story": {
+      "type": "story-panels",
       "blocks": {
-        "r1": {
-          "type": "tab",
+        "p0": {
+          "type": "panel",
           "settings": {
-            "label": "Complete the bedtime",
-            "collection": "baby-comfort-essentials"
+            "image": "shopify://shop_images/Emptybrownmonkeycostumeflatlay.png",
+            "alt": "The monkey onesie laid flat",
+            "cover": false,
+            "title": "Built for 3 a.m.",
+            "text": "A soft flap covers the zip pull, so changes stay quick and nothing scratches a sleepy chin.",
+            "bg": "sky"
           }
         },
-        "r2": {
-          "type": "tab",
+        "p1": {
+          "type": "panel",
           "settings": {
-            "label": "Other animals",
-            "collection": "animal-onesies"
+            "image": "shopify://shop_images/Backviewofemptypandacostume.png",
+            "alt": "Back of the panda onesie with its padded hood",
+            "cover": false,
+            "title": "Comfy from every angle",
+            "text": "The padded 3D hood looks adorable from behind and stays comfy when they roll onto their back.",
+            "bg": "sky"
           }
         },
-        "r3": {
-          "type": "tab",
+        "p2": {
+          "type": "panel",
           "settings": {
-            "label": "For two",
-            "collection": "feeding-nursing"
+            "image": "shopify://shop_images/EmptyBabyPandaCostume.png",
+            "alt": "The panda onesie",
+            "cover": false,
+            "title": "Soft, wash after wash",
+            "text": "Cloud-soft plush that stays gentle on delicate skin, laundry day after laundry day.",
+            "bg": "cream"
           }
         },
-        "r0": {
-          "type": "tab",
+        "p3": {
+          "type": "panel",
           "settings": {
-            "label": "You might also like",
-            "collection": "best-sellers"
+            "image": "shopify://shop_images/Bebesingeenstudio.png",
+            "alt": "Baby in the monkey onesie",
+            "cover": true,
+            "title": "Room to wiggle and grow",
+            "text": "A roomy fit that leaves space to crawl, climb and do everything at once.",
+            "bg": "white"
           }
         }
       },
       "block_order": [
-        "r0",
-        "r1",
-        "r2",
-        "r3"
+        "p0",
+        "p1",
+        "p2",
+        "p3"
       ],
       "settings": {
-        "label": "Complete the bedtime",
-        "shop_all": "shopify://collections/best-sellers"
-      }
-    },
-    "reviews": {
-      "type": "product-reviews",
-      "settings": {
-        "heading": "What parents say",
-        "per_page": 8,
-        "moderate": false,
-        "firebase_config": "{\n \"apiKey\": \"AIzaSyDG86cNHeZC5ydFv_JWEaTV6ZkfpNTqNVo\",\n \"authDomain\": \"fut-bol-max.firebaseapp.com\",\n \"databaseURL\": \"https://fut-bol-max-default-rtdb.firebaseio.com\",\n \"projectId\": \"fut-bol-max\",\n \"storageBucket\": \"fut-bol-max.appspot.com\",\n \"messagingSenderId\": \"903384077428\",\n \"appId\": \"1:903384077428:web:327dee78b273f2f11e2d21\"\n}",
-        "node": "snuzzo_reviews",
-        "emails_node": "snuzzo_review_emails"
+        "heading": "Finally, a onesie\nyou'll both love",
+        "bg": "sky"
       }
     },
     "videos": {
@@ -226,57 +281,131 @@
         "v13"
       ],
       "settings": {
-        "heading": "Cozy moments from Snuzzo families"
+        "heading": "Your little ones in Snuzzo",
+        "text": "So happy to have you here. Tag us @littlesnuzzo",
+        "bg": "cream"
       }
     },
-    "features": {
-      "type": "feature-trio",
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "What do parents think?",
+        "per_page": 8,
+        "moderate": false,
+        "firebase_config": "{\n \"apiKey\": \"AIzaSyDG86cNHeZC5ydFv_JWEaTV6ZkfpNTqNVo\",\n \"authDomain\": \"fut-bol-max.firebaseapp.com\",\n \"databaseURL\": \"https://fut-bol-max-default-rtdb.firebaseio.com\",\n \"projectId\": \"fut-bol-max\",\n \"storageBucket\": \"fut-bol-max.appspot.com\",\n \"messagingSenderId\": \"903384077428\",\n \"appId\": \"1:903384077428:web:327dee78b273f2f11e2d21\"\n}",
+        "node": "snuzzo_reviews",
+        "emails_node": "snuzzo_review_emails"
+      }
+    },
+    "related": {
+      "type": "related-tabs",
       "blocks": {
-        "f1": {
-          "type": "feature",
+        "r1": {
+          "type": "tab",
           "settings": {
-            "title": "Padded 3D hood",
-            "text": "Adorable from behind and comfy when baby rolls onto their back."
+            "label": "You might also like",
+            "collection": "best-sellers"
           }
         },
-        "f2": {
-          "type": "feature",
+        "r2": {
+          "type": "tab",
           "settings": {
-            "title": "Cloud-soft plush",
-            "text": "A smooth cream fleece lining that feels gentle on delicate skin."
+            "label": "Bath & Sleep",
+            "collection": "baby-comfort-essentials"
           }
         },
-        "f3": {
-          "type": "feature",
+        "r3": {
+          "type": "tab",
           "settings": {
-            "title": "Chin-guard zip",
-            "text": "Protects tiny chins and keeps 3 a.m. changes quick and calm."
-          }
-        },
-        "f4": {
-          "type": "feature",
-          "settings": {
-            "title": "The gift they remember",
-            "text": "Soft pastel colours in gift-ready packaging."
+            "label": "Mom & Baby",
+            "collection": "feeding-nursing"
           }
         }
       },
       "block_order": [
-        "f1",
-        "f2",
-        "f3",
-        "f4"
+        "r1",
+        "r2",
+        "r3"
       ],
       "settings": {
-        "heading": "Why parents choose Snuzzo"
+        "label": "You might also like",
+        "shop_all": "shopify://collections/best-sellers"
+      }
+    },
+    "banner": {
+      "type": "banner",
+      "settings": {
+        "image": "shopify://shop_images/BebeencostumedepereNoel.png",
+        "alt": "Baby in the Santa onesie",
+        "eyebrow": "Next step",
+        "heading": "Their first Christmas",
+        "text": "Five festive characters, ready for the family photo.",
+        "button": "Shop the Christmas onesies",
+        "link": "shopify://products/the-christmas-onesies",
+        "height": 600
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q0": {
+          "type": "question",
+          "settings": {
+            "question": "How does sizing work?",
+            "answer": "<p>Each size is listed by age, from 2-5 months to 30-36 months. The fit is roomy, so if your little one is between sizes, choose the larger one. Tap “Size guide” above for the measurements.</p>"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Is it warm enough?",
+            "answer": "<p>Yes. It's a cozy plush layer, made for cool evenings, winter outings and the bedtime wind-down. Add light layers underneath as needed, and always follow safe-sleep guidance for your baby's age.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "How do I wash it?",
+            "answer": "<p>Wash it inside out on a gentle, cool cycle and follow the care label. That keeps it soft wash after wash.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Is it a good gift?",
+            "answer": "<p>Yes. Every order arrives in gift-ready packaging, with free shipping worldwide.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return it?",
+            "answer": "<p>Yes. Every order is covered by our 30-day money-back guarantee. If it isn't right for your little one, we'll refund you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "heading": "Questions, answered",
+        "text": "",
+        "note": "Still unsure? Every order is covered by our 30-day money-back guarantee.",
+        "bg": "cream"
       }
     }
   },
   "order": [
     "main",
+    "story",
+    "videos",
     "reviews",
     "related",
-    "videos",
-    "features"
+    "banner",
+    "faq"
   ]
 }

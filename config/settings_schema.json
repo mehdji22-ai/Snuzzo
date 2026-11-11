@@ -12,31 +12,19 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Brown-black and white do the structure. Keep ONE accent colour."
+        "content": "Light, calm design: white and cream backgrounds, one strong colour for buttons."
+      },
+      {
+        "type": "color",
+        "id": "color_brand",
+        "label": "Buttons and accents",
+        "default": "#3C2820"
       },
       {
         "type": "color",
         "id": "color_ink",
-        "label": "Ink (text, buttons, footer)",
+        "label": "Text",
         "default": "#1E1611"
-      },
-      {
-        "type": "color",
-        "id": "color_accent",
-        "label": "Accent (the only one)",
-        "default": "#FFD23F"
-      },
-      {
-        "type": "color",
-        "id": "color_light",
-        "label": "Light panel",
-        "default": "#F2F1ED"
-      },
-      {
-        "type": "color",
-        "id": "color_mute",
-        "label": "Secondary text",
-        "default": "#5A514B"
       }
     ]
   },

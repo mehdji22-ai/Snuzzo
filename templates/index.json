@@ -6,171 +6,138 @@
         "b1": {
           "type": "button",
           "settings": {
-            "label": "Onesies",
-            "link": "shopify://collections/animal-onesies",
-            "style": "white"
-          }
-        },
-        "b2": {
-          "type": "button",
-          "settings": {
-            "label": "Best sellers",
-            "link": "shopify://collections/best-sellers",
-            "style": "white"
-          }
-        },
-        "b3": {
-          "type": "button",
-          "settings": {
-            "label": "Snowsuits",
-            "link": "shopify://collections/coats-snowsuits",
+            "label": "Shop the onesies",
+            "link": "shopify://products/the-animal-onesies",
             "style": "white"
           }
         }
       },
       "block_order": [
-        "b1",
-        "b2",
-        "b3"
+        "b1"
       ],
       "settings": {
         "alt": "Three babies on a sofa in pig, panda and penguin onesies",
         "focal": "object-position: 50% 35%",
-        "heading": "Pick your\nanimal.",
-        "subheading": "Plush onesies with a padded hood and a chin-guard zip. Ten animals, one for every personality in the house.",
-        "height": 660
+        "heading": "Cozy nights start here",
+        "subheading": "Plush animal onesies with a padded hood and a chin-guard zip, made for bedtime, playtime and every photo in between.",
+        "height": 760,
+        "align": "center"
+      }
+    },
+    "cards": {
+      "type": "product-cards",
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "title": "The Animal Onesies",
+            "text": "Ten animals, one cozy fit. Pick the one that matches their personality.",
+            "button": "Shop now",
+            "link": "shopify://products/the-animal-onesies",
+            "image": "shopify://shop_images/Bebepandaenpeluche.png",
+            "alt": "Baby in the panda onesie",
+            "bg": "sky"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "title": "The Christmas Onesies",
+            "text": "Reindeer, Gingerbread, Santa or Snowman, ready for their first holiday photo.",
+            "button": "Shop now",
+            "link": "shopify://products/the-christmas-onesies",
+            "image": "shopify://shop_images/BebeencostumedepereNoel.png",
+            "alt": "Baby in the Santa onesie",
+            "bg": "blush"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "title": "The Baby Snowsuit",
+            "text": "One piece, one zip, warm from the stroller to the snowman.",
+            "button": "Shop now",
+            "link": "shopify://products/the-baby-snowsuit",
+            "image": "shopify://shop_images/Tout-petitblondencombinaisond_hiverivoire.png",
+            "alt": "Toddler in the white snowsuit",
+            "bg": "butter"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "heading": "A onesie for every moment",
+        "text": ""
       }
     },
     "bestsellers": {
       "type": "featured-collection",
       "settings": {
-        "eyebrow": "Baby's favourites",
+        "eyebrow": "Loved by parents",
         "heading": "Best sellers",
-        "show_rating": true,
+        "show_rating": false,
         "collection": "best-sellers",
         "limit": 8,
-        "button": "Shop all best sellers"
+        "button": "Shop all",
+        "layout": "carousel"
+      }
+    },
+    "statement": {
+      "type": "statement",
+      "settings": {
+        "heading": "The coziest part\nof their day",
+        "text": "Snuzzo exists to make the little moments easier: the bedtime wind-down, the 3 a.m. change, the first holiday photo. Every piece is soft, roomy and easy, so you spend less time fussing and more time cuddling.",
+        "image_1": "shopify://shop_images/Panda_After.png",
+        "image_2": "shopify://shop_images/Bebesingeenstudio.png",
+        "image_3": "shopify://shop_images/HappyBabyBathTime.png",
+        "image_4": "shopify://shop_images/Bebecanarddoresurfondbeige.png",
+        "bg": "white"
       }
     },
     "picker": {
       "type": "animal-picker",
       "settings": {
+        "eyebrow": "Ten animals",
         "heading": "Who are they tonight?",
         "show_rating": false,
+        "product": "the-animal-onesies",
+        "name_prefix": "The ",
         "collection": "animal-onesies",
         "limit": 12,
-        "bullet_1": "Padded 3D hood that's soft when they roll back",
+        "bullet_1": "Padded 3D hood, comfy when they roll back",
         "bullet_2": "Chin-guard zip for quick 3 a.m. changes",
-        "bullet_3": "Cloud-soft plush with a smooth fleece lining"
+        "bullet_3": "Cloud-soft plush, soft wash after wash"
       }
     },
-    "drops": {
-      "type": "drop-cards",
-      "blocks": {
-        "d1": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Tout-petitenhabitdeneigebleumarine.png",
-            "demo": "demo-snow-navy.webp",
-            "alt": "Toddler in a navy snowsuit",
-            "overlay": "Snow\nsuits",
-            "title": "Snowsuits · $86",
-            "line": "Quilted, fur-trimmed, and built for the first snow.",
-            "link": "shopify://collections/coats-snowsuits",
-            "link_label": "Shop now"
-          }
-        },
-        "d2": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/Tendressemere-bebeensherpacaramel.png",
-            "demo": "demo-hoodie-caramel.webp",
-            "alt": "Parent and baby in a caramel carrier hoodie",
-            "overlay": "Room\nfor two",
-            "title": "Carrier hoodies · $71",
-            "line": "One zip around you and your baby. Three colours.",
-            "link": "shopify://collections/feeding-nursing",
-            "link_label": "Shop now"
-          }
-        },
-        "d3": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/BebeencostumedepereNoel.png",
-            "demo": "demo-santa.webp",
-            "alt": "Baby in a Santa costume",
-            "overlay": "First\nChristmas",
-            "title": "Christmas onesies · $57",
-            "line": "Santa, the Snowman and the Little Reindeer, ready for the photo.",
-            "link": "shopify://collections/winter-onesies",
-            "link_label": "Shop now"
-          }
-        },
-        "d4": {
-          "type": "card",
-          "settings": {
-            "image": "shopify://shop_images/SleepyFox-EaredTrainRide.png",
-            "demo": "demo-calmbuds.webp",
-            "alt": "Baby asleep wearing a fox-eared headband",
-            "overlay": "Sleep\nanywhere",
-            "title": "CalmBuds · $36",
-            "line": "A soft headband with speakers for naps on the go.",
-            "link": "shopify://products/the-snuzzo-calmbuds",
-            "link_label": "Shop now"
-          }
-        }
-      },
-      "block_order": [
-        "d1",
-        "d2",
-        "d3",
-        "d4"
-      ],
+    "zip": {
+      "type": "image-text",
       "settings": {
-        "heading": "Shop the winter drops"
+        "image": "shopify://shop_images/lion_after.png",
+        "alt": "Toddler in the lion onesie",
+        "image_right": false,
+        "eyebrow": "Thoughtful details",
+        "heading": "Built for 3 a.m.",
+        "text": "A soft flap covers the zip pull, so changes stay quick and nothing scratches a sleepy chin. The padded hood stays comfy when they roll onto their back.",
+        "button": "Shop the onesies",
+        "link": "shopify://products/the-animal-onesies",
+        "bg": "white"
       }
     },
-    "rail": {
-      "type": "product-tabs-rail",
-      "blocks": {
-        "t1": {
-          "type": "tab",
-          "settings": {
-            "label": "Christmas",
-            "collection": "winter-onesies"
-          }
-        },
-        "t2": {
-          "type": "tab",
-          "settings": {
-            "label": "Snowsuits",
-            "collection": "coats-snowsuits"
-          }
-        },
-        "t3": {
-          "type": "tab",
-          "settings": {
-            "label": "Bath & sleep",
-            "collection": "baby-comfort-essentials"
-          }
-        },
-        "t4": {
-          "type": "tab",
-          "settings": {
-            "label": "For two",
-            "collection": "feeding-nursing"
-          }
-        }
-      },
-      "block_order": [
-        "t1",
-        "t2",
-        "t3",
-        "t4"
-      ],
+    "soft": {
+      "type": "image-text",
       "settings": {
-        "heading": "Shop by moment",
-        "limit": 8
+        "image": "shopify://shop_images/Panda_before.png",
+        "alt": "Toddler on the sofa",
+        "image_right": true,
+        "eyebrow": "Gentle on skin",
+        "heading": "Soft, wash after wash",
+        "text": "Cloud-soft plush that stays gentle on delicate skin, with a roomy fit that leaves space to wiggle, crawl and grow.",
+        "button": "",
+        "bg": "cream"
       }
     },
     "before_after": {
@@ -278,46 +245,33 @@
         "link_label": "Pick your animal"
       }
     },
-    "features": {
-      "type": "feature-trio",
-      "blocks": {
-        "f1": {
-          "type": "feature",
-          "settings": {
-            "title": "Padded 3D hood",
-            "text": "Adorable from behind and comfy when baby rolls onto their back."
-          }
-        },
-        "f2": {
-          "type": "feature",
-          "settings": {
-            "title": "Cloud-soft plush",
-            "text": "A smooth cream fleece lining that feels gentle on delicate skin."
-          }
-        },
-        "f3": {
-          "type": "feature",
-          "settings": {
-            "title": "Chin-guard zip",
-            "text": "Protects tiny chins and keeps 3 a.m. changes quick and calm."
-          }
-        },
-        "f4": {
-          "type": "feature",
-          "settings": {
-            "title": "The gift they remember",
-            "text": "Soft pastel colours in gift-ready packaging."
-          }
-        }
-      },
-      "block_order": [
-        "f1",
-        "f2",
-        "f3",
-        "f4"
-      ],
+    "twoof": {
+      "type": "image-text",
       "settings": {
-        "heading": "Why parents choose Snuzzo"
+        "image": "shopify://shop_images/Tendressemere-bebeensherpacaramel.png",
+        "alt": "Parent and baby in a caramel carrier hoodie",
+        "image_right": false,
+        "eyebrow": "Mom & Baby",
+        "heading": "Room for two",
+        "text": "Our carrier hoodies zip around you and your baby, so you both stay warm and close on every walk.",
+        "button": "Shop Mom & Baby",
+        "link": "shopify://collections/feeding-nursing",
+        "bg": "white"
+      }
+    },
+    "promise": {
+      "type": "image-text",
+      "settings": {
+        "image": "shopify://shop_images/Duomere-bebeencombinaisonsherparose.png",
+        "alt": "Parent and baby in matching pink",
+        "image_right": true,
+        "eyebrow": "The Snuzzo promise",
+        "heading": "Easy from order\nto cuddle",
+        "text": "",
+        "checklist": "Free shipping worldwide\nTry it for 30 days, love it or get your money back\nGift-ready packaging on every order\nSizes from 2 months to 3 years",
+        "button": "Shop best sellers",
+        "link": "shopify://collections/best-sellers",
+        "bg": "sky"
       }
     },
     "videos": {
@@ -439,40 +393,14 @@
         "v13"
       ],
       "settings": {
-        "heading": "Cozy moments from Snuzzo families"
-      }
-    },
-    "social": {
-      "type": "social-band",
-      "settings": {
-        "number": "450K",
-        "text": "Parents following along on Facebook. Your photos could be next.",
-        "button": "Follow Snuzzo",
-        "photo_1": "shopify://shop_images/Combinaisonsherparosemere-bebe.png",
-        "photo_2": "shopify://shop_images/HappyBabyBathTime.png",
-        "photo_3": "shopify://shop_images/Bebesingeenstudio.png",
-        "photo_4": "shopify://shop_images/PortraitdeNoelencombinaisonrose.png",
-        "photo_5": "shopify://shop_images/Tout-petitblondencombinaisond_hiverivoire.png",
-        "photo_6": "shopify://shop_images/Mamanetbebeenstudiobeige.png"
+        "heading": "Your little ones in Snuzzo",
+        "text": "So happy to have you here. Tag us @littlesnuzzo",
+        "bg": "cream"
       }
     },
     "faq": {
       "type": "faq",
       "blocks": {
-        "q0": {
-          "type": "question",
-          "settings": {
-            "question": "Are they really certified organic cotton?",
-            "answer": "<p>Yes. Every onesie is made from certified organic cotton, so you know exactly what your baby is wearing.</p>"
-          }
-        },
-        "q1": {
-          "type": "question",
-          "settings": {
-            "question": "Are they safe for my baby’s skin?",
-            "answer": "<p>Yes. Organic cotton is soft and gentle, which makes it a lovely choice for delicate newborn skin.</p>"
-          }
-        },
         "q2": {
           "type": "question",
           "settings": {
@@ -510,8 +438,6 @@
         }
       },
       "block_order": [
-        "q0",
-        "q1",
         "q2",
         "q3",
         "q4",
@@ -520,61 +446,24 @@
       ],
       "settings": {
         "heading": "Questions, answered",
-        "text": "Everything you need to know.",
-        "note": "Still unsure? Every order is covered by our 30-day money-back guarantee."
+        "text": "Everything you need to know before their first Snuzzo.",
+        "note": "Still unsure? Every order is covered by our 30-day money-back guarantee.",
+        "bg": "white"
       }
-    },
-    "trust": {
-      "type": "trust-strip",
-      "blocks": {
-        "t1": {
-          "type": "item",
-          "settings": {
-            "text": "Free shipping",
-            "icon": "truck"
-          }
-        },
-        "t2": {
-          "type": "item",
-          "settings": {
-            "text": "30-day guarantee",
-            "icon": "shield"
-          }
-        },
-        "t3": {
-          "type": "item",
-          "settings": {
-            "text": "Gentle on skin",
-            "icon": "leaf"
-          }
-        },
-        "t4": {
-          "type": "item",
-          "settings": {
-            "text": "Easy returns",
-            "icon": "return"
-          }
-        }
-      },
-      "block_order": [
-        "t1",
-        "t2",
-        "t3",
-        "t4"
-      ]
     }
   },
   "order": [
     "hero",
+    "cards",
     "bestsellers",
-    "trust",
+    "statement",
     "picker",
-    "drops",
+    "zip",
+    "soft",
     "before_after",
-    "rail",
-    "features",
+    "twoof",
+    "promise",
     "videos",
-    "social",
     "faq"
   ]
 }

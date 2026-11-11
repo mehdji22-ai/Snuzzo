@@ -5,7 +5,7 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "Free shipping worldwide · 30-day money-back guarantee · Gentle on skin",
+        "text": "Free shipping worldwide · 30-day money-back guarantee",
         "link": ""
       }
     },
@@ -16,7 +16,10 @@
         "logo_height": 26,
         "menu": "main-menu",
         "sticky": true,
-        "show_account": true
+        "show_account": true,
+        "transparent_home": true,
+        "button_label": "Shop now",
+        "button_link": "shopify://products/the-animal-onesies"
       },
       "blocks": {
         "l0": {
@@ -29,35 +32,35 @@
         "l1": {
           "type": "link",
           "settings": {
-            "label": "Animal Onesies",
-            "link": "shopify://collections/animal-onesies"
+            "label": "Onesies",
+            "link": "shopify://collections/onesies"
           }
         },
         "l2": {
           "type": "link",
           "settings": {
-            "label": "Christmas Onesies",
+            "label": "Christmas",
             "link": "shopify://collections/winter-onesies"
           }
         },
         "l3": {
           "type": "link",
           "settings": {
-            "label": "Coats & Snowsuits",
+            "label": "Snowsuits",
             "link": "shopify://collections/coats-snowsuits"
           }
         },
         "l4": {
           "type": "link",
           "settings": {
-            "label": "Feeding & Nursing",
+            "label": "Mom & Baby",
             "link": "shopify://collections/feeding-nursing"
           }
         },
         "l5": {
           "type": "link",
           "settings": {
-            "label": "Comfort & Essentials",
+            "label": "Bath & Sleep",
             "link": "shopify://collections/baby-comfort-essentials"
           }
         }

@@ -5,6 +5,7 @@
 -%}
 {%- paginate collection.products by per_page -%}
 <div class="page-width">
+  {%- if section.settings.show_heading -%}
   <div class="coll-head">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="javascript:history.back()">← {{ 'general.back' | t }}</a><span aria-hidden="true">·</span>
@@ -13,6 +14,7 @@
     <h1 class="h1">{{ collection.title }} <span class="count">[{{ collection.products_count }}]</span></h1>
     {%- if collection.description != blank -%}<div class="rte" style="max-width:80ch">{{ collection.description }}</div>{%- endif -%}
   </div>
+  {%- endif -%}
 
   <div class="coll-bar">
     {%- if chips.size > 0 -%}
@@ -103,7 +105,8 @@
   "name": "Collection page",
   "tag": "section",
   "settings": [
-    { "type": "range", "id": "per_page", "label": "Products before 'Show more'", "min": 8, "max": 48, "step": 4, "default": 16 }
+    { "type": "range", "id": "per_page", "label": "Products before 'Show more'", "min": 8, "max": 48, "step": 4, "default": 16 },
+    { "type": "checkbox", "id": "show_heading", "label": "Show title above the products (turn off when using a banner)", "default": false }
   ],
   "blocks": [
     {

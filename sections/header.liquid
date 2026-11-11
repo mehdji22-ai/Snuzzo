@@ -14,7 +14,7 @@
     {%- endfor -%}
   {%- endif -%}
 {%- endcapture -%}
-<header class="site-header{% if section.settings.sticky %} site-header--sticky{% endif %}">
+<header class="site-header{% if section.settings.sticky %} site-header--sticky{% endif %}{% if section.settings.transparent_home and template.name == 'index' %} site-header--overlay{% endif %}" data-header>
   <div class="site-header__inner page-width">
     <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-controls="MobileNav" aria-expanded="false" aria-label="{{ 'general.menu' | t }}">
       {% render 'icon', name: 'menu' %}
@@ -43,12 +43,15 @@
       <a class="icon-btn search-icon" href="{{ routes.search_url }}" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</a>
       <div class="currency-desktop">{% render 'currency-selector', id: 'desktop' %}</div>
       {%- if shop.customer_accounts_enabled and section.settings.show_account -%}
-        <a class="icon-btn" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{% if customer %}{{ 'customer.account' | t }}{% else %}{{ 'customer.sign_in' | t }}{% endif %}">{% render 'icon', name: 'account' %}</a>
+        <a class="icon-btn account-link" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{% if customer %}{{ 'customer.account' | t }}{% else %}{{ 'customer.sign_in' | t }}{% endif %}">{% render 'icon', name: 'account' %}</a>
       {%- endif -%}
       <a class="icon-btn" href="{{ routes.cart_url }}" data-bag-link aria-label="{{ 'general.bag' | t }}">
         {% render 'icon', name: 'bag' %}
         <span class="bag-count" data-bag-count data-count="{{ cart.item_count }}">{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}</span>
       </a>
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn btn--ink" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
     </div>
   </div>
 
@@ -77,6 +80,9 @@
     { "type": "range", "id": "logo_height", "label": "Logo height", "min": 20, "max": 56, "step": 2, "unit": "px", "default": 28 },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "Only used when no 'Menu link' blocks are added to this header." },
     { "type": "checkbox", "id": "sticky", "label": "Stick to the top when scrolling", "default": true },
+    { "type": "checkbox", "id": "transparent_home", "label": "See-through header over the home page photo", "default": true },
+    { "type": "text", "id": "button_label", "label": "Header button label", "default": "Shop now" },
+    { "type": "url", "id": "button_link", "label": "Header button link" },
     { "type": "checkbox", "id": "show_account", "label": "Show sign-in / account icon", "default": true }
   ],
   "blocks": [

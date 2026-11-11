@@ -48,7 +48,12 @@
     "trust_secure": "Sicher einkaufen",
     "trust_payments": "Sichere Zahlung",
     "trust_privacy": "Datenschutz",
-    "trust_shipping": "Kostenloser weltweiter Versand"
+    "trust_shipping": "Kostenloser weltweiter Versand",
+    "add": "Hinzufügen",
+    "from": "Ab",
+    "show_image": "Bild {{ n }} anzeigen",
+    "pick_your": "Wähle: {{ option }}",
+    "step": "Schritt {{ n }}"
   },
   "collections": {
     "filter_sort": "Filtern & sortieren",
