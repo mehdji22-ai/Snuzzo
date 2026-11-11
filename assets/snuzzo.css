@@ -637,3 +637,5 @@ html, body { overflow-x: clip; }
 .country-gate__form { text-align: left; }
 .country-gate .field select { width: 100%; border-radius: 999px; padding: 0 16px; height: 50px; }
 .country-gate__currency { margin: -4px 0 18px; font-size: 14px; color: var(--mute); }
+.dialog.country-gate { z-index: 2147483647; align-items: flex-start; padding-top: max(16px, 8vh); }
+@media (max-width: 749px) { .dialog.country-gate { padding-top: 16px; } .country-gate .dialog__box { padding: 28px 20px 20px; } }
