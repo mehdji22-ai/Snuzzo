@@ -384,3 +384,9 @@ input, select, textarea { font: inherit; color: inherit; border-radius: 0; }
 .newsletter button { height: 48px; border: 0; background: var(--yellow); color: var(--ink); font-weight: 900; text-transform: uppercase; letter-spacing: .05em; padding: 0 16px; }
 @media (prefers-reduced-motion: reduce) { .vids__item video { animation: none; } }
 .site-footer__cols { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+/* six menu links: tighten on mid-size screens */
+@media (min-width: 990px) and (max-width: 1279px) {
+  .site-header__nav { gap: 16px; }
+  .site-header__nav a { font-size: 13px; }
+  .site-search { width: 160px; }
+}

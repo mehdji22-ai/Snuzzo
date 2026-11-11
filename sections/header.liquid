@@ -1,6 +1,19 @@
 {%- liquid
   assign menu = section.settings.menu
+  assign nav_links = section.blocks | where: 'type', 'link'
 -%}
+{%- capture nav_items -%}
+  {%- if nav_links.size > 0 -%}
+    {%- for block in nav_links -%}
+      {%- assign path = block.settings.link | split: '?' | first -%}
+      <a href="{{ block.settings.link }}"{% if path == request.path %} aria-current="page"{% endif %} {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+    {%- endfor -%}
+  {%- else -%}
+    {%- for link in menu.links -%}
+      <a href="{{ link.url }}"{% if link.current or link.child_current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
 <header class="site-header{% if section.settings.sticky %} site-header--sticky{% endif %}">
   <div class="site-header__inner page-width">
     <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-controls="MobileNav" aria-expanded="false" aria-label="{{ 'general.menu' | t }}">
@@ -17,11 +30,7 @@
       {%- endif -%}
     </a>
 
-    <nav class="site-header__nav" aria-label="Main">
-      {%- for link in menu.links -%}
-        <a href="{{ link.url }}"{% if link.current or link.child_current %} aria-current="page"{% endif %}>{{ link.title }}</a>
-      {%- endfor -%}
-    </nav>
+    <nav class="site-header__nav" aria-label="Main">{{ nav_items }}</nav>
 
     <div class="site-header__tools">
       <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
@@ -42,9 +51,7 @@
   </div>
 
   <div class="mobile-nav" id="MobileNav">
-    {%- for link in menu.links -%}
-      <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
-    {%- endfor -%}
+    <nav aria-label="Main (mobile)">{{ nav_items }}</nav>
     <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
       <label class="visually-hidden" for="MobileSearch">{{ 'general.search' | t }}</label>
       <input id="MobileSearch" type="search" name="q" placeholder="{{ 'general.search' | t }}">
@@ -62,9 +69,19 @@
     { "type": "image_picker", "id": "logo", "label": "Logo" },
     { "type": "checkbox", "id": "use_demo_logo", "label": "Use the Snuzzo demo logo when no logo is picked", "default": true },
     { "type": "range", "id": "logo_height", "label": "Logo height", "min": 20, "max": 56, "step": 2, "unit": "px", "default": 28 },
-    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "Design uses: Onesies · Snowsuits · Hoodies · Bath & sleep · Gifts" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "Only used when no 'Menu link' blocks are added to this header." },
     { "type": "checkbox", "id": "sticky", "label": "Stick to the top when scrolling", "default": true },
     { "type": "checkbox", "id": "show_account", "label": "Show account icon", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Menu link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Best Sellers" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
   ]
 }
 {% endschema %}

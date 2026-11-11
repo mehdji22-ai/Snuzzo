@@ -18,7 +18,59 @@
         "sticky": true,
         "show_account": false,
         "logo": "shopify://shop_images/Logo_snuzzo_sur_fond_blanc_pur.png"
-      }
+      },
+      "blocks": {
+        "l0": {
+          "type": "link",
+          "settings": {
+            "label": "Best Sellers",
+            "link": "shopify://collections/best-sellers"
+          }
+        },
+        "l1": {
+          "type": "link",
+          "settings": {
+            "label": "Animal Onesies",
+            "link": "shopify://collections/animal-onesies"
+          }
+        },
+        "l2": {
+          "type": "link",
+          "settings": {
+            "label": "Christmas Onesies",
+            "link": "shopify://collections/winter-onesies"
+          }
+        },
+        "l3": {
+          "type": "link",
+          "settings": {
+            "label": "Coats & Snowsuits",
+            "link": "shopify://collections/coats-snowsuits"
+          }
+        },
+        "l4": {
+          "type": "link",
+          "settings": {
+            "label": "Feeding & Nursing",
+            "link": "shopify://collections/feeding-nursing"
+          }
+        },
+        "l5": {
+          "type": "link",
+          "settings": {
+            "label": "Comfort & Essentials",
+            "link": "shopify://collections/baby-comfort-essentials"
+          }
+        }
+      },
+      "block_order": [
+        "l0",
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ]
     }
   },
   "order": [
