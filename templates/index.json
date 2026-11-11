@@ -3,11 +3,36 @@
     "hero": {
       "type": "hero-campaign",
       "blocks": {
-        "b1": { "type": "button", "settings": { "label": "Onesies", "link": "shopify://collections/all", "style": "white" } },
-        "b2": { "type": "button", "settings": { "label": "Snowsuits", "link": "shopify://collections/all", "style": "white" } },
-        "b3": { "type": "button", "settings": { "label": "Gifts", "link": "shopify://collections/all", "style": "white" } }
+        "b1": {
+          "type": "button",
+          "settings": {
+            "label": "Onesies",
+            "link": "shopify://collections/animal-onesies",
+            "style": "white"
+          }
+        },
+        "b2": {
+          "type": "button",
+          "settings": {
+            "label": "Best sellers",
+            "link": "shopify://collections/best-sellers",
+            "style": "white"
+          }
+        },
+        "b3": {
+          "type": "button",
+          "settings": {
+            "label": "Snowsuits",
+            "link": "shopify://collections/coats-snowsuits",
+            "style": "white"
+          }
+        }
       },
-      "block_order": ["b1", "b2", "b3"],
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
       "settings": {
         "alt": "Three babies on a sofa in pig, panda and penguin onesies",
         "focal": "object-position: 50% 35%",
@@ -16,11 +41,23 @@
         "height": 660
       }
     },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Baby's favourites",
+        "heading": "Best sellers",
+        "show_rating": true,
+        "collection": "best-sellers",
+        "limit": 8,
+        "button": "Shop all best sellers"
+      }
+    },
     "picker": {
       "type": "animal-picker",
       "settings": {
         "heading": "Who are they tonight?",
-        "show_rating": true,
+        "show_rating": false,
+        "collection": "animal-onesies",
         "limit": 12,
         "bullet_1": "Padded 3D hood that's soft when they roll back",
         "bullet_2": "Chin-guard zip for quick 3 a.m. changes",
@@ -30,54 +67,474 @@
     "drops": {
       "type": "drop-cards",
       "blocks": {
-        "d1": { "type": "card", "settings": { "demo": "demo-snow-navy.webp", "alt": "Toddler in a navy snowsuit", "overlay": "Snow\nsuits", "title": "Snowsuits · $86", "line": "Quilted, fur-trimmed, and built for the first snow.", "link_label": "Shop now" } },
-        "d2": { "type": "card", "settings": { "demo": "demo-hoodie-caramel.webp", "alt": "Parent and baby in a caramel carrier hoodie", "overlay": "Room\nfor two", "title": "Carrier hoodies · $71", "line": "One zip around you and your baby. Three colours.", "link_label": "Shop now" } },
-        "d3": { "type": "card", "settings": { "demo": "demo-santa.webp", "alt": "Baby in a Santa costume", "overlay": "First\nChristmas", "title": "Holiday onesies · $57", "line": "Santa and the Little Reindeer, ready for the photo.", "link_label": "Shop now" } },
-        "d4": { "type": "card", "settings": { "demo": "demo-calmbuds.webp", "alt": "Baby asleep wearing a fox-eared headband", "overlay": "Sleep\nanywhere", "title": "CalmBuds · $36", "line": "A soft headband with speakers for naps on the go.", "link_label": "Shop now" } }
+        "d1": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Tout-petitenhabitdeneigebleumarine.png",
+            "demo": "demo-snow-navy.webp",
+            "alt": "Toddler in a navy snowsuit",
+            "overlay": "Snow\nsuits",
+            "title": "Snowsuits · $86",
+            "line": "Quilted, fur-trimmed, and built for the first snow.",
+            "link": "shopify://collections/coats-snowsuits",
+            "link_label": "Shop now"
+          }
+        },
+        "d2": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Tendressemere-bebeensherpacaramel.png",
+            "demo": "demo-hoodie-caramel.webp",
+            "alt": "Parent and baby in a caramel carrier hoodie",
+            "overlay": "Room\nfor two",
+            "title": "Carrier hoodies · $71",
+            "line": "One zip around you and your baby. Three colours.",
+            "link": "shopify://collections/feeding-nursing",
+            "link_label": "Shop now"
+          }
+        },
+        "d3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/BebeencostumedepereNoel.png",
+            "demo": "demo-santa.webp",
+            "alt": "Baby in a Santa costume",
+            "overlay": "First\nChristmas",
+            "title": "Christmas onesies · $57",
+            "line": "Santa, the Snowman and the Little Reindeer, ready for the photo.",
+            "link": "shopify://collections/winter-onesies",
+            "link_label": "Shop now"
+          }
+        },
+        "d4": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/SleepyFox-EaredTrainRide.png",
+            "demo": "demo-calmbuds.webp",
+            "alt": "Baby asleep wearing a fox-eared headband",
+            "overlay": "Sleep\nanywhere",
+            "title": "CalmBuds · $36",
+            "line": "A soft headband with speakers for naps on the go.",
+            "link": "shopify://products/the-snuzzo-calmbuds",
+            "link_label": "Shop now"
+          }
+        }
       },
-      "block_order": ["d1", "d2", "d3", "d4"],
-      "settings": { "heading": "Shop the winter drops" }
+      "block_order": [
+        "d1",
+        "d2",
+        "d3",
+        "d4"
+      ],
+      "settings": {
+        "heading": "Shop the winter drops"
+      }
     },
     "rail": {
       "type": "product-tabs-rail",
       "blocks": {
-        "t1": { "type": "tab", "settings": { "label": "Best sellers" } },
-        "t2": { "type": "tab", "settings": { "label": "Winter" } },
-        "t3": { "type": "tab", "settings": { "label": "Bath & sleep" } },
-        "t4": { "type": "tab", "settings": { "label": "For two" } }
+        "t1": {
+          "type": "tab",
+          "settings": {
+            "label": "Christmas",
+            "collection": "winter-onesies"
+          }
+        },
+        "t2": {
+          "type": "tab",
+          "settings": {
+            "label": "Snowsuits",
+            "collection": "coats-snowsuits"
+          }
+        },
+        "t3": {
+          "type": "tab",
+          "settings": {
+            "label": "Bath & sleep",
+            "collection": "baby-comfort-essentials"
+          }
+        },
+        "t4": {
+          "type": "tab",
+          "settings": {
+            "label": "For two",
+            "collection": "feeding-nursing"
+          }
+        }
       },
-      "block_order": ["t1", "t2", "t3", "t4"],
-      "settings": { "heading": "Bedtime favourites", "limit": 8 }
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "heading": "Shop by moment",
+        "limit": 8
+      }
     },
     "before_after": {
       "type": "before-after",
+      "blocks": {
+        "a0": {
+          "type": "animal",
+          "settings": {
+            "label": "Panda",
+            "before": "shopify://shop_images/Panda_before.png",
+            "after": "shopify://shop_images/Panda_After.png"
+          }
+        },
+        "a1": {
+          "type": "animal",
+          "settings": {
+            "label": "Bunny",
+            "before": "shopify://shop_images/Before_-_Bunny.png",
+            "after": "shopify://shop_images/After_Bunny.png"
+          }
+        },
+        "a2": {
+          "type": "animal",
+          "settings": {
+            "label": "Lion",
+            "before": "shopify://shop_images/lion_before.png",
+            "after": "shopify://shop_images/lion_after.png"
+          }
+        },
+        "a3": {
+          "type": "animal",
+          "settings": {
+            "label": "Pig",
+            "before": "shopify://shop_images/pig_before.png",
+            "after": "shopify://shop_images/pig_after.png"
+          }
+        },
+        "a4": {
+          "type": "animal",
+          "settings": {
+            "label": "Cow",
+            "before": "shopify://shop_images/cow_before.png",
+            "after": "shopify://shop_images/cow_after.png"
+          }
+        },
+        "a5": {
+          "type": "animal",
+          "settings": {
+            "label": "Monkey",
+            "before": "shopify://shop_images/monkey_before.png",
+            "after": "shopify://shop_images/monkey_after.png"
+          }
+        },
+        "a6": {
+          "type": "animal",
+          "settings": {
+            "label": "Duck",
+            "before": "shopify://shop_images/Duck_before.png",
+            "after": "shopify://shop_images/Duck_after.png"
+          }
+        },
+        "a7": {
+          "type": "animal",
+          "settings": {
+            "label": "Penguin",
+            "before": "shopify://shop_images/penguin_before.png",
+            "after": "shopify://shop_images/penguin_after.png"
+          }
+        },
+        "a8": {
+          "type": "animal",
+          "settings": {
+            "label": "Tiger",
+            "before": "shopify://shop_images/tiger_before.png",
+            "after": "shopify://shop_images/tiger_after.png"
+          }
+        },
+        "a9": {
+          "type": "animal",
+          "settings": {
+            "label": "Reindeer",
+            "before": "shopify://shop_images/before_reindeer.png",
+            "after": "shopify://shop_images/after_reindeer.png"
+          }
+        }
+      },
+      "block_order": [
+        "a0",
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5",
+        "a6",
+        "a7",
+        "a8",
+        "a9"
+      ],
       "settings": {
         "heading": "The half hour before bed.",
-        "text": "Bath, then panda, then lights low. Same toddler, same sofa. Drag across the photo to watch the wind-down start.",
-        "after_alt": "The same toddler in a panda onesie",
+        "text": "Same toddler, same sofa. Pick an animal, then drag across the photo to watch the wind-down start.",
         "after_label": "Panda",
-        "before_alt": "Toddler in plain pyjamas",
         "before_label": "Pyjamas",
-        "link_label": "Shop the Panda"
+        "link": "shopify://collections/animal-onesies",
+        "link_label": "Pick your animal"
       }
     },
     "features": {
       "type": "feature-trio",
       "blocks": {
-        "f1": { "type": "feature", "settings": { "title": "Chin-guard zip", "text": "A fabric flap covers the zip pull, so it never scratches a sleepy chin." } },
-        "f2": { "type": "feature", "settings": { "title": "Padded 3D hood", "text": "Cute from behind, and comfortable when they roll onto their back." } },
-        "f3": { "type": "feature", "settings": { "title": "Soft at wash 100", "text": "Cloud-soft plush with a smooth fleece lining, gentle on delicate skin." } }
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "title": "Padded 3D hood",
+            "text": "Adorable from behind and comfy when baby rolls onto their back."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "title": "Cloud-soft plush",
+            "text": "A smooth cream fleece lining that feels gentle on delicate skin."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "title": "Chin-guard zip",
+            "text": "Protects tiny chins and keeps 3 a.m. changes quick and calm."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "title": "The gift they remember",
+            "text": "Soft pastel colours in gift-ready packaging."
+          }
+        }
       },
-      "block_order": ["f1", "f2", "f3"]
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "settings": {
+        "heading": "Why parents choose Snuzzo"
+      }
+    },
+    "videos": {
+      "type": "video-gallery",
+      "blocks": {
+        "v0": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/43b6a38dca074772a6d0d6894097164e.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v1": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/800d89d6aec64ee888d4bae9b4860162.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v2": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/a2d04ab95db54568a2393945e7096331.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/6e922f177d534c988e56ba92ea6d74c0.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v4": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/e1da5eaf95ef47408d67491fa9e0f1bf.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v5": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/345bee47b61248c3bc8d4cdb00d8a36a.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v6": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/71805a83fccb45598eb167c18a8fa96d.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v7": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/ed66101c2d2f4a4d8d9af738912a2b69.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v8": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/ee9da2a096ef479196a396ff6b997c26.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v9": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/ef18b57cc1554162aa1bab038cc0771a.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v10": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/a9c8ac83baec4aa0aa5e809533ccc204.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v11": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/0c77f87f785747d68d5e03369c32489e.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v12": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/d08867c4548b4f05aa00d6bae0249879.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v13": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/3ee35127ba3c42e9b0126771eb812573.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        }
+      },
+      "block_order": [
+        "v0",
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "v5",
+        "v6",
+        "v7",
+        "v8",
+        "v9",
+        "v10",
+        "v11",
+        "v12",
+        "v13"
+      ],
+      "settings": {
+        "heading": "Cozy moments from Snuzzo families"
+      }
     },
     "social": {
       "type": "social-band",
       "settings": {
         "number": "450K",
         "text": "Parents following along on Facebook. Your photos could be next.",
-        "button": "Follow Snuzzo"
+        "button": "Follow Snuzzo",
+        "photo_1": "shopify://shop_images/Combinaisonsherparosemere-bebe.png",
+        "photo_2": "shopify://shop_images/HappyBabyBathTime.png",
+        "photo_3": "shopify://shop_images/Bebesingeenstudio.png",
+        "photo_4": "shopify://shop_images/PortraitdeNoelencombinaisonrose.png",
+        "photo_5": "shopify://shop_images/Tout-petitblondencombinaisond_hiverivoire.png",
+        "photo_6": "shopify://shop_images/Mamanetbebeenstudiobeige.png"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q0": {
+          "type": "question",
+          "settings": {
+            "question": "Are they really certified organic cotton?",
+            "answer": "<p>Yes. Every onesie is made from certified organic cotton, so you know exactly what your baby is wearing.</p>"
+          }
+        },
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Are they safe for my baby’s skin?",
+            "answer": "<p>Yes. Organic cotton is soft and gentle, which makes it a lovely choice for delicate newborn skin.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "What size should I order?",
+            "answer": "<p>Our onesies have a roomy, comfortable fit. If your baby is between sizes, we suggest the larger one, so there’s space to wiggle and grow.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Are diaper changes really easy?",
+            "answer": "<p>Yes. We designed them for quick, simple changes, even in the middle of the night.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Will they stay soft after washing?",
+            "answer": "<p>Yes. They’re made to stay soft wash after wash. Follow the care label and they’ll keep feeling like new.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "Is it a good gift?",
+            "answer": "<p>Yes. Every order arrives in gift-ready packaging, so it’s ready to give the moment it lands.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "question": "Can I return an order?",
+            "answer": "<p>Yes. Every order is covered by our 30-day money-back guarantee. If it isn’t right for your little one, we’ll refund you.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6"
+      ],
+      "settings": {
+        "heading": "Questions, answered",
+        "text": "Everything you need to know.",
+        "note": "Still unsure? Every order is covered by our 30-day money-back guarantee."
       }
     }
   },
-  "order": ["hero", "picker", "drops", "rail", "before_after", "features", "social"]
+  "order": [
+    "hero",
+    "bestsellers",
+    "picker",
+    "drops",
+    "before_after",
+    "rail",
+    "features",
+    "videos",
+    "social",
+    "faq"
+  ]
 }

@@ -3,11 +3,67 @@
     "main": {
       "type": "main-collection",
       "blocks": {
-        "promo": { "type": "promo", "settings": { "title": "Same toddler.\nSame sofa.\nPanda.", "link_label": "See the before & after", "position": 5 } }
+        "promo": {
+          "type": "promo",
+          "settings": {
+            "title": "Same toddler.\nSame sofa.\nPanda.",
+            "link_label": "See the before & after",
+            "position": 5,
+            "image_1": "shopify://shop_images/Panda_before.png",
+            "image_2": "shopify://shop_images/Panda_After.png",
+            "link": "/#before-after"
+          }
+        },
+        "c1": {
+          "type": "chip",
+          "settings": {
+            "label": "All animals",
+            "collection": "animal-onesies"
+          }
+        },
+        "c2": {
+          "type": "chip",
+          "settings": {
+            "label": "Christmas",
+            "collection": "winter-onesies"
+          }
+        },
+        "c3": {
+          "type": "chip",
+          "settings": {
+            "label": "Best sellers",
+            "collection": "best-sellers"
+          }
+        },
+        "c4": {
+          "type": "chip",
+          "settings": {
+            "label": "Snowsuits",
+            "collection": "coats-snowsuits"
+          }
+        },
+        "c5": {
+          "type": "chip",
+          "settings": {
+            "label": "Matching for two",
+            "collection": "feeding-nursing"
+          }
+        }
       },
-      "block_order": ["promo"],
-      "settings": { "per_page": 16 }
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "promo"
+      ],
+      "settings": {
+        "per_page": 16
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

@@ -155,6 +155,15 @@
     set();
   }
 
+  document.addEventListener('click', function (e) {
+    var chip = e.target.closest('[data-ba-chip]');
+    if (!chip) return;
+    var section = chip.closest('.ba');
+    var id = chip.getAttribute('data-ba-chip');
+    section.querySelectorAll('[data-ba-chip]').forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+    section.querySelectorAll('[data-ba-pair]').forEach(function (p) { p.hidden = p.getAttribute('data-ba-pair') !== id; });
+  });
+
   /* ---------- Wishlist hearts (saved on this device) ---------- */
   function readWish() { try { return JSON.parse(localStorage.getItem('snuzzo-wish') || '[]'); } catch (e) { return []; } }
   function writeWish(list) { try { localStorage.setItem('snuzzo-wish', JSON.stringify(list)); } catch (e) {} }
@@ -266,7 +275,32 @@
     if (f) f.submit();
   });
 
+  /* ---------- Videos: load when visible, pause when off-screen ---------- */
+  function initVideos(scope) {
+    var vids = scope.querySelectorAll('video[data-lazy-video]');
+    if (!vids.length) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!('IntersectionObserver' in window)) {
+      vids.forEach(function (v) { v.src = v.getAttribute('data-lazy-video'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) {
+          if (!v.src) v.src = v.getAttribute('data-lazy-video');
+          if (!reduce) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        } else if (!v.paused) { v.pause(); }
+      });
+    }, { rootMargin: '200px' });
+    vids.forEach(function (v) {
+      io.observe(v);
+      if (reduce) { v.controls = true; }
+    });
+  }
+
   function init(scope) {
+    initVideos(scope);
     scope.querySelectorAll('[data-picker]').forEach(initPicker);
     scope.querySelectorAll('[data-tabs]').forEach(initTabs);
     scope.querySelectorAll('[data-ba]').forEach(initBA);

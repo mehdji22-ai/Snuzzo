@@ -5,7 +5,7 @@
     "announcement": {
       "type": "announcement-bar",
       "settings": {
-        "text": "Free shipping worldwide · 30-day money-back guarantee",
+        "text": "Free shipping worldwide · 30-day money-back guarantee · Gentle on skin",
         "link": ""
       }
     },
@@ -16,9 +16,13 @@
         "logo_height": 28,
         "menu": "main-menu",
         "sticky": true,
-        "show_account": false
+        "show_account": false,
+        "logo": "shopify://shop_images/Logo_snuzzo_sur_fond_blanc_pur.png"
       }
     }
   },
-  "order": ["announcement", "header"]
+  "order": [
+    "announcement",
+    "header"
+  ]
 }

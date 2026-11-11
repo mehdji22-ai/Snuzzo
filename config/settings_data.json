@@ -7,7 +7,10 @@
     "rating_text": "★ 4.8 from 5,762 parents",
     "shipping_badge": "Ships free, worldwide",
     "shipping_note": "Free shipping worldwide · Returns within 30 days",
-    "cart_redirect": false
+    "cart_redirect": false,
+    "social_facebook": "https://www.facebook.com/share/1D8mGqoHwy/",
+    "social_instagram": "https://www.instagram.com/littlesnuzzo",
+    "social_youtube": "https://youtube.com/@snuzzoshop"
   },
   "presets": {}
 }

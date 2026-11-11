@@ -5,14 +5,48 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "shop": { "type": "menu", "settings": { "heading": "Shop", "menu": "main-menu" } },
-        "help": { "type": "menu", "settings": { "heading": "Help", "menu": "footer" } },
-        "follow": { "type": "social", "settings": { "heading": "Follow", "facebook_count": "450K+", "instagram_count": "21K+", "youtube_count": "10K+" } },
-        "brand": { "type": "text", "settings": { "heading": "Snuzzo", "text": "<p>Plush animal onesies for babies and toddlers. Padded hood, chin-guard zip, soft at wash 100.</p>" } }
+        "shop": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": "main-menu"
+          }
+        },
+        "help": {
+          "type": "policies",
+          "settings": {
+            "heading": "Help"
+          }
+        },
+        "follow": {
+          "type": "social",
+          "settings": {
+            "heading": "Follow",
+            "facebook_count": "450K+",
+            "instagram_count": "21K+",
+            "youtube_count": "10K+"
+          }
+        },
+        "news": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Join our email list",
+            "text": "Get exclusive deals and early access to new products."
+          }
+        }
       },
-      "block_order": ["shop", "help", "follow", "brand"],
-      "settings": { "show_payment": true }
+      "block_order": [
+        "shop",
+        "help",
+        "follow",
+        "news"
+      ],
+      "settings": {
+        "show_payment": true
+      }
     }
   },
-  "order": ["footer"]
+  "order": [
+    "footer"
+  ]
 }

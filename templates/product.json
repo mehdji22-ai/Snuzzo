@@ -3,23 +3,86 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "fabric": { "type": "accordion", "settings": { "title": "Fabric and care", "metafield_key": "fabric_care", "content": "" } },
-        "shipping": { "type": "accordion", "settings": { "title": "Shipping and 30-day returns", "content": "<p>Free shipping worldwide. Not the right animal? Send it back within 30 days for a full refund.</p>" } }
+        "fabric": {
+          "type": "accordion",
+          "settings": {
+            "title": "Fabric and care",
+            "metafield_key": "fabric_care",
+            "content": ""
+          }
+        },
+        "shipping": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping and 30-day returns",
+            "content": "<p>Free shipping worldwide. Easy return within 30 days of purchase: if it isn't right for your little one, we'll refund you.</p>"
+          }
+        },
+        "bundle": {
+          "type": "bundle",
+          "settings": {
+            "title": "Complete the bedtime set",
+            "products": [
+              "the-snuzzo-splashshield",
+              "the-little-panda",
+              "the-snuzzo-calmbuds"
+            ]
+          }
+        }
       },
-      "block_order": ["fabric", "shipping"],
+      "block_order": [
+        "fabric",
+        "shipping",
+        "bundle"
+      ],
       "settings": {
         "max_images": 5,
         "show_rating": true,
         "siblings_label": "Animals",
         "show_description": true,
         "description_title": "Why it's easier at 3 a.m.",
-        "open_description": false
+        "open_description": false,
+        "siblings_collection": "animal-onesies"
       }
     },
     "related": {
       "type": "related-tabs",
-      "settings": { "label": "Complete the bedtime" }
+      "blocks": {
+        "r1": {
+          "type": "tab",
+          "settings": {
+            "label": "Complete the bedtime",
+            "collection": "baby-comfort-essentials"
+          }
+        },
+        "r2": {
+          "type": "tab",
+          "settings": {
+            "label": "Other animals",
+            "collection": "animal-onesies"
+          }
+        },
+        "r3": {
+          "type": "tab",
+          "settings": {
+            "label": "For two",
+            "collection": "feeding-nursing"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3"
+      ],
+      "settings": {
+        "label": "Complete the bedtime",
+        "shop_all": "shopify://collections/best-sellers"
+      }
     }
   },
-  "order": ["main", "related"]
+  "order": [
+    "main",
+    "related"
+  ]
 }

@@ -1,7 +1,12 @@
 <section class="hero" style="--hero-h: {{ section.settings.height }}px">
-  <div class="hero__media">
+  <div class="hero__media{% if section.settings.image_mobile != blank %} hero__media--desktop{% endif %}">
     {% render 'media', image: section.settings.image, demo: 'demo-trio.webp', alt: section.settings.alt, eager: true, style: section.settings.focal %}
   </div>
+  {%- if section.settings.image_mobile != blank -%}
+    <div class="hero__media hero__media--mobile">
+      {% render 'media', image: section.settings.image_mobile, alt: section.settings.alt, eager: true %}
+    </div>
+  {%- endif -%}
   <div class="hero__shade"></div>
   <div class="hero__content">
     {%- if section.settings.heading != blank -%}
@@ -26,6 +31,7 @@
   "tag": "div",
   "settings": [
     { "type": "image_picker", "id": "image", "label": "Photo", "info": "Full-bleed. A photo with several animals signals a range." },
+    { "type": "image_picker", "id": "image_mobile", "label": "Phone photo (optional)", "info": "A portrait photo for phones." },
     { "type": "text", "id": "alt", "label": "Photo description (alt text)", "default": "Three babies on a sofa in pig, panda and penguin onesies" },
     { "type": "text", "id": "focal", "label": "Photo position (advanced)", "default": "object-position: 50% 35%" },
     { "type": "textarea", "id": "heading", "label": "Heading", "default": "Pick your\nanimal." },
