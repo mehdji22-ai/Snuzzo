@@ -20,3 +20,8 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   standard `reviews.rating` / `reviews.rating_count` metafields. Never add invented reviews, ratings or
   testimonials — only real customer content.
 - Theme text is translated in `locales/` (en, fr, es, de, it, ja). Add new keys to every file.
+- **Store data (products, articles, menus):** use `tools/shopify-gql.sh <query.graphql> [vars.json]`. It calls the
+  Snuzzo store's Admin GraphQL API (`ugdyvb-hx.myshopify.com`) via the "Claude Snuzzo" Dev Dashboard app: the
+  session proxy injects the app's Client ID/secret, the script exchanges them for a 24h token (cached in
+  `~/.cache`, never committed). Needs the "snuzzo" cloud environment. Always confirm with the owner before
+  changing live store data (prices, products, publishing).
