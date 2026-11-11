@@ -121,7 +121,7 @@
     "settings": [
       {
         "type": "paragraph",
-        "content": "Asks every new visitor to choose their country (and so their currency) before shopping. Remembered on their device."
+        "content": "Asks every visitor to choose their country (and so their currency) at the start of each visit, even returning customers. It is not shown again while they browse during that visit."
       },
       {
         "type": "checkbox",

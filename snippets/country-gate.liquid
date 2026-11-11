@@ -1,6 +1,6 @@
 {%- comment -%}
   First-visit pop-up: the shopper must choose their country (and so their currency) before shopping.
-  Remembered on their device; shown again only if they clear their browser data.
+  Shown at the start of every visit (also to returning customers); not repeated while they browse.
 {%- endcomment -%}
 {%- if settings.country_gate and localization.available_countries.size > 1 -%}
   <div class="dialog dialog--center country-gate" id="CountryGate" role="dialog" aria-modal="true" aria-labelledby="CountryGateTitle" data-country-gate data-locked hidden{% if settings.country_gate_editor %} data-show-in-editor{% endif %}>

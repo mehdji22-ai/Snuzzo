@@ -248,15 +248,15 @@
     var gate = document.querySelector('[data-country-gate]');
     if (!gate || gate.dataset.ready) return;
     gate.dataset.ready = '1';
+    /* Asked again at the start of every visit: the choice only lasts for this visit (this browser tab). */
     var chosen = null, storageOk = true;
-    try { chosen = localStorage.getItem(GATE_KEY); } catch (e) { storageOk = false; }
-    if (!storageOk) { try { chosen = sessionStorage.getItem(GATE_KEY); storageOk = true; } catch (e) {} }
+    try { chosen = sessionStorage.getItem(GATE_KEY); } catch (e) { storageOk = false; }
     if (window.Shopify && Shopify.designMode && !gate.hasAttribute('data-show-in-editor')) return;
     if (chosen || !storageOk) return;
     var form = gate.querySelector('form');
     form.addEventListener('submit', function () {
       var c = (form.querySelector('[name="country_code"]') || {}).value || 'set';
-      try { localStorage.setItem(GATE_KEY, c); } catch (e) { try { sessionStorage.setItem(GATE_KEY, c); } catch (e2) {} }
+      try { sessionStorage.setItem(GATE_KEY, c); } catch (e) {}
     });
     var sel = form.querySelector('[name="country_code"]');
     var hint = gate.querySelector('[data-gate-currency]');
