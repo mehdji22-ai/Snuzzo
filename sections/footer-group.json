@@ -42,8 +42,7 @@
         "news"
       ],
       "settings": {
-        "show_payment": true,
-        "logo": "shopify://shop_images/Logo_snuzzo_sur_fond_blanc_pur.png"
+        "show_payment": true
       }
     }
   },

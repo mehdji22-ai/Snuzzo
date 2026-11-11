@@ -40,6 +40,7 @@
         <button type="submit" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search', size: 20 %}</button>
         <div class="pred" id="HeaderSearchResults" data-predictive-results hidden></div>
       </form>
+      <a class="icon-btn search-icon" href="{{ routes.search_url }}" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</a>
       <div class="currency-desktop">{% render 'currency-selector', id: 'desktop' %}</div>
       {%- if shop.customer_accounts_enabled and section.settings.show_account -%}
         <a class="icon-btn" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{% if customer %}{{ 'customer.account' | t }}{% else %}{{ 'customer.sign_in' | t }}{% endif %}">{% render 'icon', name: 'account' %}</a>

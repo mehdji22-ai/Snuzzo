@@ -13,11 +13,10 @@
       "type": "header",
       "settings": {
         "use_demo_logo": true,
-        "logo_height": 28,
+        "logo_height": 26,
         "menu": "main-menu",
         "sticky": true,
-        "show_account": true,
-        "logo": "shopify://shop_images/Logo_snuzzo_sur_fond_blanc_pur.png"
+        "show_account": true
       },
       "blocks": {
         "l0": {

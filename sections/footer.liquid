@@ -50,7 +50,9 @@
     </div>
     <div class="site-footer__bottom">
       <span style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-        {%- if section.settings.logo != blank -%}<a class="footer-logo" href="{{ routes.root_url }}">{{ section.settings.logo | image_url: height: 64 | image_tag: alt: shop.name, height: 32 }}</a>{%- endif -%}
+        <a class="footer-logo" href="{{ routes.root_url }}">
+          {%- if section.settings.logo != blank -%}{{ section.settings.logo | image_url: height: 64 | image_tag: alt: shop.name, height: 32 }}{%- else -%}<img src="{{ 'demo-logo.png' | asset_url }}" alt="{{ shop.name }}" width="480" height="86">{%- endif -%}
+        </a>
         <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
         {% render 'currency-selector', id: 'footer' %}
       </span>

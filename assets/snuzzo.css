@@ -489,7 +489,41 @@ html.has-dialog { overflow: hidden; }
 .pred__all { display: block; padding: 10px 8px 4px; }
 .pred__empty { margin: 0; padding: 8px; }
 .mobile-nav .pred { position: static; width: 100%; margin-top: 8px; }
-.currency-desktop { display: flex; gap: 6px; }
+@media (min-width: 990px) { .currency-desktop { display: flex; gap: 6px; } }
 .site-footer .currency-form select { background: transparent; color: var(--on-ink); border-color: rgba(217,209,203,.4); }
 .site-footer .currency-form select option { color: var(--ink); }
 .footer-logo img { height: 32px; width: auto; filter: brightness(0) invert(1); }
+
+/* Header fit: keep the 6 menu links on one line, compact selectors */
+.site-header__nav { flex-wrap: nowrap; min-width: 0; overflow: hidden; }
+.site-header__logo { flex: none; }
+.site-header__nav a { white-space: nowrap; }
+.site-header__logo img { max-width: 140px; object-fit: contain; }
+.site-header .currency-form select { max-width: 120px; text-overflow: ellipsis; height: 36px; font-size: 12px; }
+.search-icon { display: none; }
+@media (min-width: 990px) and (max-width: 1799px) {
+  .site-header__inner { gap: 20px; }
+  .site-header .site-search { display: none; }
+  .search-icon { display: grid; }
+  .site-header__nav { gap: 18px; justify-content: flex-start; }
+  .site-header__nav a { font-size: 13px; letter-spacing: .02em; }
+}
+@media (min-width: 990px) and (max-width: 1599px) {
+  .currency-desktop { display: none; }
+  .site-header__nav { gap: 14px; }
+  .site-header__nav a { font-size: 12px; }
+}
+
+/* Narrow laptops: use the menu button instead of squeezing six links */
+@media (max-width: 1279px) {
+  .site-header__nav { display: none; }
+  .menu-toggle { display: grid; }
+  .site-header__logo { flex: 1; }
+  .mobile-nav.is-open { display: block; border-top: 1px solid var(--line); padding: 8px var(--gutter) 20px; }
+  .mobile-nav a { display: block; padding: 12px 0; font-weight: 900; font-size: 18px; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--line); }
+  .mobile-nav .site-search { display: flex; width: 100%; margin-top: 16px; height: 48px; }
+  .mobile-nav .currency-form { margin-top: 12px; display: inline-block; margin-right: 8px; }
+}
+@media (min-width: 990px) and (max-width: 1279px) {
+  .mobile-nav .pred { position: absolute; }
+}
