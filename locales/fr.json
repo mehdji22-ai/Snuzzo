@@ -148,5 +148,12 @@
     "photos": "Ajouter des photos (3 max.)",
     "consent": "Votre avis, votre prénom et l'initiale de votre nom seront publiés. Votre e-mail reste privé.",
     "submit": "Envoyer l'avis"
+  },
+  "country_gate": {
+    "title": "D'où commandez-vous ?",
+    "text": "Choisissez votre pays pour voir les prix dans votre devise et la bonne livraison.",
+    "country": "Pays",
+    "prices_in": "Prix en",
+    "continue": "Continuer"
   }
 }

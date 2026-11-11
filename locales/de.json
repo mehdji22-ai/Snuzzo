@@ -148,5 +148,12 @@
     "photos": "Fotos hinzufügen (bis zu 3)",
     "consent": "Deine Bewertung, dein Vorname und der erste Buchstabe deines Nachnamens werden veröffentlicht. Deine E-Mail bleibt privat.",
     "submit": "Bewertung senden"
+  },
+  "country_gate": {
+    "title": "Von wo bestellst du?",
+    "text": "Wähle dein Land, damit wir Preise in deiner Währung und die passende Lieferung anzeigen.",
+    "country": "Land",
+    "prices_in": "Preise in",
+    "continue": "Weiter"
   }
 }

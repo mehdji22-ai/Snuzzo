@@ -148,5 +148,12 @@
     "photos": "Añadir fotos (hasta 3)",
     "consent": "Tu reseña, tu nombre y la inicial de tu apellido se publicarán. Tu correo es privado.",
     "submit": "Enviar reseña"
+  },
+  "country_gate": {
+    "title": "¿Desde dónde compras?",
+    "text": "Elige tu país para ver los precios en tu moneda y las opciones de envío correctas.",
+    "country": "País",
+    "prices_in": "Precios en",
+    "continue": "Continuar"
   }
 }

@@ -18,8 +18,9 @@
     var focusEl = el.querySelector('[data-dialog-focus]') || el.querySelector('button, a, input, select');
     if (focusEl) setTimeout(function () { focusEl.focus(); }, 30);
   }
-  function closeDialog(el) {
+  function closeDialog(el, force) {
     if (!el || el.hidden) return;
+    if (el.hasAttribute('data-locked') && !force) return;
     el.classList.remove('is-open');
     el.hidden = true;
     if (!document.querySelector('.dialog.is-open')) document.documentElement.classList.remove('has-dialog');
@@ -241,7 +242,30 @@
     });
   }
 
-  function init() { initDelivery(); initPredictive(); }
+  /* ---------- Country / currency gate (first visit) ---------- */
+  var GATE_KEY = 'snuzzo-country-chosen';
+  function initGate() {
+    var gate = document.querySelector('[data-country-gate]');
+    if (!gate || gate.dataset.ready) return;
+    gate.dataset.ready = '1';
+    var chosen = null, storageOk = true;
+    try { chosen = localStorage.getItem(GATE_KEY); } catch (e) { storageOk = false; }
+    if (!storageOk) { try { chosen = sessionStorage.getItem(GATE_KEY); storageOk = true; } catch (e) {} }
+    if (window.Shopify && Shopify.designMode && !gate.hasAttribute('data-show-in-editor')) return;
+    if (chosen || !storageOk) return;
+    var form = gate.querySelector('form');
+    form.addEventListener('submit', function () {
+      var c = (form.querySelector('[name="country_code"]') || {}).value || 'set';
+      try { localStorage.setItem(GATE_KEY, c); } catch (e) { try { sessionStorage.setItem(GATE_KEY, c); } catch (e2) {} }
+    });
+    var sel = form.querySelector('[name="country_code"]');
+    var hint = gate.querySelector('[data-gate-currency]');
+    var upd = function () { if (sel && hint) { var o = sel.options[sel.selectedIndex]; hint.textContent = o ? o.getAttribute('data-currency') : ''; } };
+    if (sel) sel.addEventListener('change', upd); upd();
+    openDialog(gate);
+  }
+
+  function init() { initDelivery(); initPredictive(); initGate(); }
   document.addEventListener('DOMContentLoaded', init);
   document.addEventListener('shopify:section:load', init);
 })();

@@ -20,7 +20,8 @@
         }
       }
     },
-    "color_brand": "#3C2820"
+    "color_brand": "#3C2820",
+    "country_gate": true
   },
   "presets": {}
 }

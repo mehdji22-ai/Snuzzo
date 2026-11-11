@@ -3,13 +3,20 @@
   'use strict';
   var root = (window.Shopify && window.Shopify.routes && window.Shopify.routes.root) || '/';
   var money = function (cents) {
-    var fmt = (window.SnuzzoTheme && window.SnuzzoTheme.moneyFormat) || '${{amount}}';
+    var T = window.SnuzzoTheme || {};
+    var cur = T.currency || (window.Shopify && Shopify.currency && Shopify.currency.active);
+    if (cur && window.Intl && Intl.NumberFormat) {
+      try {
+        var nf = new Intl.NumberFormat(T.locale || document.documentElement.lang || 'en', { style: 'currency', currency: cur });
+        var out = nf.format(cents / 100);
+        return /[.,]00(?!\d)/.test(out) && T.dropZeros ? out.replace(/[.,]00(?!\d)/, '') : out;
+      } catch (e) {}
+    }
+    var fmt = T.moneyFormat || '${{amount}}';
     var value = (cents / 100).toFixed(2);
-    var noDec = value.replace(/\.00$/, '');
-    return fmt
-      .replace(/\{\{\s*amount_no_decimals\s*\}\}/, Math.round(cents / 100))
+    return fmt.replace(/\{\{\s*amount_no_decimals\s*\}\}/, Math.round(cents / 100))
       .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/, value.replace('.', ','))
-      .replace(/\{\{\s*amount\s*\}\}/, noDec);
+      .replace(/\{\{\s*amount\s*\}\}/, value);
   };
   window.SnuzzoMoney = money;
 

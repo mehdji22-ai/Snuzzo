@@ -33,6 +33,8 @@
     <script>
       window.SnuzzoTheme = {
         moneyFormat: {{ shop.money_format | json }},
+        currency: {{ cart.currency.iso_code | json }},
+        locale: {{ request.locale.iso_code | append: '-' | append: localization.country.iso_code | json }},
         goToCart: {{ settings.cart_redirect | json }},
         addedText: {{ 'products.added' | t | json }},
         addedMsg: {{ 'products.added_message' | t | json }},
@@ -67,5 +69,6 @@
       {% section 'cart-drawer' %}
     {%- endif -%}
     {% render 'quick-add-dialog' %}
+    {% render 'country-gate' %}
   </body>
 </html>

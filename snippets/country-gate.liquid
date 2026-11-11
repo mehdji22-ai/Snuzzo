@@ -1,0 +1,37 @@
+{%- comment -%}
+  First-visit pop-up: the shopper must choose their country (and so their currency) before shopping.
+  Remembered on their device; shown again only if they clear their browser data.
+{%- endcomment -%}
+{%- if settings.country_gate and localization.available_countries.size > 1 -%}
+  <div class="dialog dialog--center country-gate" id="CountryGate" role="dialog" aria-modal="true" aria-labelledby="CountryGateTitle" data-country-gate data-locked hidden{% if settings.country_gate_editor %} data-show-in-editor{% endif %}>
+    <div class="dialog__box">
+      <img class="country-gate__logo" src="{{ 'demo-logo.png' | asset_url }}" alt="{{ shop.name }}" width="480" height="86">
+      {%- assign gate_title = settings.country_gate_title -%}{%- if gate_title == blank -%}{%- assign gate_title = 'country_gate.title' | t -%}{%- endif -%}
+      {%- assign gate_text = settings.country_gate_text -%}{%- if gate_text == blank -%}{%- assign gate_text = 'country_gate.text' | t -%}{%- endif -%}
+      <h2 class="h3" id="CountryGateTitle">{{ gate_title }}</h2>
+      <p class="mute">{{ gate_text }}</p>
+      {%- form 'localization', id: 'CountryGateForm', class: 'country-gate__form' -%}
+        <label class="field">
+          <span>{{ 'country_gate.country' | t }}</span>
+          <select name="country_code" data-dialog-focus>
+            {%- for country in localization.available_countries -%}
+              <option value="{{ country.iso_code }}" data-currency="{{ country.currency.iso_code }} {{ country.currency.symbol }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>{{ country.name }}</option>
+            {%- endfor -%}
+          </select>
+        </label>
+        <p class="country-gate__currency">{{ 'country_gate.prices_in' | t }} <b data-gate-currency>{{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }}</b></p>
+        {%- if localization.available_languages.size > 1 -%}
+          <label class="field">
+            <span>{{ 'general.language' | t }}</span>
+            <select name="language_code">
+              {%- for language in localization.available_languages -%}
+                <option value="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} selected{% endif %}>{{ language.endonym_name | capitalize }}</option>
+              {%- endfor -%}
+            </select>
+          </label>
+        {%- endif -%}
+        <button type="submit" class="btn btn--ink btn--block">{{ 'country_gate.continue' | t }}</button>
+      {%- endform -%}
+    </div>
+  </div>
+{%- endif -%}

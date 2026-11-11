@@ -115,5 +115,36 @@
         "label": "TikTok"
       }
     ]
+  },
+  {
+    "name": "Country pop-up",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Asks every new visitor to choose their country (and so their currency) before shopping. Remembered on their device."
+      },
+      {
+        "type": "checkbox",
+        "id": "country_gate",
+        "label": "Show the country pop-up",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "country_gate_title",
+        "label": "Title (optional)"
+      },
+      {
+        "type": "text",
+        "id": "country_gate_text",
+        "label": "Text (optional)"
+      },
+      {
+        "type": "checkbox",
+        "id": "country_gate_editor",
+        "label": "Also show it inside the theme editor",
+        "default": false
+      }
+    ]
   }
 ]

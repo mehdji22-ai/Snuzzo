@@ -148,5 +148,12 @@
     "photos": "Aggiungi foto (fino a 3)",
     "consent": "La tua recensione, il nome e l'iniziale del cognome saranno pubblicati. La tua e-mail resta privata.",
     "submit": "Invia recensione"
+  },
+  "country_gate": {
+    "title": "Da dove acquisti?",
+    "text": "Scegli il tuo paese per vedere i prezzi nella tua valuta e le giuste opzioni di consegna.",
+    "country": "Paese",
+    "prices_in": "Prezzi in",
+    "continue": "Continua"
   }
 }

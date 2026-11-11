@@ -148,5 +148,12 @@
     "photos": "Add photos (up to 3)",
     "consent": "Your review, first name and last initial will be posted publicly. Your email stays private.",
     "submit": "Submit review"
+  },
+  "country_gate": {
+    "title": "Where are you shopping from?",
+    "text": "Choose your country so we show prices in your currency and the right delivery options.",
+    "country": "Country",
+    "prices_in": "Prices in",
+    "continue": "Continue"
   }
 }
