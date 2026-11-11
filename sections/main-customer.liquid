@@ -1,0 +1,72 @@
+{%- comment -%} One section for all classic customer-account pages. {%- endcomment -%}
+<section class="section page-width">
+  <div class="narrow" style="max-width:520px">
+  {%- case template.name -%}
+    {%- when 'login' -%}
+      <h1 class="h2" style="margin-bottom:24px">{{ 'customer.login' | t }}</h1>
+      {%- form 'customer_login' -%}
+        {%- if form.errors -%}<div class="form-msg form-msg--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+        <div class="field"><label for="LoginEmail">{{ 'customer.email' | t }}</label><input id="LoginEmail" type="email" name="customer[email]" autocomplete="email" required></div>
+        <div class="field"><label for="LoginPassword">{{ 'customer.password' | t }}</label><input id="LoginPassword" type="password" name="customer[password]" autocomplete="current-password" required></div>
+        <button class="btn btn--ink" type="submit">{{ 'customer.login' | t }}</button>
+      {%- endform -%}
+      <p style="margin-top:20px"><a href="{{ routes.account_register_url }}">{{ 'customer.register' | t }}</a></p>
+      <details style="margin-top:12px"><summary>{{ 'customer.forgot' | t }}</summary>
+        {%- form 'recover_customer_password' -%}
+          {%- if form.posted_successfully? -%}<p class="form-msg">✓</p>{%- endif -%}
+          <div class="field"><label for="RecoverEmail">{{ 'customer.email' | t }}</label><input id="RecoverEmail" type="email" name="email" required></div>
+          <button class="btn btn--ink" type="submit">{{ 'customer.submit' | t }}</button>
+        {%- endform -%}
+      </details>
+    {%- when 'register' -%}
+      <h1 class="h2" style="margin-bottom:24px">{{ 'customer.register' | t }}</h1>
+      {%- form 'create_customer' -%}
+        {%- if form.errors -%}<div class="form-msg form-msg--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+        <div class="field"><label for="RegFirst">{{ 'customer.first_name' | t }}</label><input id="RegFirst" name="customer[first_name]" autocomplete="given-name"></div>
+        <div class="field"><label for="RegLast">{{ 'customer.last_name' | t }}</label><input id="RegLast" name="customer[last_name]" autocomplete="family-name"></div>
+        <div class="field"><label for="RegEmail">{{ 'customer.email' | t }}</label><input id="RegEmail" type="email" name="customer[email]" autocomplete="email" required></div>
+        <div class="field"><label for="RegPassword">{{ 'customer.password' | t }}</label><input id="RegPassword" type="password" name="customer[password]" autocomplete="new-password" required></div>
+        <button class="btn btn--ink" type="submit">{{ 'customer.register' | t }}</button>
+      {%- endform -%}
+    {%- when 'reset_password' -%}
+      <h1 class="h2" style="margin-bottom:24px">{{ 'customer.reset' | t }}</h1>
+      {%- form 'reset_customer_password' -%}
+        {%- if form.errors -%}<div class="form-msg form-msg--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+        <div class="field"><label for="NewPassword">{{ 'customer.password' | t }}</label><input id="NewPassword" type="password" name="customer[password]" autocomplete="new-password" required></div>
+        <div class="field"><label for="NewPassword2">{{ 'customer.password' | t }} ✓</label><input id="NewPassword2" type="password" name="customer[password_confirmation]" autocomplete="new-password" required></div>
+        <button class="btn btn--ink" type="submit">{{ 'customer.submit' | t }}</button>
+      {%- endform -%}
+    {%- when 'activate_account' -%}
+      <h1 class="h2" style="margin-bottom:24px">{{ 'customer.activate' | t }}</h1>
+      {%- form 'activate_customer_password' -%}
+        {%- if form.errors -%}<div class="form-msg form-msg--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+        <div class="field"><label for="NewPassword">{{ 'customer.password' | t }}</label><input id="NewPassword" type="password" name="customer[password]" autocomplete="new-password" required></div>
+        <div class="field"><label for="NewPassword2">{{ 'customer.password' | t }} ✓</label><input id="NewPassword2" type="password" name="customer[password_confirmation]" autocomplete="new-password" required></div>
+        <button class="btn btn--ink" type="submit">{{ 'customer.submit' | t }}</button>
+      {%- endform -%}
+    {%- when 'account' -%}
+      <h1 class="h2" style="margin-bottom:12px">{{ 'customer.account' | t }}</h1>
+      <p>{{ customer.name }} · {{ customer.email }} · <a href="{{ routes.account_logout_url }}">{{ 'customer.logout' | t }}</a></p>
+      <h2 class="label" style="margin:28px 0 12px">{{ 'customer.orders' | t }}</h2>
+      {%- if customer.orders.size == 0 -%}<p>{{ 'customer.no_orders' | t }}</p>{%- endif -%}
+      {%- for order in customer.orders -%}
+        <p><a href="{{ order.customer_url }}">{{ order.name }}</a> · {{ order.created_at | date: '%b %d, %Y' }} · {{ order.financial_status_label }} · {{ order.total_price | money }}</p>
+      {%- endfor -%}
+      <p style="margin-top:20px"><a href="{{ routes.account_addresses_url }}">{{ 'customer.addresses' | t }} ({{ customer.addresses_count }})</a></p>
+    {%- when 'order' -%}
+      <p><a href="{{ routes.account_url }}">← {{ 'customer.account' | t }}</a></p>
+      <h1 class="h2" style="margin:12px 0 20px">{{ 'customer.order' | t: name: order.name }}</h1>
+      {%- for item in order.line_items -%}<p>{{ item.quantity }} × {{ item.title }} — {{ item.final_line_price | money }}</p>{%- endfor -%}
+      <p style="font-weight:900">{{ 'cart.total' | t }}: {{ order.total_price | money_with_currency }}</p>
+    {%- when 'addresses' -%}
+      <p><a href="{{ routes.account_url }}">← {{ 'customer.account' | t }}</a></p>
+      <h1 class="h2" style="margin:12px 0 20px">{{ 'customer.addresses' | t }}</h1>
+      {%- for address in customer.addresses -%}
+        <div style="border:1px solid var(--line-strong);padding:16px;margin-bottom:12px">{{ address | format_address }}</div>
+      {%- endfor -%}
+  {%- endcase -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Customer account" }
+{% endschema %}

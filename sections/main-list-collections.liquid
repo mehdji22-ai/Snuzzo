@@ -1,0 +1,19 @@
+<section class="section page-width">
+  <h1 class="h2" style="margin-bottom:28px">{{ page_title }}</h1>
+  <div class="row-4" style="row-gap:28px">
+    {%- for collection in collections -%}
+      {%- unless collection.handle == 'frontpage' -%}
+      <div class="drop">
+        <a class="drop__media" href="{{ collection.url }}" style="height:auto;aspect-ratio:4/5">
+          {%- assign cimg = collection.featured_image | default: collection.products.first.featured_image -%}
+          {%- if cimg -%}{{ cimg | image_url: width: 800 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}{%- endif -%}
+          <span class="drop__overlay">{{ collection.title }}</span>
+        </a>
+      </div>
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Collections list" }
+{% endschema %}

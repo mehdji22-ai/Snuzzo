@@ -1,0 +1,73 @@
+{%- liquid
+  assign has_tabs = false
+  for block in section.blocks
+    if block.settings.collection != blank and block.settings.collection.products_count > 0
+      assign has_tabs = true
+    endif
+  endfor
+  assign fallback = product.collections.first
+-%}
+{%- if has_tabs or fallback -%}
+<section class="section page-width">
+  <div data-tabs>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px">
+      <div class="pill-tabs" role="tablist" aria-label="{{ section.settings.label | escape }}">
+        {%- if has_tabs -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.collection != blank -%}
+              <button type="button" class="pill" role="tab" id="RTab-{{ block.id }}" aria-controls="RPanel-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.label | default: block.settings.collection.title }}</button>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          <button type="button" class="pill" role="tab" id="RTab-fallback" aria-controls="RPanel-fallback" aria-selected="true">{{ section.settings.label }}</button>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.shop_all != blank -%}<a class="link-strong" href="{{ section.settings.shop_all }}">{{ 'general.shop_all' | t }}</a>{%- endif -%}
+    </div>
+    {%- if has_tabs -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.collection != blank -%}
+          <div role="tabpanel" id="RPanel-{{ block.id }}" aria-labelledby="RTab-{{ block.id }}" {% unless forloop.first %}hidden{% endunless %}>
+            <div class="rail">
+              {%- for p in block.settings.collection.products limit: 8 -%}
+                {%- unless p.id == product.id -%}{% render 'product-card', product: p, sizes: '(min-width: 990px) 25vw, 75vw' %}{%- endunless -%}
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      <div role="tabpanel" id="RPanel-fallback" aria-labelledby="RTab-fallback">
+        <div class="rail">
+          {%- for p in fallback.products limit: 9 -%}
+            {%- unless p.id == product.id -%}{% render 'product-card', product: p, sizes: '(min-width: 990px) 25vw, 75vw' %}{%- endunless -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Complete the bedtime",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "label", "label": "First tab label (used when no tabs are set)", "default": "Complete the bedtime" },
+    { "type": "url", "id": "shop_all", "label": "'Shop all' link" }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Complete the bedtime" },
+        { "type": "collection", "id": "collection", "label": "Collection" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [{ "name": "Complete the bedtime" }]
+}
+{% endschema %}

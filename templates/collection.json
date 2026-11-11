@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "blocks": {
+        "promo": { "type": "promo", "settings": { "title": "Same toddler.\nSame sofa.\nPanda.", "link_label": "See the before & after", "position": 5 } }
+      },
+      "block_order": ["promo"],
+      "settings": { "per_page": 16 }
+    }
+  },
+  "order": ["main"]
+}

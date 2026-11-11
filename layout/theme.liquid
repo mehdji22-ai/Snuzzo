@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1E1611">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ 'general.tagged_with' | t: tags: current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+    {% render 'meta-tags' %}
+
+    {{ 'anton-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    {{ 'nunito-sans-latin.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+    <style>
+      @font-face { font-family: 'Anton'; font-style: normal; font-weight: 400; font-display: swap; src: url({{ 'anton-latin.woff2' | asset_url }}) format('woff2'); }
+      @font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 200 1000; font-display: swap; src: url({{ 'nunito-sans-latin.woff2' | asset_url }}) format('woff2'); }
+    </style>
+
+    {{ 'snuzzo.css' | asset_url | stylesheet_tag }}
+    <style>
+      :root {
+        --ink: {{ settings.color_ink }};
+        --yellow: {{ settings.color_accent }};
+        --light: {{ settings.color_light }};
+        --mute: {{ settings.color_mute }};
+      }
+    </style>
+
+    <script>
+      window.SnuzzoTheme = {
+        moneyFormat: {{ shop.money_format | json }},
+        goToCart: {{ settings.cart_redirect | json }},
+        addedText: {{ 'products.added' | t | json }},
+        addedMsg: {{ 'products.added_message' | t | json }},
+        viewBag: {{ 'products.view_bag' | t | json }},
+        soldOut: {{ 'products.sold_out' | t | json }},
+        unavailable: {{ 'products.unavailable' | t | json }}
+      };
+    </script>
+    <script src="{{ 'snuzzo.js' | asset_url }}" defer></script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name }}">
+    <a class="skip-link" href="#MainContent">{{ 'general.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+  </body>
+</html>

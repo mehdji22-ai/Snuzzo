@@ -1,0 +1,103 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "page": "Page {{ page }}",
+    "tagged_with": "Tagged \"{{ tags }}\"",
+    "back": "Back",
+    "home": "Home",
+    "search": "Search",
+    "menu": "Menu",
+    "bag": "Bag",
+    "save": "Save {{ title }}",
+    "currency": "Currency",
+    "shop_now": "Shop now",
+    "shop_all": "Shop all",
+    "password_title": "Opening soon",
+    "password_enter": "Enter",
+    "password_label": "Store password",
+    "not_found_title": "Lost the animal?",
+    "not_found_text": "This page doesn't exist. Head back and pick another one.",
+    "continue": "Keep shopping"
+  },
+  "products": {
+    "add_to_bag": "Add to bag",
+    "add_the": "Add the [animal]",
+    "added": "Added ✓",
+    "added_message": "Added to your bag.",
+    "view_bag": "View bag",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "animals": "Animals",
+    "size_guide": "Size guide",
+    "choose": "Choose {{ option }}",
+    "quantity": "Quantity",
+    "animal_count": "Animal [n] of [total]",
+    "bundle_total": "Together: {{ total }}"
+  },
+  "collections": {
+    "filter_sort": "Filter & sort",
+    "sort_by": "Sort by",
+    "seen": "You've seen {{ shown }} of {{ total }}",
+    "show_more": "Show more",
+    "empty": "No products here yet.",
+    "apply": "Apply",
+    "clear": "Clear all"
+  },
+  "cart": {
+    "title": "Your bag",
+    "empty": "Your bag is empty.",
+    "product": "Product",
+    "quantity": "Quantity",
+    "total": "Total",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "taxes": "Taxes and shipping calculated at checkout.",
+    "checkout": "Check out",
+    "update": "Update bag",
+    "note": "Order note"
+  },
+  "search": {
+    "title": "Search",
+    "results": "{{ count }} results for \"{{ terms }}\"",
+    "none": "Nothing found for \"{{ terms }}\"."
+  },
+  "blog": {
+    "read_more": "Read more",
+    "comments": "Comments",
+    "back_to_blog": "Back to {{ title }}"
+  },
+  "customer": {
+    "login": "Log in",
+    "logout": "Log out",
+    "register": "Create account",
+    "account": "Account",
+    "email": "Email",
+    "password": "Password",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "forgot": "Forgot your password?",
+    "reset": "Reset password",
+    "orders": "Orders",
+    "no_orders": "You haven't placed any orders yet.",
+    "addresses": "Addresses",
+    "submit": "Submit",
+    "order": "Order {{ name }}",
+    "activate": "Activate account"
+  },
+  "contact": {
+    "name": "Name",
+    "message": "Message",
+    "send": "Send",
+    "success": "Thanks! We'll get back to you soon."
+  },
+  "newsletter": {
+    "label": "Email",
+    "subscribe": "Subscribe",
+    "success": "Thanks for subscribing."
+  },
+  "gift_card": {
+    "title": "Your gift card",
+    "code": "Code",
+    "print": "Print"
+  }
+}

@@ -1,0 +1,133 @@
+{%- liquid
+  assign per_page = section.settings.per_page
+  assign promo_block = section.blocks | where: 'type', 'promo' | first
+  assign chips = section.blocks | where: 'type', 'chip'
+-%}
+{%- paginate collection.products by per_page -%}
+<div class="page-width">
+  <div class="coll-head">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="javascript:history.back()">← {{ 'general.back' | t }}</a><span aria-hidden="true">·</span>
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a><span aria-hidden="true">/</span><span>{{ collection.title }}</span>
+    </nav>
+    <h1 class="h1">{{ collection.title }} <span class="count">[{{ collection.products_count }}]</span></h1>
+    {%- if collection.description != blank -%}<div class="rte" style="max-width:80ch">{{ collection.description }}</div>{%- endif -%}
+  </div>
+
+  <div class="coll-bar">
+    {%- if chips.size > 0 -%}
+      <div class="pill-tabs">
+        {%- for block in chips -%}
+          {%- assign c = block.settings.collection -%}
+          {%- assign url = c.url | default: block.settings.link | default: '#' -%}
+          <a class="pill" href="{{ url }}"{% if c and c.handle == collection.handle %} aria-current="page"{% endif %} {{ block.shopify_attributes }}>{{ block.settings.label | default: c.title }}</a>
+        {%- endfor -%}
+      </div>
+    {%- else -%}<span></span>{%- endif -%}
+
+    <details class="filters">
+      <summary class="filter-btn">{{ 'collections.filter_sort' | t }} {% render 'icon', name: 'filter', size: 18 %}</summary>
+      <form class="filters__panel" data-filter-form>
+        <div>
+          <label for="SortBy" style="font-weight:900;text-transform:uppercase;letter-spacing:.05em">{{ 'collections.sort_by' | t }}</label>
+          {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+          <select id="SortBy" name="sort_by">
+            {%- for option in collection.sort_options -%}
+              <option value="{{ option.value }}"{% if option.value == sort_by %} selected{% endif %}>{{ option.name }}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+        {%- for filter in collection.filters -%}
+          {%- if filter.type == 'list' or filter.type == 'boolean' -%}
+            <fieldset>
+              <legend>{{ filter.label }}</legend>
+              {%- for value in filter.values -%}
+                <label>
+                  <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                  {{ value.label }} <span class="mute">({{ value.count }})</span>
+                </label>
+              {%- endfor -%}
+            </fieldset>
+          {%- elsif filter.type == 'price_range' -%}
+            <fieldset>
+              <legend>{{ filter.label }}</legend>
+              <div style="display:flex;gap:8px">
+                <label class="field" style="flex:1">{{ cart.currency.symbol }} min<input type="number" name="{{ filter.min_value.param_name }}" value="{% if filter.min_value.value %}{{ filter.min_value.value | money_without_currency | replace: ',', '' }}{% endif %}" min="0"></label>
+                <label class="field" style="flex:1">{{ cart.currency.symbol }} max<input type="number" name="{{ filter.max_value.param_name }}" value="{% if filter.max_value.value %}{{ filter.max_value.value | money_without_currency | replace: ',', '' }}{% endif %}" min="0"></label>
+              </div>
+            </fieldset>
+          {%- endif -%}
+        {%- endfor -%}
+        <a href="{{ collection.url }}?sort_by={{ sort_by }}" class="link-strong">{{ 'collections.clear' | t }}</a>
+        <noscript><button class="btn btn--ink" type="submit">{{ 'collections.apply' | t }}</button></noscript>
+      </form>
+    </details>
+  </div>
+
+  {%- if collection.products.size == 0 -%}
+    <p style="padding:48px 0">{{ 'collections.empty' | t }}</p>
+  {%- else -%}
+    <div class="grid-4" data-product-grid>
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product %}
+        {%- if promo_block and paginate.current_page == 1 and forloop.index == promo_block.settings.position -%}
+          <a class="promo" href="{{ promo_block.settings.link | default: '#' }}" data-promo {{ promo_block.shopify_attributes }}>
+            <span class="promo__title">{{ promo_block.settings.title | newline_to_br }}</span>
+            <span style="display:flex;flex-direction:column;gap:14px">
+              <span class="promo__imgs">
+                {% render 'media', image: promo_block.settings.image_1, demo: 'demo-panda-before.webp', alt: '' %}
+                {% render 'media', image: promo_block.settings.image_2, demo: 'demo-panda.webp', alt: '' %}
+              </span>
+              <span class="link-strong" style="text-decoration:underline">{{ promo_block.settings.link_label }}</span>
+            </span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- assign shown = paginate.current_offset | plus: collection.products.size -%}
+    <div class="more" data-more>
+      <span style="font-weight:600">{{ 'collections.seen' | t: shown: shown, total: paginate.items }}</span>
+      {%- assign pct = shown | times: 100 | divided_by: paginate.items -%}
+      <div class="more__bar"><span style="width: {{ pct }}%"></span></div>
+      {%- if paginate.next -%}
+        <a class="btn btn--ink" href="{{ paginate.next.url }}" data-show-more>{{ 'collections.show_more' | t }}</a>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection page",
+  "tag": "section",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Products before 'Show more'", "min": 8, "max": 48, "step": 4, "default": 16 }
+  ],
+  "blocks": [
+    {
+      "type": "chip",
+      "name": "Filter chip",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "All animals" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "url", "id": "link", "label": "Or a link" }
+      ]
+    },
+    {
+      "type": "promo",
+      "name": "Yellow promo tile",
+      "limit": 1,
+      "settings": [
+        { "type": "textarea", "id": "title", "label": "Title", "default": "Same toddler.\nSame sofa.\nPanda." },
+        { "type": "image_picker", "id": "image_1", "label": "Image 1" },
+        { "type": "image_picker", "id": "image_2", "label": "Image 2" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "See the before & after" },
+        { "type": "range", "id": "position", "label": "Show after product number", "min": 1, "max": 12, "step": 1, "default": 5 }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "fabric": { "type": "accordion", "settings": { "title": "Fabric and care", "metafield_key": "fabric_care", "content": "" } },
+        "shipping": { "type": "accordion", "settings": { "title": "Shipping and 30-day returns", "content": "<p>Free shipping worldwide. Not the right animal? Send it back within 30 days for a full refund.</p>" } }
+      },
+      "block_order": ["fabric", "shipping"],
+      "settings": {
+        "max_images": 5,
+        "show_rating": true,
+        "siblings_label": "Animals",
+        "show_description": true,
+        "description_title": "Why it's easier at 3 a.m.",
+        "open_description": false
+      }
+    },
+    "related": {
+      "type": "related-tabs",
+      "settings": { "label": "Complete the bedtime" }
+    }
+  },
+  "order": ["main", "related"]
+}

@@ -1,0 +1,70 @@
+{%- liquid
+  assign menu = section.settings.menu
+-%}
+<header class="site-header{% if section.settings.sticky %} site-header--sticky{% endif %}">
+  <div class="site-header__inner page-width">
+    <button class="icon-btn menu-toggle" type="button" data-menu-toggle aria-controls="MobileNav" aria-expanded="false" aria-label="{{ 'general.menu' | t }}">
+      {% render 'icon', name: 'menu' %}
+    </button>
+
+    <a href="{{ routes.root_url }}" class="site-header__logo" {% if section.settings.logo %}style="--logo-height: {{ section.settings.logo_height }}px"{% endif %}>
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: height: 112 | image_tag: alt: shop.name, height: section.settings.logo_height }}
+      {%- elsif section.settings.use_demo_logo -%}
+        <img src="{{ 'demo-logo.png' | asset_url }}" alt="{{ shop.name }}" width="480" height="86" style="height: {{ section.settings.logo_height }}px">
+      {%- else -%}
+        {{ shop.name }}
+      {%- endif -%}
+    </a>
+
+    <nav class="site-header__nav" aria-label="Main">
+      {%- for link in menu.links -%}
+        <a href="{{ link.url }}"{% if link.current or link.child_current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="site-header__tools">
+      <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
+        <label class="visually-hidden" for="HeaderSearch">{{ 'general.search' | t }}</label>
+        <input id="HeaderSearch" type="search" name="q" placeholder="{{ 'general.search' | t }}" value="{{ search.terms | escape }}">
+        <input type="hidden" name="type" value="product">
+        <button type="submit" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search', size: 20 %}</button>
+      </form>
+      <div class="currency-desktop">{% render 'currency-selector', id: 'desktop' %}</div>
+      {%- if shop.customer_accounts_enabled and section.settings.show_account -%}
+        <a class="icon-btn" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{{ 'customer.account' | t }}">{% render 'icon', name: 'account' %}</a>
+      {%- endif -%}
+      <a class="icon-btn" href="{{ routes.cart_url }}" aria-label="{{ 'general.bag' | t }}">
+        {% render 'icon', name: 'bag' %}
+        <span class="bag-count" data-bag-count data-count="{{ cart.item_count }}">{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="MobileNav">
+    {%- for link in menu.links -%}
+      <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+    <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
+      <label class="visually-hidden" for="MobileSearch">{{ 'general.search' | t }}</label>
+      <input id="MobileSearch" type="search" name="q" placeholder="{{ 'general.search' | t }}">
+      <button type="submit" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search', size: 20 %}</button>
+    </form>
+    {% render 'currency-selector', id: 'mobile' %}
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "checkbox", "id": "use_demo_logo", "label": "Use the Snuzzo demo logo when no logo is picked", "default": true },
+    { "type": "range", "id": "logo_height", "label": "Logo height", "min": 20, "max": 56, "step": 2, "unit": "px", "default": 28 },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "Design uses: Onesies · Snowsuits · Hoodies · Bath & sleep · Gifts" },
+    { "type": "checkbox", "id": "sticky", "label": "Stick to the top when scrolling", "default": true },
+    { "type": "checkbox", "id": "show_account", "label": "Show account icon", "default": false }
+  ]
+}
+{% endschema %}

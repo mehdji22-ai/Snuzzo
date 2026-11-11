@@ -1,0 +1,27 @@
+{%- comment -%}
+  Product card: image on light (4:5), heart top-right, then price, name, category.
+  Params: product, sizes, category (optional override)
+{%- endcomment -%}
+{%- liquid
+  assign cat = category | default: product.metafields.custom.card_label.value | default: product.type
+  assign img = product.featured_image
+  assign card_sizes = sizes | default: '(min-width: 990px) 25vw, 50vw'
+  assign card_alt = img.alt | default: product.title | escape
+-%}
+<div class="card">
+  <a class="card__media" href="{{ product.url }}" tabindex="-1" aria-hidden="true">
+    {%- if img -%}
+      {{ img | image_url: width: 900 | image_tag: widths: '300, 450, 600, 900', sizes: card_sizes, loading: 'lazy', alt: card_alt }}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </a>
+  {%- unless product.available -%}<span class="badge">{{ 'products.sold_out' | t }}</span>{%- endunless -%}
+  <button type="button" class="card__heart" data-heart="{{ product.handle }}" aria-pressed="false" aria-label="{{ 'general.save' | t: title: product.title | escape }}">{% render 'icon', name: 'heart', size: 20 %}</button>
+  <span class="card__price">
+    {%- if product.price_varies -%}{{ product.price_min | money }}+{%- else -%}{{ product.price | money }}{%- endif -%}
+    {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+  </span>
+  <a class="card__name" href="{{ product.url }}">{{ product.title }}</a>
+  {%- if cat != blank -%}<span class="card__cat">{{ cat }}</span>{%- endif -%}
+</div>

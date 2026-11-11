@@ -1,0 +1,13 @@
+{
+  "current": {
+    "color_ink": "#1E1611",
+    "color_accent": "#FFD23F",
+    "color_light": "#F2F1ED",
+    "color_mute": "#5A514B",
+    "rating_text": "★ 4.8 from 5,762 parents",
+    "shipping_badge": "Ships free, worldwide",
+    "shipping_note": "Free shipping worldwide · Returns within 30 days",
+    "cart_redirect": false
+  },
+  "presets": {}
+}

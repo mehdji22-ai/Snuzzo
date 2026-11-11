@@ -1,0 +1,43 @@
+<section class="ba section">
+  <div class="page-width ba__grid">
+    <div>
+      <h2 class="h2 ba__title">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="ba__text">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.link != blank -%}
+        <p style="margin-top:24px"><a class="btn btn--ghost" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a></p>
+      {%- endif -%}
+    </div>
+    <div class="ba__stage" data-ba>
+      {% render 'media', image: section.settings.before, demo: 'demo-panda-before.webp', alt: section.settings.before_alt, sizes: '(min-width: 750px) 58vw, 100vw' %}
+      <div class="ba__after" style="position:absolute;inset:0">
+        {% render 'media', image: section.settings.after, demo: 'demo-panda.webp', alt: section.settings.after_alt, sizes: '(min-width: 750px) 58vw, 100vw' %}
+      </div>
+      <div class="ba__line"></div>
+      <span class="ba__tag ba__tag--l">{{ section.settings.after_label }}</span>
+      <span class="ba__tag ba__tag--r">{{ section.settings.before_label }}</span>
+      <label class="visually-hidden" for="BA-{{ section.id }}">{{ section.settings.heading }}</label>
+      <input class="ba__range" id="BA-{{ section.id }}" type="range" min="0" max="100" value="55">
+      <span class="ba__knob" aria-hidden="true">← Drag →</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Before / after",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The half hour before bed." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Bath, then panda, then lights low. Same toddler, same sofa. Drag across the photo to watch the wind-down start." },
+    { "type": "image_picker", "id": "after", "label": "Left photo (after: in the onesie)" },
+    { "type": "text", "id": "after_alt", "label": "Left photo description", "default": "The same toddler in a panda onesie" },
+    { "type": "text", "id": "after_label", "label": "Left label", "default": "Panda" },
+    { "type": "image_picker", "id": "before", "label": "Right photo (before: pyjamas)" },
+    { "type": "text", "id": "before_alt", "label": "Right photo description", "default": "Toddler in plain pyjamas" },
+    { "type": "text", "id": "before_label", "label": "Right label", "default": "Pyjamas" },
+    { "type": "url", "id": "link", "label": "Button link (optional)" },
+    { "type": "text", "id": "link_label", "label": "Button label", "default": "Shop the Panda" }
+  ],
+  "presets": [{ "name": "Before / after" }]
+}
+{% endschema %}

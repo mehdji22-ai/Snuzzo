@@ -1,0 +1,195 @@
+{%- liquid
+  assign v = product.selected_or_first_available_variant
+  assign sib_coll = section.settings.siblings_collection
+  assign crumb_coll = collection | default: product.collections.first
+  assign short = product.metafields.custom.animal_name.value | default: product.title | remove: 'The Little ' | remove: 'The '
+  assign cat_line = product.metafields.custom.card_label.value | default: product.type
+-%}
+
+<section class="pdp" data-product data-update-url>
+  <script type="application/json" data-variants-json>
+    [{%- for vv in product.variants -%}{"id": {{ vv.id }}, "options": {{ vv.options | json }}, "price": {{ vv.price }}, "compare_at_price": {{ vv.compare_at_price | default: 0 }}, "available": {{ vv.available | json }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+  </script>
+
+  <div class="pdp__gallery">
+    <nav class="pdp__crumb breadcrumb" aria-label="Breadcrumb">
+      <a href="javascript:history.back()">← {{ 'general.back' | t }}</a><span aria-hidden="true">·</span>
+      <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a>
+      {%- if crumb_coll -%}<span aria-hidden="true">/</span><a href="{{ crumb_coll.url }}">{{ crumb_coll.title }}</a>{%- endif -%}
+    </nav>
+    {%- for media in product.media limit: section.settings.max_images -%}
+      {%- liquid
+        assign wide = false
+        if forloop.last and forloop.length > 2
+          assign rem = forloop.length | modulo: 2
+          if rem == 1
+            assign wide = true
+          endif
+        endif
+      -%}
+      <div class="pdp__img{% if wide %} pdp__img--wide{% endif %}">
+        {%- if media.media_type == 'image' -%}
+          {%- liquid
+            assign m_loading = 'lazy'
+            if forloop.first
+              assign m_loading = 'eager'
+            endif
+            assign m_alt = media.alt | default: product.title | escape
+          -%}
+          {{ media | image_url: width: 1400 | image_tag: widths: '500, 700, 1000, 1400', sizes: '(min-width: 990px) 35vw, 88vw', loading: m_loading, alt: m_alt }}
+        {%- else -%}
+          {{ media | media_tag: image_size: '1400x' }}
+        {%- endif -%}
+      </div>
+    {%- else -%}
+      <div class="pdp__img">{{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+    {%- endfor -%}
+  </div>
+
+  <div class="pdp__info">
+    {%- if cat_line != blank -%}<div style="font-size:15px">{{ cat_line }}</div>{%- endif -%}
+    {%- if settings.shipping_badge != blank -%}<span class="badge">{{ settings.shipping_badge }}</span>{%- endif -%}
+    {%- if section.settings.show_rating and settings.rating_text != blank -%}<div style="font-size:15px">{{ settings.rating_text }}</div>{%- endif -%}
+    <h1 class="h1 pdp__title">{{ product.title }}</h1>
+    {%- assign line = product.metafields.custom.one_liner.value -%}
+    {%- if line != blank -%}<p style="margin:0">{{ line }}</p>{%- endif -%}
+    <div class="pdp__price" data-price>
+      {{ v.price | money }}{%- if v.compare_at_price > v.price -%} <s>{{ v.compare_at_price | money }}</s>{%- endif -%}
+    </div>
+
+    {%- if sib_coll != blank and sib_coll.products_count > 1 -%}
+      <div>
+        <div class="pdp__group-head"><span>{{ section.settings.siblings_label }}</span></div>
+        <div class="siblings">
+          {%- for p in sib_coll.products limit: 15 -%}
+            {%- assign p_short = p.metafields.custom.animal_name.value | default: p.title | remove: 'The Little ' | remove: 'The ' -%}
+            {%- assign sw = p.metafields.custom.swatch.value | default: p.featured_image -%}
+            <a href="{{ p.url }}" aria-label="{{ p_short }}{% if p.id == product.id %}, selected{% endif %}"{% if p.id == product.id %} aria-current="true"{% endif %} title="{{ p_short }}">
+              {%- if sw -%}{{ sw | image_url: width: 160, height: 160, crop: 'center' | image_tag: alt: '', loading: 'lazy' }}{%- else -%}{{ p_short }}{%- endif -%}
+            </a>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- form 'product', product, data-ajax-add: '', novalidate: 'novalidate' -%}
+      <input type="hidden" name="id" value="{{ v.id }}">
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          <fieldset class="sizes" data-option-index="{{ forloop.index0 }}" style="margin-bottom:18px">
+            <legend class="pdp__group-head" style="width:100%">
+              <span>{{ option.name }}</span>
+              {%- if forloop.last and section.settings.size_guide != blank -%}<a href="{{ section.settings.size_guide.url }}">{{ 'products.size_guide' | t }}</a>{%- endif -%}
+            </legend>
+            {%- for value in option.values -%}
+              <label class="size">
+                <input type="radio" name="option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
+                <span>{{ value }}</span>
+              </label>
+            {%- endfor -%}
+          </fieldset>
+        {%- endfor -%}
+      {%- endunless -%}
+
+      <div class="buy-row">
+        <button type="submit" class="btn btn--ink" data-add="{{ 'products.add_to_bag' | t }}" data-soldout="{{ 'products.sold_out' | t }}"{% unless v.available %} disabled{% endunless %}>
+          {%- if v.available -%}{{ 'products.add_to_bag' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
+        </button>
+        <button type="button" class="icon-btn" data-heart="{{ product.handle }}" aria-pressed="false" aria-label="{{ 'general.save' | t: title: product.title | escape }}">{% render 'icon', name: 'heart' %}</button>
+      </div>
+      <p class="buy-msg" data-buy-msg role="status" aria-live="polite"></p>
+    {%- endform -%}
+
+    <div class="accordion">
+      {%- if product.description != blank and section.settings.show_description -%}
+        <details{% if section.settings.open_description %} open{% endif %}>
+          <summary>{{ section.settings.description_title }}</summary>
+          <div class="rte">{{ product.description }}</div>
+        </details>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'accordion' -%}
+          {%- assign mf_content = nil -%}
+          {%- if block.settings.metafield_key != blank -%}
+            {%- assign mf_content = product.metafields.custom[block.settings.metafield_key].value -%}
+          {%- endif -%}
+          {%- if mf_content != blank or block.settings.content != blank or block.settings.page != blank -%}
+            <details {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.title }}</summary>
+              <div class="rte">
+                {%- if mf_content != blank -%}{{ mf_content | metafield_tag }}{%- elsif block.settings.page != blank -%}{{ block.settings.page.content }}{%- else -%}{{ block.settings.content }}{%- endif -%}
+              </div>
+            </details>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} "Complete the bedtime set" bundle box {%- endcomment -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'bundle' -%}
+        {%- assign items = block.settings.products -%}
+        {%- if items.size > 0 -%}
+          {%- assign total = 0 -%}
+          <div class="bundle" {{ block.shopify_attributes }}>
+            <div class="label">{{ block.settings.title }}</div>
+            <div class="bundle__items">
+              {%- for p in items limit: 3 -%}
+                {%- assign total = total | plus: p.price -%}
+                <a href="{{ p.url }}">
+                  {%- if p.featured_image -%}{{ p.featured_image | image_url: width: 240, height: 240, crop: 'center' | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}
+                  <span>{{ p.title }}</span><b>{{ p.price | money }}</b>
+                </a>
+              {%- endfor -%}
+            </div>
+            {%- assign total_money = total | money -%}
+            <div style="font-weight:900">{{ 'products.bundle_total' | t: total: total_money }}</div>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<div class="sticky-buy" data-sticky-buy aria-hidden="true">
+  <div><div style="font-weight:800;font-size:14px">{{ short }}</div><div style="font-weight:900" data-sticky-price>{{ v.price | money }}</div></div>
+  <button type="button" class="btn btn--ink" tabindex="-1">{{ 'products.add_to_bag' | t }}</button>
+</div>
+
+{% schema %}
+{
+  "name": "Product page",
+  "tag": "div",
+  "settings": [
+    { "type": "range", "id": "max_images", "label": "Max images in gallery", "min": 2, "max": 12, "step": 1, "default": 5 },
+    { "type": "checkbox", "id": "show_rating", "label": "Show store rating", "default": true },
+    { "type": "collection", "id": "siblings_collection", "label": "'Animals' grid collection", "info": "Shows the other animals as thumbnails (like colourways). Use your animal collection." },
+    { "type": "text", "id": "siblings_label", "label": "'Animals' grid heading", "default": "Animals" },
+    { "type": "page", "id": "size_guide", "label": "Size guide page" },
+    { "type": "checkbox", "id": "show_description", "label": "Show product description in accordion", "default": true },
+    { "type": "text", "id": "description_title", "label": "Description accordion title", "default": "Why it's easier at 3 a.m." },
+    { "type": "checkbox", "id": "open_description", "label": "Open description by default", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion row",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Fabric and care" },
+        { "type": "richtext", "id": "content", "label": "Text" },
+        { "type": "page", "id": "page", "label": "Or show a page" },
+        { "type": "text", "id": "metafield_key", "label": "Or a product metafield key (custom.____)", "info": "e.g. 'fabric_care'. Lets each product have its own text." }
+      ]
+    },
+    {
+      "type": "bundle",
+      "name": "Bedtime set box",
+      "limit": 1,
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Complete the bedtime set" },
+        { "type": "product_list", "id": "products", "label": "Products (3)", "limit": 3 }
+      ]
+    }
+  ]
+}
+{% endschema %}

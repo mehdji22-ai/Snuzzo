@@ -1,0 +1,57 @@
+<section class="section page-width">
+  <h1 class="h2" style="margin-bottom:28px">{{ 'cart.title' | t }}</h1>
+  {%- if cart.item_count == 0 -%}
+    <p>{{ 'cart.empty' | t }}</p>
+    <p style="margin-top:20px"><a class="btn btn--ink" href="{{ routes.all_products_collection_url }}">{{ 'general.continue' | t }}</a></p>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      <table class="cart-table">
+        <thead><tr><th>{{ 'cart.product' | t }}</th><th>{{ 'cart.quantity' | t }}</th><th style="text-align:right">{{ 'cart.total' | t }}</th></tr></thead>
+        <tbody>
+          {%- for item in cart.items -%}
+            <tr>
+              <td>
+                <div class="cart-item">
+                  {%- if item.image -%}{%- assign i_alt = item.title | escape -%}<a href="{{ item.url }}">{{ item.image | image_url: width: 200 | image_tag: alt: i_alt, loading: 'lazy' }}</a>{%- endif -%}
+                  <div>
+                    <a href="{{ item.url }}" style="font-weight:800;text-decoration:none">{{ item.product.title }}</a>
+                    {%- unless item.product.has_only_default_variant -%}<div class="mute">{{ item.variant.title }}</div>{%- endunless -%}
+                    {%- for p in item.properties -%}{%- unless p.last == blank or p.first contains '_' -%}<div class="mute">{{ p.first }}: {{ p.last }}</div>{%- endunless -%}{%- endfor -%}
+                    <div>{{ item.final_price | money }}</div>
+                    <a href="{{ item.url_to_remove }}" class="mute" style="font-size:14px">{{ 'cart.remove' | t }}</a>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <label class="visually-hidden" for="Qty-{{ forloop.index }}">{{ 'cart.quantity' | t }}</label>
+                <input class="qty" id="Qty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0" onchange="this.form.submit()">
+              </td>
+              <td style="text-align:right;font-weight:900">{{ item.final_line_price | money }}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      <div class="cart-foot">
+        {%- if section.settings.show_note -%}
+          <div class="field" style="width:100%;max-width:420px"><label for="CartNote">{{ 'cart.note' | t }}</label><textarea id="CartNote" name="note" rows="3">{{ cart.note }}</textarea></div>
+        {%- endif -%}
+        <div>{{ 'cart.subtotal' | t }}</div>
+        <div class="cart-total">{{ cart.total_price | money_with_currency }}</div>
+        <div class="mute" style="font-size:14px">{{ 'cart.taxes' | t }}</div>
+        <noscript><button type="submit" name="update" class="btn btn--white btn--no-arrow">{{ 'cart.update' | t }}</button></noscript>
+        <button type="submit" name="checkout" class="btn btn--ink" style="min-width:260px">{{ 'cart.checkout' | t }}</button>
+        {%- if additional_checkout_buttons and section.settings.show_express -%}<div>{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
+      </div>
+    </form>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Bag",
+  "settings": [
+    { "type": "checkbox", "id": "show_note", "label": "Allow an order note", "default": false },
+    { "type": "checkbox", "id": "show_express", "label": "Show express checkout buttons (Shop Pay, PayPal…)", "default": true }
+  ]
+}
+{% endschema %}

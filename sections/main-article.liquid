@@ -1,0 +1,15 @@
+<article class="section page-width">
+  <div class="narrow">
+    <p><a href="{{ blog.url }}">← {{ 'blog.back_to_blog' | t: title: blog.title }}</a></p>
+    <h1 class="h2" style="margin:12px 0">{{ article.title }}</h1>
+    <p class="mute">{{ article.published_at | time_tag: format: 'date' }}</p>
+    {%- if article.image -%}
+      {%- assign a_alt = article.image.alt | escape -%}
+      <div style="margin:24px 0">{{ article.image | image_url: width: 1500 | image_tag: widths: '600, 900, 1200, 1500', sizes: '(min-width: 800px) 760px, 100vw', alt: a_alt }}</div>
+    {%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+  </div>
+</article>
+{% schema %}
+{ "name": "Blog post" }
+{% endschema %}

@@ -1,0 +1,54 @@
+<section class="section section--tight-top page-width">
+  {%- if section.settings.heading != blank -%}
+    <h2 class="h2" style="margin-bottom: 26px">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+  <div class="row-4 swipe">
+    {%- for block in section.blocks -%}
+      {%- assign link = block.settings.link | default: routes.all_products_collection_url -%}
+      <div class="drop" {{ block.shopify_attributes }}>
+        <a class="drop__media" href="{{ link }}" tabindex="-1" aria-hidden="true">
+          {% render 'media', image: block.settings.image, demo: block.settings.demo, alt: block.settings.alt, sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 75vw' %}
+          <span class="drop__overlay">{{ block.settings.overlay | newline_to_br }}</span>
+        </a>
+        <div class="drop__title">{{ block.settings.title }}</div>
+        {%- if block.settings.line != blank -%}<p class="drop__line">{{ block.settings.line }}</p>{%- endif -%}
+        <a class="link-strong" href="{{ link }}">{{ block.settings.link_label }}<span class="visually-hidden">: {{ block.settings.title }}</span></a>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Drop cards",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop the winter drops" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Drop card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "demo", "label": "Demo photo (used until a photo is picked)", "info": "Leave as is." },
+        { "type": "text", "id": "alt", "label": "Photo description (alt text)" },
+        { "type": "textarea", "id": "overlay", "label": "Big title on photo", "default": "Snow\nsuits" },
+        { "type": "text", "id": "title", "label": "Title with price", "default": "Snowsuits · $86" },
+        { "type": "text", "id": "line", "label": "One line of copy", "default": "Quilted, fur-trimmed, and built for the first snow." },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "Shop now" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Drop cards",
+      "blocks": [
+        { "type": "card" }, { "type": "card" }, { "type": "card" }, { "type": "card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+<section class="hero" style="--hero-h: {{ section.settings.height }}px">
+  <div class="hero__media">
+    {% render 'media', image: section.settings.image, demo: 'demo-trio.webp', alt: section.settings.alt, eager: true, style: section.settings.focal %}
+  </div>
+  <div class="hero__shade"></div>
+  <div class="hero__content">
+    {%- if section.settings.heading != blank -%}
+      <h1 class="h1">{{ section.settings.heading | newline_to_br }}</h1>
+    {%- endif -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="hero__sub">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="hero__buttons">
+        {%- for block in section.blocks -%}
+          <a href="{{ block.settings.link | default: routes.all_products_collection_url }}" class="btn btn--{{ block.settings.style }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero campaign",
+  "tag": "div",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Photo", "info": "Full-bleed. A photo with several animals signals a range." },
+    { "type": "text", "id": "alt", "label": "Photo description (alt text)", "default": "Three babies on a sofa in pig, panda and penguin onesies" },
+    { "type": "text", "id": "focal", "label": "Photo position (advanced)", "default": "object-position: 50% 35%" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Pick your\nanimal." },
+    { "type": "textarea", "id": "subheading", "label": "Subline", "default": "Plush onesies with a padded hood and a chin-guard zip. Ten animals, one for every personality in the house." },
+    { "type": "range", "id": "height", "label": "Height (desktop)", "min": 420, "max": 900, "step": 20, "unit": "px", "default": 660 }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Arrow button",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Onesies" },
+        { "type": "url", "id": "link", "label": "Link" },
+        { "type": "select", "id": "style", "label": "Style", "default": "white", "options": [
+          { "value": "white", "label": "White on photo" },
+          { "value": "ink", "label": "Ink" },
+          { "value": "ghost", "label": "Ghost (white outline)" }
+        ] }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero campaign",
+      "blocks": [
+        { "type": "button", "settings": { "label": "Onesies" } },
+        { "type": "button", "settings": { "label": "Snowsuits" } },
+        { "type": "button", "settings": { "label": "Gifts" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,38 @@
+<section class="page-width" style="padding-top:48px;padding-bottom:48px">
+  <div class="trio">
+    {%- for block in section.blocks -%}
+      <div {{ block.shopify_attributes }}>
+        <h3 class="h3">{{ block.settings.title }}</h3>
+        <p>{{ block.settings.text }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Feature trio",
+  "tag": "div",
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Chin-guard zip" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "A fabric flap covers the zip pull, so it never scratches a sleepy chin." }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Feature trio",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Chin-guard zip", "text": "A fabric flap covers the zip pull, so it never scratches a sleepy chin." } },
+        { "type": "feature", "settings": { "title": "Padded 3D hood", "text": "Cute from behind, and comfortable when they roll onto their back." } },
+        { "type": "feature", "settings": { "title": "Soft at wash 100", "text": "Cloud-soft plush with a smooth fleece lining, gentle on delicate skin." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

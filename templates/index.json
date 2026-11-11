@@ -1,0 +1,83 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-campaign",
+      "blocks": {
+        "b1": { "type": "button", "settings": { "label": "Onesies", "link": "shopify://collections/all", "style": "white" } },
+        "b2": { "type": "button", "settings": { "label": "Snowsuits", "link": "shopify://collections/all", "style": "white" } },
+        "b3": { "type": "button", "settings": { "label": "Gifts", "link": "shopify://collections/all", "style": "white" } }
+      },
+      "block_order": ["b1", "b2", "b3"],
+      "settings": {
+        "alt": "Three babies on a sofa in pig, panda and penguin onesies",
+        "focal": "object-position: 50% 35%",
+        "heading": "Pick your\nanimal.",
+        "subheading": "Plush onesies with a padded hood and a chin-guard zip. Ten animals, one for every personality in the house.",
+        "height": 660
+      }
+    },
+    "picker": {
+      "type": "animal-picker",
+      "settings": {
+        "heading": "Who are they tonight?",
+        "show_rating": true,
+        "limit": 12,
+        "bullet_1": "Padded 3D hood that's soft when they roll back",
+        "bullet_2": "Chin-guard zip for quick 3 a.m. changes",
+        "bullet_3": "Cloud-soft plush with a smooth fleece lining"
+      }
+    },
+    "drops": {
+      "type": "drop-cards",
+      "blocks": {
+        "d1": { "type": "card", "settings": { "demo": "demo-snow-navy.webp", "alt": "Toddler in a navy snowsuit", "overlay": "Snow\nsuits", "title": "Snowsuits · $86", "line": "Quilted, fur-trimmed, and built for the first snow.", "link_label": "Shop now" } },
+        "d2": { "type": "card", "settings": { "demo": "demo-hoodie-caramel.webp", "alt": "Parent and baby in a caramel carrier hoodie", "overlay": "Room\nfor two", "title": "Carrier hoodies · $71", "line": "One zip around you and your baby. Three colours.", "link_label": "Shop now" } },
+        "d3": { "type": "card", "settings": { "demo": "demo-santa.webp", "alt": "Baby in a Santa costume", "overlay": "First\nChristmas", "title": "Holiday onesies · $57", "line": "Santa and the Little Reindeer, ready for the photo.", "link_label": "Shop now" } },
+        "d4": { "type": "card", "settings": { "demo": "demo-calmbuds.webp", "alt": "Baby asleep wearing a fox-eared headband", "overlay": "Sleep\nanywhere", "title": "CalmBuds · $36", "line": "A soft headband with speakers for naps on the go.", "link_label": "Shop now" } }
+      },
+      "block_order": ["d1", "d2", "d3", "d4"],
+      "settings": { "heading": "Shop the winter drops" }
+    },
+    "rail": {
+      "type": "product-tabs-rail",
+      "blocks": {
+        "t1": { "type": "tab", "settings": { "label": "Best sellers" } },
+        "t2": { "type": "tab", "settings": { "label": "Winter" } },
+        "t3": { "type": "tab", "settings": { "label": "Bath & sleep" } },
+        "t4": { "type": "tab", "settings": { "label": "For two" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"],
+      "settings": { "heading": "Bedtime favourites", "limit": 8 }
+    },
+    "before_after": {
+      "type": "before-after",
+      "settings": {
+        "heading": "The half hour before bed.",
+        "text": "Bath, then panda, then lights low. Same toddler, same sofa. Drag across the photo to watch the wind-down start.",
+        "after_alt": "The same toddler in a panda onesie",
+        "after_label": "Panda",
+        "before_alt": "Toddler in plain pyjamas",
+        "before_label": "Pyjamas",
+        "link_label": "Shop the Panda"
+      }
+    },
+    "features": {
+      "type": "feature-trio",
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "title": "Chin-guard zip", "text": "A fabric flap covers the zip pull, so it never scratches a sleepy chin." } },
+        "f2": { "type": "feature", "settings": { "title": "Padded 3D hood", "text": "Cute from behind, and comfortable when they roll onto their back." } },
+        "f3": { "type": "feature", "settings": { "title": "Soft at wash 100", "text": "Cloud-soft plush with a smooth fleece lining, gentle on delicate skin." } }
+      },
+      "block_order": ["f1", "f2", "f3"]
+    },
+    "social": {
+      "type": "social-band",
+      "settings": {
+        "number": "450K",
+        "text": "Parents following along on Facebook. Your photos could be next.",
+        "button": "Follow Snuzzo"
+      }
+    }
+  },
+  "order": ["hero", "picker", "drops", "rail", "before_after", "features", "social"]
+}

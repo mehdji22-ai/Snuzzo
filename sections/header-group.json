@@ -1,0 +1,24 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Free shipping worldwide · 30-day money-back guarantee",
+        "link": ""
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "use_demo_logo": true,
+        "logo_height": 28,
+        "menu": "main-menu",
+        "sticky": true,
+        "show_account": false
+      }
+    }
+  },
+  "order": ["announcement", "header"]
+}

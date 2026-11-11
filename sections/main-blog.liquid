@@ -1,0 +1,21 @@
+<section class="section page-width">
+  <h1 class="h2" style="margin-bottom:28px">{{ blog.title }}</h1>
+  {%- paginate blog.articles by 12 -%}
+    <div class="row-4" style="row-gap:36px">
+      {%- for article in blog.articles -%}
+        <article class="drop">
+          <a class="drop__media" href="{{ article.url }}" style="height:auto;aspect-ratio:4/5" tabindex="-1" aria-hidden="true">
+            {%- if article.image -%}{{ article.image | image_url: width: 800 | image_tag: loading: 'lazy', alt: '' }}{%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}{%- endif -%}
+          </a>
+          <h2 class="drop__title" style="margin:8px 0 0;font-size:16px"><a href="{{ article.url }}" style="text-decoration:none">{{ article.title }}</a></h2>
+          <p class="mute" style="margin:0">{{ article.excerpt_or_content | strip_html | truncatewords: 22 }}</p>
+          <a class="link-strong" href="{{ article.url }}">{{ 'blog.read_more' | t }}<span class="visually-hidden">: {{ article.title }}</span></a>
+        </article>
+      {%- endfor -%}
+    </div>
+    {% render 'pagination', paginate: paginate %}
+  {%- endpaginate -%}
+</section>
+{% schema %}
+{ "name": "Blog posts" }
+{% endschema %}
