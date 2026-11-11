@@ -527,3 +527,9 @@ html.has-dialog { overflow: hidden; }
 @media (min-width: 990px) and (max-width: 1279px) {
   .mobile-nav .pred { position: absolute; }
 }
+/* Option buttons with a photo per option (e.g. CalmBuds animals) */
+.pdp__selected { grid-column: 1 / -1; font-size: 14px; margin: -2px 0 2px; }
+.size--swatch span { height: auto; padding: 6px; display: flex; flex-direction: column; gap: 4px; }
+.size--swatch img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--light); }
+.size--swatch .size__label { font-size: 12px; line-height: 1.2; }
+.qa .size--swatch img { display: none; }

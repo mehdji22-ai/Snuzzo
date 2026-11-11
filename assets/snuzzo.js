@@ -227,6 +227,22 @@
       });
       if (!v) { btn.disabled = true; btn.textContent = (window.SnuzzoTheme && window.SnuzzoTheme.unavailable) || 'Unavailable'; return; }
       idInput.value = v.id;
+      groups.forEach(function (g) {
+        var c = g.querySelector('input:checked'); var lab = g.querySelector('[data-selected-value]');
+        if (c && lab) lab.textContent = c.value;
+      });
+      if (v.media) {
+        var gallery = section.querySelector('.pdp__gallery');
+        var item = gallery && gallery.querySelector('[data-media-id="' + v.media + '"]');
+        if (item) {
+          var firstImg = gallery.querySelector('[data-media-id]');
+          if (firstImg !== item) gallery.insertBefore(item, firstImg);
+          gallery.querySelectorAll('[data-media-id]').forEach(function (el, i) { el.classList.toggle('pdp__img--wide', false); });
+          if (gallery.scrollWidth > gallery.clientWidth) gallery.scrollTo({ left: 0, behavior: 'smooth' });
+          else if (item.getBoundingClientRect().top < 0) item.scrollIntoView({ block: 'start', behavior: 'smooth' });
+          var img = item.querySelector('img'); if (img) img.loading = 'eager';
+        }
+      }
       var html = window.SnuzzoPriceHtml ? window.SnuzzoPriceHtml(v) : money(v.price) + (v.compare_at_price > v.price ? ' <s>' + money(v.compare_at_price) + '</s>' : '');
       if (priceEl) priceEl.innerHTML = html;
       if (stickyPrice) stickyPrice.innerHTML = money(v.price);

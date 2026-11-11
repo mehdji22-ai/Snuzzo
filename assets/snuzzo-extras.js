@@ -141,6 +141,11 @@
       current = single ? p.variants[0] : p.variants.find(function (v) { return v.options.every(function (o, i) { return o === opts[i]; }); });
       var btn = body.querySelector('[data-qa-add]');
       body.querySelector('[data-qa-price]').innerHTML = current ? priceHtml(current) : '';
+      var qimg = body.querySelector('.qa__img');
+      if (qimg && current && current.featured_image && current.featured_image.src) {
+        var src = current.featured_image.src;
+        qimg.src = src + (src.indexOf('?') > -1 ? '&' : '?') + 'width=500';
+      }
       btn.disabled = !current || !current.available;
       btn.textContent = current && current.available ? (T.addToBag || 'Add to bag') : (T.soldOut || 'Sold out');
     }

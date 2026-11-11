@@ -8,7 +8,7 @@
 
 <section class="pdp" data-product data-update-url>
   <script type="application/json" data-variants-json>
-    [{%- for vv in product.variants -%}{"id": {{ vv.id }}, "options": {{ vv.options | json }}, "price": {{ vv.price }}, "compare_at_price": {{ vv.compare_at_price | default: 0 }}, "available": {{ vv.available | json }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
+    [{%- for vv in product.variants -%}{"id": {{ vv.id }}, "options": {{ vv.options | json }}, "price": {{ vv.price }}, "compare_at_price": {{ vv.compare_at_price | default: 0 }}, "available": {{ vv.available | json }}, "media": {{ vv.featured_media.id | default: 0 }}}{% unless forloop.last %},{% endunless %}{%- endfor -%}]
   </script>
 
   <div class="pdp__gallery">
@@ -27,7 +27,7 @@
           endif
         endif
       -%}
-      <div class="pdp__img{% if wide %} pdp__img--wide{% endif %}">
+      <div class="pdp__img{% if wide %} pdp__img--wide{% endif %}" data-media-id="{{ media.id }}">
         {%- if media.media_type == 'image' -%}
           {%- liquid
             assign m_loading = 'lazy'
@@ -63,7 +63,11 @@
       {%- endif -%}
     </div>
 
-    {%- if sib_coll != blank and sib_coll.products_count > 1 -%}
+    {%- assign in_sib = false -%}
+    {%- if sib_coll != blank -%}
+      {%- for c in product.collections -%}{%- if c.id == sib_coll.id -%}{%- assign in_sib = true -%}{%- endif -%}{%- endfor -%}
+    {%- endif -%}
+    {%- if in_sib and sib_coll.products_count > 1 -%}
       <div>
         <div class="pdp__group-head"><span>{{ section.settings.siblings_label }}</span></div>
         <div class="siblings">
@@ -93,10 +97,32 @@
                 {%- endif -%}
               {%- endif -%}
             </legend>
+            {%- liquid
+              assign opt_key = 'option' | append: forloop.index
+              assign with_images = 0
+              for value in option.values
+                assign vmatch = product.variants | where: opt_key, value | first
+                if vmatch.featured_media
+                  assign with_images = with_images | plus: 1
+                endif
+              endfor
+              assign use_swatches = false
+              if with_images == option.values.size and option.values.size > 1
+                assign distinct = product.variants | map: 'featured_media' | map: 'id' | uniq
+                if distinct.size > 1
+                  assign use_swatches = true
+                endif
+              endif
+            -%}
+            <span class="pdp__selected">{{ option.name }}: <b data-selected-value>{{ option.selected_value }}</b></span>
             {%- for value in option.values -%}
-              <label class="size">
+              {%- assign vmatch = product.variants | where: opt_key, value | first -%}
+              <label class="size{% if use_swatches %} size--swatch{% endif %}">
                 <input type="radio" name="option-{{ forloop.parentloop.index0 }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
-                <span>{{ value }}</span>
+                <span>
+                  {%- if use_swatches -%}{{ vmatch.featured_media | image_url: width: 160, height: 160, crop: 'center' | image_tag: alt: '', loading: 'lazy', width: 80, height: 80 }}{%- endif -%}
+                  <span class="size__label">{{ value }}</span>
+                </span>
               </label>
             {%- endfor -%}
           </fieldset>
@@ -220,7 +246,7 @@
   "name": "Product page",
   "tag": "div",
   "settings": [
-    { "type": "range", "id": "max_images", "label": "Max images in gallery", "min": 2, "max": 12, "step": 1, "default": 5 },
+    { "type": "range", "id": "max_images", "label": "Max images in gallery", "min": 2, "max": 20, "step": 1, "default": 20 },
     { "type": "checkbox", "id": "show_rating", "label": "Show store rating", "default": true },
     { "type": "collection", "id": "siblings_collection", "label": "'Animals' grid collection", "info": "Shows the other animals as thumbnails (like colourways). Use your animal collection." },
     { "type": "text", "id": "siblings_label", "label": "'Animals' grid heading", "default": "Animals" },
