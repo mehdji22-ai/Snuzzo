@@ -15,7 +15,8 @@ function init(root) {
   const emailsNode = root.dataset.emailsNode || 'snuzzo_review_emails';
   const moderate = root.dataset.moderate === 'true';
   const perPage = Number(root.dataset.perPage) || 8;
-  const txt = JSON.parse(root.querySelector('[data-reviews-text]').textContent);
+  const decode = (s) => { const t = document.createElement('textarea'); t.innerHTML = s; return t.value; };
+  const txt = Object.fromEntries(Object.entries(JSON.parse(root.querySelector('[data-reviews-text]').textContent)).map(([k, v]) => [k, decode(v)]));
   let cfg = null;
   try { cfg = JSON.parse(root.querySelector('[data-reviews-config]').textContent); } catch (e) { cfg = null; }
 

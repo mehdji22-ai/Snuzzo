@@ -379,7 +379,7 @@
           if (!reduce) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
         } else if (!v.paused) { v.pause(); }
       });
-    }, { rootMargin: '200px' });
+    }, { rootMargin: '900px 0px' });
     vids.forEach(function (v) {
       io.observe(v);
       if (reduce) { v.controls = true; }

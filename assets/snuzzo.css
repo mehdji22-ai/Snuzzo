@@ -26,6 +26,7 @@
 @media (max-width: 749px) { :root { --gutter: 16px; --section-gap: 56px; --header-h: 60px; } }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; height: auto; }
@@ -607,3 +608,23 @@ html.has-dialog { overflow: hidden; }
 .pagination .current { background: var(--brand); border-color: var(--brand); color: #fff; }
 .quotes { }
 .footer-logo img { height: 28px; width: auto; }
+
+/* Fixes after preview review */
+.pdp > *, .pdp__info, .pdp__top, .pdp form { min-width: 0; }
+.pdp__top { width: 100%; }
+.qchips { width: 100%; justify-content: flex-start; }
+@media (min-width: 990px) { .qchips { justify-content: center; flex-wrap: wrap; } }
+html, body { overflow-x: clip; }
+/* Story: text left, picture right on desktop (no overlap) */
+@media (min-width: 750px) {
+  .story { align-items: center; }
+  .story__media { justify-content: flex-end; padding: 8vh 6vw 8vh 45%; }
+  .story__media img, .story__media svg { max-width: 100%; max-height: 74vh; }
+  .story__text { padding: 0 var(--gutter); max-width: 44%; }
+  .story--cover .story__media { padding: 0; }
+  .story--cover { align-items: flex-end; }
+  .story--cover .story__text { padding-bottom: 72px; }
+}
+/* Reviews header: title left, button right */
+.reviews__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.reviews__head .btn { flex: none; }
