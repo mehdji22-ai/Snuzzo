@@ -6,6 +6,35 @@
     <button type="submit" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search' %}</button>
   </form>
   {%- if search.performed -%}
+    {%- if search.filters.size > 0 or search.sort_options.size > 0 -%}
+      <details class="filters" style="margin-bottom:24px;display:inline-block">
+        <summary class="filter-btn">{{ 'collections.filter_sort' | t }} {% render 'icon', name: 'filter', size: 18 %}</summary>
+        <form class="filters__panel" data-filter-form style="left:0;right:auto">
+          <input type="hidden" name="q" value="{{ search.terms | escape }}">
+          <input type="hidden" name="type" value="product">
+          <div>
+            <label for="SearchSort" style="font-weight:900;text-transform:uppercase;letter-spacing:.05em">{{ 'collections.sort_by' | t }}</label>
+            <select id="SearchSort" name="sort_by">
+              {%- for option in search.sort_options -%}
+                <option value="{{ option.value }}"{% if option.value == search.sort_by %} selected{% endif %}>{{ option.name }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+          {%- for filter in search.filters -%}
+            {%- if filter.type == 'list' or filter.type == 'boolean' -%}
+              <fieldset>
+                <legend>{{ filter.label }}</legend>
+                {%- for value in filter.values -%}
+                  <label><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}> {{ value.label }} <span class="mute">({{ value.count }})</span></label>
+                {%- endfor -%}
+              </fieldset>
+            {%- endif -%}
+          {%- endfor -%}
+          <a class="link-strong" href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product">{{ 'collections.clear' | t }}</a>
+          <noscript><button class="btn btn--ink" type="submit">{{ 'collections.apply' | t }}</button></noscript>
+        </form>
+      </details>
+    {%- endif -%}
     {%- paginate search.results by 24 -%}
       {%- if search.results_count == 0 -%}
         <p>{{ 'search.none' | t: terms: search.terms }}</p>

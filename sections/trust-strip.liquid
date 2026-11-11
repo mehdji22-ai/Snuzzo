@@ -1,0 +1,42 @@
+<div class="trust-strip page-width">
+  <ul>
+    {%- for block in section.blocks -%}
+      <li {{ block.shopify_attributes }}>{% render 'icon', name: block.settings.icon, size: 22 %}<span>{{ block.settings.text }}</span></li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+{% schema %}
+{
+  "name": "Trust strip",
+  "tag": "section",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Free shipping" },
+        { "type": "select", "id": "icon", "label": "Icon", "default": "truck", "options": [
+          { "value": "truck", "label": "Truck" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "leaf", "label": "Leaf" },
+          { "value": "return", "label": "Return arrow" },
+          { "value": "lock", "label": "Lock" },
+          { "value": "heart", "label": "Heart" }
+        ] }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Trust strip",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Free shipping", "icon": "truck" } },
+        { "type": "item", "settings": { "text": "30-day guarantee", "icon": "shield" } },
+        { "type": "item", "settings": { "text": "Gentle on skin", "icon": "leaf" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

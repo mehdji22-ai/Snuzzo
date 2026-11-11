@@ -10,7 +10,19 @@
     "cart_redirect": false,
     "social_facebook": "https://www.facebook.com/share/1D8mGqoHwy/",
     "social_instagram": "https://www.instagram.com/littlesnuzzo",
-    "social_youtube": "https://youtube.com/@snuzzoshop"
+    "social_youtube": "https://youtube.com/@snuzzoshop",
+    "cart_type": "drawer",
+    "show_save_badge": true,
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+          "note": "Free shipping worldwide · 30-day money-back guarantee",
+          "collection": "best-sellers",
+          "upsell_heading": "You may also like"
+        }
+      }
+    }
   },
   "presets": {}
 }

@@ -10,35 +10,122 @@
   {
     "name": "Colours",
     "settings": [
-      { "type": "paragraph", "content": "Brown-black and white do the structure. Keep ONE accent colour." },
-      { "type": "color", "id": "color_ink", "label": "Ink (text, buttons, footer)", "default": "#1E1611" },
-      { "type": "color", "id": "color_accent", "label": "Accent (the only one)", "default": "#FFD23F" },
-      { "type": "color", "id": "color_light", "label": "Light panel", "default": "#F2F1ED" },
-      { "type": "color", "id": "color_mute", "label": "Secondary text", "default": "#5A514B" }
+      {
+        "type": "paragraph",
+        "content": "Brown-black and white do the structure. Keep ONE accent colour."
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Ink (text, buttons, footer)",
+        "default": "#1E1611"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent (the only one)",
+        "default": "#FFD23F"
+      },
+      {
+        "type": "color",
+        "id": "color_light",
+        "label": "Light panel",
+        "default": "#F2F1ED"
+      },
+      {
+        "type": "color",
+        "id": "color_mute",
+        "label": "Secondary text",
+        "default": "#5A514B"
+      }
     ]
   },
   {
     "name": "Store details",
     "settings": [
-      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
-      { "type": "text", "id": "rating_text", "label": "Store rating line", "default": "★ 4.8 from 5,762 parents", "info": "Use only your real numbers. Leave empty to hide everywhere." },
-      { "type": "text", "id": "shipping_badge", "label": "Product page badge", "default": "Ships free, worldwide", "info": "Leave empty to hide." },
-      { "type": "text", "id": "shipping_note", "label": "Small shipping line under add buttons", "default": "Free shipping worldwide · Returns within 30 days" }
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "rating_text",
+        "label": "Store rating line",
+        "default": "★ 4.8 from 5,762 parents",
+        "info": "Use only your real numbers. Leave empty to hide everywhere."
+      },
+      {
+        "type": "text",
+        "id": "shipping_badge",
+        "label": "Product page badge",
+        "default": "Ships free, worldwide",
+        "info": "Leave empty to hide."
+      },
+      {
+        "type": "text",
+        "id": "shipping_note",
+        "label": "Small shipping line under add buttons",
+        "default": "Free shipping worldwide · Returns within 30 days"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_save_badge",
+        "label": "Show 'Save $X' on sale products",
+        "default": true
+      }
     ]
   },
   {
     "name": "Cart",
     "settings": [
-      { "type": "checkbox", "id": "cart_redirect", "label": "Go to the bag page after adding a product", "default": false }
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "When someone adds to bag",
+        "default": "drawer",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Slide out the bag drawer"
+          },
+          {
+            "value": "page",
+            "label": "Stay on the page (show a message)"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_redirect",
+        "label": "Go to the bag page after adding (only without the drawer)",
+        "default": false
+      }
     ]
   },
   {
     "name": "Social media",
     "settings": [
-      { "type": "url", "id": "social_facebook", "label": "Facebook" },
-      { "type": "url", "id": "social_instagram", "label": "Instagram" },
-      { "type": "url", "id": "social_youtube", "label": "YouTube" },
-      { "type": "url", "id": "social_tiktok", "label": "TikTok" }
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube",
+        "label": "YouTube"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok"
+      }
     ]
   }
 ]

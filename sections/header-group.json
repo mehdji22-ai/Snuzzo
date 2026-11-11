@@ -16,7 +16,7 @@
         "logo_height": 28,
         "menu": "main-menu",
         "sticky": true,
-        "show_account": false,
+        "show_account": true,
         "logo": "shopify://shop_images/Logo_snuzzo_sur_fond_blanc_pur.png"
       },
       "blocks": {

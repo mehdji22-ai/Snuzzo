@@ -30,8 +30,13 @@
         if (!r.ok) throw new Error(data.description || data.message || 'Could not add to bag');
         return fetch(root + 'cart.js').then(function (c) { return c.json(); });
       });
-    }).then(function (cart) { setBagCount(cart.item_count); return cart; });
+    }).then(function (cart) {
+      setBagCount(cart.item_count);
+      document.dispatchEvent(new CustomEvent('snuzzo:cart-added', { detail: { cart: cart } }));
+      return cart;
+    });
   }
+  window.SnuzzoCart = { add: addToCart, setCount: setBagCount };
   function flash(btn, msgEl, ok, text) {
     var original = btn.getAttribute('data-label') || btn.textContent;
     btn.setAttribute('data-label', original);
@@ -57,7 +62,7 @@
         var t = (window.SnuzzoTheme && window.SnuzzoTheme.addedMsg) || 'Added to your bag.';
         flash(btn, msg, true, t);
         if (msg) { msg.innerHTML = t + ' <a href="' + root + 'cart">' + ((window.SnuzzoTheme && window.SnuzzoTheme.viewBag) || 'View bag') + '</a>'; }
-        if (window.SnuzzoTheme && window.SnuzzoTheme.goToCart) window.location.href = root + 'cart';
+        if (window.SnuzzoTheme && window.SnuzzoTheme.goToCart && !document.querySelector('[data-cart-drawer]')) window.location.href = root + 'cart';
       })
       .catch(function (err) { flash(btn, msg, false, err.message); })
       .finally(function () { btn.disabled = false; });
@@ -222,7 +227,7 @@
       });
       if (!v) { btn.disabled = true; btn.textContent = (window.SnuzzoTheme && window.SnuzzoTheme.unavailable) || 'Unavailable'; return; }
       idInput.value = v.id;
-      var html = money(v.price) + (v.compare_at_price > v.price ? ' <s>' + money(v.compare_at_price) + '</s>' : '');
+      var html = window.SnuzzoPriceHtml ? window.SnuzzoPriceHtml(v) : money(v.price) + (v.compare_at_price > v.price ? ' <s>' + money(v.compare_at_price) + '</s>' : '');
       if (priceEl) priceEl.innerHTML = html;
       if (stickyPrice) stickyPrice.innerHTML = money(v.price);
       btn.disabled = !v.available;

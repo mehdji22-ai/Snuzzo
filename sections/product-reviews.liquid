@@ -1,0 +1,92 @@
+{%- comment -%}
+  Customer reviews, stored in the store's existing Firebase Realtime Database
+  (same node and data format as the previous theme, so existing reviews carry over).
+  Shows only reviews customers actually submitted.
+{%- endcomment -%}
+<section class="section page-width reviews" id="reviews" data-reviews
+  data-product="{{ product.id }}"
+  data-node="{{ section.settings.node | escape }}"
+  data-emails-node="{{ section.settings.emails_node | escape }}"
+  data-moderate="{{ section.settings.moderate }}"
+  data-per-page="{{ section.settings.per_page }}">
+  <script type="application/json" data-reviews-config>{{ section.settings.firebase_config }}</script>
+  <script type="application/json" data-reviews-text>
+    {
+      "count": {{ 'reviews.count' | t | json }},
+      "none": {{ 'reviews.none' | t | json }},
+      "error": {{ 'reviews.error' | t | json }},
+      "pending": {{ 'reviews.pending' | t | json }},
+      "thanks": {{ 'reviews.thanks' | t | json }},
+      "thanksModerated": {{ 'reviews.thanks_moderated' | t | json }},
+      "photoFrom": {{ 'reviews.photo_from' | t | json }},
+      "stars": {{ 'reviews.stars' | t | json }},
+      "needRating": {{ 'reviews.need_rating' | t | json }},
+      "needName": {{ 'reviews.need_name' | t | json }},
+      "needEmail": {{ 'reviews.need_email' | t | json }},
+      "sendError": {{ 'reviews.send_error' | t | json }}
+    }
+  </script>
+
+  <div class="reviews__head">
+    <div>
+      <h2 class="h2">{{ section.settings.heading }}</h2>
+      <p class="reviews__summary" data-reviews-summary aria-live="polite"></p>
+    </div>
+    <button type="button" class="btn btn--ink" data-dialog-open="ReviewForm-{{ section.id }}" aria-haspopup="dialog">{{ 'reviews.write' | t }}</button>
+  </div>
+  <div class="reviews__grid" data-reviews-grid></div>
+  <p class="reviews__note mute" data-reviews-note></p>
+  <p style="text-align:center"><button type="button" class="btn btn--white btn--no-arrow reviews__more" data-reviews-more hidden>{{ 'reviews.more' | t }}</button></p>
+
+  <div class="dialog dialog--center" id="ReviewForm-{{ section.id }}" role="dialog" aria-modal="true" aria-labelledby="ReviewFormTitle-{{ section.id }}" hidden>
+    <div class="dialog__box" style="max-width:560px">
+      <button type="button" class="dialog__close icon-btn" data-dialog-close aria-label="{{ 'general.close' | t }}">✕</button>
+      <form class="review-form" data-review-form novalidate>
+        <h2 class="h3" id="ReviewFormTitle-{{ section.id }}">{{ 'reviews.rate_title' | t }}</h2>
+        <p class="mute" style="margin:4px 0 14px">{{ product.title }}</p>
+        <fieldset class="rate">
+          <legend class="visually-hidden">{{ 'reviews.your_rating' | t }}</legend>
+          {%- for i in (1..5) -%}
+            <input type="radio" name="rating" id="Rate{{ i }}-{{ section.id }}" value="{{ i }}"{% if forloop.first %} data-dialog-focus{% endif %}>
+            <label for="Rate{{ i }}-{{ section.id }}" aria-label="{{ 'reviews.stars' | t | replace: '[n]', i }}">★</label>
+          {%- endfor -%}
+        </fieldset>
+        <div class="field"><label for="RText-{{ section.id }}">{{ 'reviews.tell_more' | t }}</label><textarea id="RText-{{ section.id }}" name="text" rows="4" maxlength="2000"></textarea></div>
+        <div class="field">
+          <label for="RPhotos-{{ section.id }}">{{ 'reviews.photos' | t }}</label>
+          <input id="RPhotos-{{ section.id }}" type="file" accept="image/*" multiple data-review-photos>
+          <div class="review-form__thumbs" data-review-thumbs></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div class="field"><label for="RFirst-{{ section.id }}">{{ 'customer.first_name' | t }} *</label><input id="RFirst-{{ section.id }}" name="first" autocomplete="given-name" required></div>
+          <div class="field"><label for="RLast-{{ section.id }}">{{ 'customer.last_name' | t }}</label><input id="RLast-{{ section.id }}" name="last" autocomplete="family-name"></div>
+        </div>
+        <div class="field"><label for="REmail-{{ section.id }}">{{ 'customer.email' | t }} *</label><input id="REmail-{{ section.id }}" name="email" type="email" autocomplete="email" required></div>
+        <p class="mute" style="font-size:13px">{{ 'reviews.consent' | t }}</p>
+        <p class="form-msg form-msg--error" data-review-error role="alert" hidden></p>
+        <button type="submit" class="btn btn--ink" style="width:100%">{{ 'reviews.submit' | t }}</button>
+      </form>
+      <div data-review-thanks hidden style="text-align:center;padding:24px 0">
+        <p class="h3" data-review-thanks-text></p>
+        <button type="button" class="btn btn--ink" data-dialog-close style="margin-top:16px">{{ 'general.close' | t }}</button>
+      </div>
+    </div>
+  </div>
+</section>
+<script type="module" src="{{ 'snuzzo-reviews.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Customer reviews",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What parents say" },
+    { "type": "range", "id": "per_page", "label": "Reviews shown at a time", "min": 3, "max": 24, "step": 1, "default": 8 },
+    { "type": "checkbox", "id": "moderate", "label": "Approve reviews before they appear", "default": false, "info": "When on, approve each review in the Firebase console." },
+    { "type": "header", "content": "Review database (advanced)" },
+    { "type": "textarea", "id": "firebase_config", "label": "Firebase settings (JSON)" },
+    { "type": "text", "id": "node", "label": "Reviews location", "default": "snuzzo_reviews" },
+    { "type": "text", "id": "emails_node", "label": "Reviewer emails location", "default": "snuzzo_review_emails" }
+  ]
+}
+{% endschema %}

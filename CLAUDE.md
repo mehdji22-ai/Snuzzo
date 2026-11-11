@@ -15,3 +15,8 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
 - Products, collections, blog articles and menus are store data, not theme files: they can't be changed
   through this repo. They need the Shopify Admin API for the Snuzzo store (see README / owner's setup).
 - **Never** touch the FUTBOLMAX store or its Shopify connector — it's a different business, used by other agents.
+- Customer reviews live in the store's Firebase Realtime Database (`snuzzo_reviews/<productId>`), shown by
+  `sections/product-reviews.liquid` + `assets/snuzzo-reviews.js`. Star ratings on cards read Shopify's
+  standard `reviews.rating` / `reviews.rating_count` metafields. Never add invented reviews, ratings or
+  testimonials — only real customer content.
+- Theme text is translated in `locales/` (en, fr, es, de, it, ja). Add new keys to every file.

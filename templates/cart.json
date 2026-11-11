@@ -1,4 +1,65 @@
 {
-  "sections": { "main": { "type": "main-cart", "settings": {} } },
-  "order": ["main"]
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "settings": {
+        "show_note": false,
+        "show_express": true
+      }
+    },
+    "upsell": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "You may also like",
+        "show_rating": false,
+        "collection": "best-sellers",
+        "limit": 4,
+        "button": "Shop all"
+      }
+    },
+    "trust": {
+      "type": "trust-strip",
+      "blocks": {
+        "t1": {
+          "type": "item",
+          "settings": {
+            "text": "Free shipping",
+            "icon": "truck"
+          }
+        },
+        "t2": {
+          "type": "item",
+          "settings": {
+            "text": "30-day guarantee",
+            "icon": "shield"
+          }
+        },
+        "t3": {
+          "type": "item",
+          "settings": {
+            "text": "Gentle on skin",
+            "icon": "leaf"
+          }
+        },
+        "t4": {
+          "type": "item",
+          "settings": {
+            "text": "Easy returns",
+            "icon": "return"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ]
+    }
+  },
+  "order": [
+    "main",
+    "upsell",
+    "trust"
+  ]
 }

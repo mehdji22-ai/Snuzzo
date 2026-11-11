@@ -33,17 +33,18 @@
     <nav class="site-header__nav" aria-label="Main">{{ nav_items }}</nav>
 
     <div class="site-header__tools">
-      <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
+      <form class="site-search" action="{{ routes.search_url }}" method="get" role="search" data-predictive>
         <label class="visually-hidden" for="HeaderSearch">{{ 'general.search' | t }}</label>
-        <input id="HeaderSearch" type="search" name="q" placeholder="{{ 'general.search' | t }}" value="{{ search.terms | escape }}">
+        <input id="HeaderSearch" type="search" name="q" placeholder="{{ 'general.search' | t }}" value="{{ search.terms | escape }}" aria-controls="HeaderSearchResults" aria-expanded="false">
         <input type="hidden" name="type" value="product">
         <button type="submit" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search', size: 20 %}</button>
+        <div class="pred" id="HeaderSearchResults" data-predictive-results hidden></div>
       </form>
       <div class="currency-desktop">{% render 'currency-selector', id: 'desktop' %}</div>
       {%- if shop.customer_accounts_enabled and section.settings.show_account -%}
-        <a class="icon-btn" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{{ 'customer.account' | t }}">{% render 'icon', name: 'account' %}</a>
+        <a class="icon-btn" href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" aria-label="{% if customer %}{{ 'customer.account' | t }}{% else %}{{ 'customer.sign_in' | t }}{% endif %}">{% render 'icon', name: 'account' %}</a>
       {%- endif -%}
-      <a class="icon-btn" href="{{ routes.cart_url }}" aria-label="{{ 'general.bag' | t }}">
+      <a class="icon-btn" href="{{ routes.cart_url }}" data-bag-link aria-label="{{ 'general.bag' | t }}">
         {% render 'icon', name: 'bag' %}
         <span class="bag-count" data-bag-count data-count="{{ cart.item_count }}">{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}</span>
       </a>
@@ -52,11 +53,15 @@
 
   <div class="mobile-nav" id="MobileNav">
     <nav aria-label="Main (mobile)">{{ nav_items }}</nav>
-    <form class="site-search" action="{{ routes.search_url }}" method="get" role="search">
+    <form class="site-search" action="{{ routes.search_url }}" method="get" role="search" data-predictive>
       <label class="visually-hidden" for="MobileSearch">{{ 'general.search' | t }}</label>
-      <input id="MobileSearch" type="search" name="q" placeholder="{{ 'general.search' | t }}">
+      <input id="MobileSearch" type="search" name="q" placeholder="{{ 'general.search' | t }}" aria-controls="MobileSearchResults" aria-expanded="false">
       <button type="submit" aria-label="{{ 'general.search' | t }}">{% render 'icon', name: 'search', size: 20 %}</button>
+      <div class="pred" id="MobileSearchResults" data-predictive-results hidden></div>
     </form>
+    {%- if shop.customer_accounts_enabled and section.settings.show_account -%}
+      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}">{% if customer %}{{ 'customer.account' | t }}{% else %}{{ 'customer.sign_in' | t }}{% endif %}</a>
+    {%- endif -%}
     {% render 'currency-selector', id: 'mobile' %}
   </div>
 </header>
@@ -71,7 +76,7 @@
     { "type": "range", "id": "logo_height", "label": "Logo height", "min": 20, "max": 56, "step": 2, "unit": "px", "default": 28 },
     { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "Only used when no 'Menu link' blocks are added to this header." },
     { "type": "checkbox", "id": "sticky", "label": "Stick to the top when scrolling", "default": true },
-    { "type": "checkbox", "id": "show_account", "label": "Show account icon", "default": false }
+    { "type": "checkbox", "id": "show_account", "label": "Show sign-in / account icon", "default": true }
   ],
   "blocks": [
     {

@@ -42,7 +42,15 @@
         "show_description": true,
         "description_title": "Why it's easier at 3 a.m.",
         "open_description": false,
-        "siblings_collection": "animal-onesies"
+        "siblings_collection": "animal-onesies",
+        "size_chart": "shopify://shop_images/Tableau_de_mensurations_bebe_illustre.png",
+        "show_quantity": true,
+        "guarantee": "Try it for 30 days. Love it or get your money back.",
+        "show_delivery": true,
+        "ship_days": 1,
+        "delivery_min": 7,
+        "delivery_max": 7,
+        "show_trust": true
       }
     },
     "related": {
@@ -68,9 +76,17 @@
             "label": "For two",
             "collection": "feeding-nursing"
           }
+        },
+        "r0": {
+          "type": "tab",
+          "settings": {
+            "label": "You might also like",
+            "collection": "best-sellers"
+          }
         }
       },
       "block_order": [
+        "r0",
         "r1",
         "r2",
         "r3"
@@ -79,10 +95,188 @@
         "label": "Complete the bedtime",
         "shop_all": "shopify://collections/best-sellers"
       }
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "What parents say",
+        "per_page": 8,
+        "moderate": false,
+        "firebase_config": "{\n \"apiKey\": \"AIzaSyDG86cNHeZC5ydFv_JWEaTV6ZkfpNTqNVo\",\n \"authDomain\": \"fut-bol-max.firebaseapp.com\",\n \"databaseURL\": \"https://fut-bol-max-default-rtdb.firebaseio.com\",\n \"projectId\": \"fut-bol-max\",\n \"storageBucket\": \"fut-bol-max.appspot.com\",\n \"messagingSenderId\": \"903384077428\",\n \"appId\": \"1:903384077428:web:327dee78b273f2f11e2d21\"\n}",
+        "node": "snuzzo_reviews",
+        "emails_node": "snuzzo_review_emails"
+      }
+    },
+    "videos": {
+      "type": "video-gallery",
+      "blocks": {
+        "v0": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/43b6a38dca074772a6d0d6894097164e.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v1": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/800d89d6aec64ee888d4bae9b4860162.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v2": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/a2d04ab95db54568a2393945e7096331.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v3": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/6e922f177d534c988e56ba92ea6d74c0.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v4": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/e1da5eaf95ef47408d67491fa9e0f1bf.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v5": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/345bee47b61248c3bc8d4cdb00d8a36a.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v6": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/71805a83fccb45598eb167c18a8fa96d.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v7": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/ed66101c2d2f4a4d8d9af738912a2b69.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v8": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/ee9da2a096ef479196a396ff6b997c26.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v9": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/ef18b57cc1554162aa1bab038cc0771a.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v10": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/a9c8ac83baec4aa0aa5e809533ccc204.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v11": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/0c77f87f785747d68d5e03369c32489e.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v12": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/d08867c4548b4f05aa00d6bae0249879.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        },
+        "v13": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/o/v/3ee35127ba3c42e9b0126771eb812573.mp4",
+            "caption": "A Snuzzo family video"
+          }
+        }
+      },
+      "block_order": [
+        "v0",
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "v5",
+        "v6",
+        "v7",
+        "v8",
+        "v9",
+        "v10",
+        "v11",
+        "v12",
+        "v13"
+      ],
+      "settings": {
+        "heading": "Cozy moments from Snuzzo families"
+      }
+    },
+    "features": {
+      "type": "feature-trio",
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "title": "Padded 3D hood",
+            "text": "Adorable from behind and comfy when baby rolls onto their back."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "title": "Cloud-soft plush",
+            "text": "A smooth cream fleece lining that feels gentle on delicate skin."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "title": "Chin-guard zip",
+            "text": "Protects tiny chins and keeps 3 a.m. changes quick and calm."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "title": "The gift they remember",
+            "text": "Soft pastel colours in gift-ready packaging."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3",
+        "f4"
+      ],
+      "settings": {
+        "heading": "Why parents choose Snuzzo"
+      }
     }
   },
   "order": [
     "main",
-    "related"
+    "reviews",
+    "related",
+    "videos",
+    "features"
   ]
 }

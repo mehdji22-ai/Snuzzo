@@ -46,10 +46,16 @@
         addedMsg: {{ 'products.added_message' | t | json }},
         viewBag: {{ 'products.view_bag' | t | json }},
         soldOut: {{ 'products.sold_out' | t | json }},
-        unavailable: {{ 'products.unavailable' | t | json }}
+        unavailable: {{ 'products.unavailable' | t | json }},
+        addToBag: {{ 'products.add_to_bag' | t | json }},
+        viewDetails: {{ 'products.view_details' | t | json }},
+        save: {{ 'products.save' | t | json }},
+        noResults: {{ 'search.none_js' | t | json }},
+        seeAll: {{ 'search.see_all' | t | json }}
       };
     </script>
     <script src="{{ 'snuzzo.js' | asset_url }}" defer></script>
+    <script src="{{ 'snuzzo-extras.js' | asset_url }}" defer></script>
 
     {{ content_for_header }}
   </head>
@@ -64,5 +70,10 @@
     </main>
 
     {% sections 'footer-group' %}
+
+    {%- if settings.cart_type == 'drawer' and template.name != 'cart' -%}
+      {% section 'cart-drawer' %}
+    {%- endif -%}
+    {% render 'quick-add-dialog' %}
   </body>
 </html>

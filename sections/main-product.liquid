@@ -49,12 +49,18 @@
   <div class="pdp__info">
     {%- if cat_line != blank -%}<div style="font-size:15px">{{ cat_line }}</div>{%- endif -%}
     {%- if settings.shipping_badge != blank -%}<span class="badge">{{ settings.shipping_badge }}</span>{%- endif -%}
-    {%- if section.settings.show_rating and settings.rating_text != blank -%}<div style="font-size:15px">{{ settings.rating_text }}</div>{%- endif -%}
+    {%- if section.settings.show_rating -%}
+      {%- capture product_stars -%}{% render 'stars', product: product, size: 'lg', link: '#reviews' %}{%- endcapture -%}
+      {%- if product_stars != blank -%}{{ product_stars }}{%- elsif settings.rating_text != blank -%}<a href="#reviews" style="font-size:15px;color:inherit">{{ settings.rating_text }}</a>{%- endif -%}
+    {%- endif -%}
     <h1 class="h1 pdp__title">{{ product.title }}</h1>
     {%- assign line = product.metafields.custom.one_liner.value -%}
     {%- if line != blank -%}<p style="margin:0">{{ line }}</p>{%- endif -%}
     <div class="pdp__price" data-price>
-      {{ v.price | money }}{%- if v.compare_at_price > v.price -%} <s>{{ v.compare_at_price | money }}</s>{%- endif -%}
+      {{ v.price | money }}{%- if v.compare_at_price > v.price -%} <s>{{ v.compare_at_price | money }}</s>
+        {%- assign saved = v.compare_at_price | minus: v.price | money -%}
+        <span class="save">{{ 'products.save' | t | replace: '[amount]', saved }}</span>
+      {%- endif -%}
     </div>
 
     {%- if sib_coll != blank and sib_coll.products_count > 1 -%}
@@ -79,7 +85,13 @@
           <fieldset class="sizes" data-option-index="{{ forloop.index0 }}" style="margin-bottom:18px">
             <legend class="pdp__group-head" style="width:100%">
               <span>{{ option.name }}</span>
-              {%- if forloop.last and section.settings.size_guide != blank -%}<a href="{{ section.settings.size_guide.url }}">{{ 'products.size_guide' | t }}</a>{%- endif -%}
+              {%- if forloop.last -%}
+                {%- if section.settings.size_chart != blank -%}
+                  <button type="button" class="link-btn" data-dialog-open="SizeChart-{{ section.id }}" aria-haspopup="dialog">{{ 'products.size_guide' | t }}</button>
+                {%- elsif section.settings.size_guide != blank -%}
+                  <a href="{{ section.settings.size_guide.url }}">{{ 'products.size_guide' | t }}</a>
+                {%- endif -%}
+              {%- endif -%}
             </legend>
             {%- for value in option.values -%}
               <label class="size">
@@ -91,6 +103,16 @@
         {%- endfor -%}
       {%- endunless -%}
 
+      {%- if section.settings.show_quantity -%}
+        <div class="qty-row">
+          <label class="pdp__group-head" for="Qty-{{ section.id }}" style="margin:0">{{ 'products.quantity' | t }}</label>
+          <div class="qty-step">
+            <button type="button" data-qty-step="-1" aria-label="{{ 'products.decrease' | t }}">−</button>
+            <input id="Qty-{{ section.id }}" type="number" name="quantity" value="1" min="1">
+            <button type="button" data-qty-step="1" aria-label="{{ 'products.increase' | t }}">+</button>
+          </div>
+        </div>
+      {%- endif -%}
       <div class="buy-row">
         <button type="submit" class="btn btn--ink" data-add="{{ 'products.add_to_bag' | t }}" data-soldout="{{ 'products.sold_out' | t }}"{% unless v.available %} disabled{% endunless %}>
           {%- if v.available -%}{{ 'products.add_to_bag' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
@@ -99,6 +121,31 @@
       </div>
       <p class="buy-msg" data-buy-msg role="status" aria-live="polite"></p>
     {%- endform -%}
+
+    {%- if section.settings.guarantee != blank -%}
+      <p class="guarantee">{% render 'icon', name: 'shield', size: 20 %}<span>{{ section.settings.guarantee }}</span></p>
+    {%- endif -%}
+
+    {%- if section.settings.show_delivery -%}
+      <div class="delivery" data-delivery data-ship="{{ section.settings.ship_days }}" data-min="{{ section.settings.delivery_min }}" data-max="{{ section.settings.delivery_max }}" hidden>
+        <p class="delivery__by">{{ 'products.get_it_by' | t }} <b data-d="by"></b></p>
+        <ol class="delivery__steps">
+          <li><span class="delivery__dot"></span><b>{{ 'products.ordered' | t }}</b><span data-d="ordered"></span></li>
+          <li><span class="delivery__dot"></span><b>{{ 'products.shipped' | t }}</b><span data-d="shipped"></span></li>
+          <li><span class="delivery__dot"></span><b>{{ 'products.delivered' | t }}</b><span data-d="delivered"></span></li>
+        </ol>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_trust -%}
+      <ul class="trust">
+        <li>{% render 'icon', name: 'lock', size: 20 %}<span>{{ 'products.trust_secure' | t }}</span></li>
+        <li>{% render 'icon', name: 'card', size: 20 %}<span>{{ 'products.trust_payments' | t }}</span></li>
+        <li>{% render 'icon', name: 'shield', size: 20 %}<span>{{ 'products.trust_privacy' | t }}</span></li>
+        <li>{% render 'icon', name: 'truck', size: 20 %}<span>{{ 'products.trust_shipping' | t }}</span></li>
+      </ul>
+      <div class="pay-row">{%- for type in shop.enabled_payment_types limit: 8 -%}{{ type | payment_type_svg_tag: class: 'pay-icon' }}{%- endfor -%}</div>
+    {%- endif -%}
 
     <div class="accordion">
       {%- if product.description != blank and section.settings.show_description -%}
@@ -151,8 +198,20 @@
   </div>
 </section>
 
+{%- if section.settings.size_chart != blank -%}
+  <div class="dialog dialog--center" id="SizeChart-{{ section.id }}" role="dialog" aria-modal="true" aria-labelledby="SizeChartTitle-{{ section.id }}" hidden>
+    <div class="dialog__box" style="max-width:720px">
+      <button type="button" class="dialog__close icon-btn" data-dialog-close data-dialog-focus aria-label="{{ 'general.close' | t }}">✕</button>
+      <h2 class="h3" id="SizeChartTitle-{{ section.id }}" style="margin-bottom:16px">{{ 'products.size_guide' | t }}</h2>
+      {%- assign chart_alt = 'products.size_guide' | t -%}
+      <img data-src="{{ section.settings.size_chart | image_url: width: 1400 }}" alt="{{ chart_alt }}" width="{{ section.settings.size_chart.width }}" height="{{ section.settings.size_chart.height }}" style="width:100%;height:auto">
+      {%- if section.settings.size_note != blank -%}<div class="rte" style="margin-top:14px">{{ section.settings.size_note }}</div>{%- endif -%}
+    </div>
+  </div>
+{%- endif -%}
+
 <div class="sticky-buy" data-sticky-buy aria-hidden="true">
-  <div><div style="font-weight:800;font-size:14px">{{ short }}</div><div style="font-weight:900" data-sticky-price>{{ v.price | money }}</div></div>
+  <div><div style="font-weight:800;font-size:14px">{{ short }}</div><div style="font-weight:900" data-sticky-price>{{ v.price | money }}</div>{%- if section.settings.guarantee != blank -%}<div class="mute" style="font-size:12px">{{ section.settings.guarantee }}</div>{%- endif -%}</div>
   <button type="button" class="btn btn--ink" tabindex="-1">{{ 'products.add_to_bag' | t }}</button>
 </div>
 
@@ -165,7 +224,17 @@
     { "type": "checkbox", "id": "show_rating", "label": "Show store rating", "default": true },
     { "type": "collection", "id": "siblings_collection", "label": "'Animals' grid collection", "info": "Shows the other animals as thumbnails (like colourways). Use your animal collection." },
     { "type": "text", "id": "siblings_label", "label": "'Animals' grid heading", "default": "Animals" },
-    { "type": "page", "id": "size_guide", "label": "Size guide page" },
+    { "type": "image_picker", "id": "size_chart", "label": "Size chart image (opens in a pop-up)" },
+    { "type": "richtext", "id": "size_note", "label": "Size chart note", "default": "<p>Roomy, comfortable fit. Between sizes? Choose the larger one, so there's space to wiggle and grow.</p>" },
+    { "type": "page", "id": "size_guide", "label": "Or a size guide page" },
+    { "type": "checkbox", "id": "show_quantity", "label": "Show quantity selector", "default": true },
+    { "type": "text", "id": "guarantee", "label": "Guarantee line", "default": "Try it for 30 days. Love it or get your money back." },
+    { "type": "header", "content": "Delivery estimate" },
+    { "type": "checkbox", "id": "show_delivery", "label": "Show 'Get it by' dates", "default": true },
+    { "type": "range", "id": "ship_days", "label": "Business days before it ships", "min": 0, "max": 10, "step": 1, "default": 1 },
+    { "type": "range", "id": "delivery_min", "label": "Shipping time: fastest (business days)", "min": 1, "max": 30, "step": 1, "default": 5 },
+    { "type": "range", "id": "delivery_max", "label": "Shipping time: slowest (business days)", "min": 1, "max": 30, "step": 1, "default": 7 },
+    { "type": "checkbox", "id": "show_trust", "label": "Show trust badges and payment icons", "default": true },
     { "type": "checkbox", "id": "show_description", "label": "Show product description in accordion", "default": true },
     { "type": "text", "id": "description_title", "label": "Description accordion title", "default": "Why it's easier at 3 a.m." },
     { "type": "checkbox", "id": "open_description", "label": "Open description by default", "default": false }

@@ -1,0 +1,17 @@
+{%- comment -%}
+  Real ratings only: reads Shopify's standard review fields (reviews.rating / reviews.rating_count),
+  which review apps fill in. Shows nothing when a product has no real reviews yet.
+  Params: product, size ('sm' | 'lg'), link (optional anchor)
+{%- endcomment -%}
+{%- assign r = product.metafields.reviews.rating.value -%}
+{%- assign rc = product.metafields.reviews.rating_count.value | default: 0 -%}
+{%- if r != blank and rc > 0 -%}
+  {%- assign max = r.scale_max | default: 5 -%}
+  {%- assign pct = r.rating | times: 100 | divided_by: max -%}
+  {%- assign avg = r.rating | round: 1 -%}
+  {%- capture label -%}{{ 'products.rating_label' | t: rating: avg, count: rc }}{%- endcapture -%}
+  {%- if link -%}<a class="stars stars--{{ size | default: 'sm' }}" href="{{ link }}" aria-label="{{ label | escape }}">{%- else -%}<span class="stars stars--{{ size | default: 'sm' }}" role="img" aria-label="{{ label | escape }}">{%- endif -%}
+    <span class="stars__icons" style="--pct: {{ pct }}%" aria-hidden="true"></span>
+    <span aria-hidden="true">{{ avg }} ({{ rc }})</span>
+  {%- if link -%}</a>{%- else -%}</span>{%- endif -%}
+{%- endif -%}

@@ -49,7 +49,11 @@
       {%- endfor -%}
     </div>
     <div class="site-footer__bottom">
-      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+      <span style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        {%- if section.settings.logo != blank -%}<a class="footer-logo" href="{{ routes.root_url }}">{{ section.settings.logo | image_url: height: 64 | image_tag: alt: shop.name, height: 32 }}</a>{%- endif -%}
+        <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</span>
+        {% render 'currency-selector', id: 'footer' %}
+      </span>
       {%- if section.settings.show_payment -%}
         <span>{% for type in shop.enabled_payment_types limit: 8 %}{{ type | payment_type_svg_tag: class: 'pay-icon' }}{% endfor %}</span>
       {%- endif -%}
@@ -63,6 +67,7 @@
   "name": "Footer",
   "class": "section-footer",
   "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (shown in white)" },
     { "type": "checkbox", "id": "show_payment", "label": "Show payment icons", "default": true }
   ],
   "blocks": [

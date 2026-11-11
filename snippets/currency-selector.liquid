@@ -18,3 +18,15 @@
 {%- else -%}
   <span class="currency-label">{{ cart.currency.iso_code }}</span>
 {%- endif -%}
+{%- if localization.available_languages.size > 1 -%}
+  {%- assign lang_form_id = 'Language-' | append: id -%}
+  {%- form 'localization', class: 'currency-form', id: lang_form_id -%}
+    <label class="visually-hidden" for="Lang-{{ id }}">{{ 'general.language' | t }}</label>
+    <select id="Lang-{{ id }}" name="language_code" onchange="this.form.submit()">
+      {%- for language in localization.available_languages -%}
+        <option value="{{ language.iso_code }}" lang="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} selected{% endif %}>{{ language.endonym_name | capitalize }}</option>
+      {%- endfor -%}
+    </select>
+    <noscript><button type="submit">OK</button></noscript>
+  {%- endform -%}
+{%- endif -%}

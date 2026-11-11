@@ -1,0 +1,39 @@
+{%- comment -%} Customer quotes. Only add quotes real customers actually sent you. {%- endcomment -%}
+{%- if section.blocks.size > 0 -%}
+<section class="section page-width">
+  {%- if section.settings.heading != blank -%}<h2 class="h2" style="margin-bottom:26px">{{ section.settings.heading }}</h2>{%- endif -%}
+  <div class="rail quotes">
+    {%- for block in section.blocks -%}
+      <figure class="quote" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}{% render 'media', image: block.settings.image, alt: '', sizes: '120px' %}{%- endif -%}
+        <blockquote>“{{ block.settings.quote }}”</blockquote>
+        <figcaption><b>{{ block.settings.name }}</b>{%- if block.settings.detail != blank -%} · {{ block.settings.detail }}{%- endif -%}</figcaption>
+      </figure>
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Customer quotes",
+  "tag": "div",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From Snuzzo parents" },
+    { "type": "paragraph", "content": "Only add quotes that real customers sent you (emails, messages, reviews)." }
+  ],
+  "blocks": [
+    {
+      "type": "quote",
+      "name": "Quote",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Quote" },
+        { "type": "text", "id": "name", "label": "Customer name (e.g. Lauren C.)" },
+        { "type": "text", "id": "detail", "label": "Detail (e.g. bought the Panda)" },
+        { "type": "image_picker", "id": "image", "label": "Customer photo (with permission)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Customer quotes" }]
+}
+{% endschema %}

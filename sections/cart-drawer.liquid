@@ -1,0 +1,82 @@
+<div class="dialog dialog--drawer" data-cart-drawer data-section-id="{{ section.id }}" role="dialog" aria-modal="true" aria-labelledby="CartDrawerTitle" hidden>
+  <div class="dialog__box drawer">
+    <div data-cart-drawer-body class="drawer__body">
+      <span hidden data-drawer-count="{{ cart.item_count }}"></span>
+      <div class="drawer__head">
+        <h2 class="h3" id="CartDrawerTitle">{{ 'cart.title' | t }} <span class="mute" style="font-family:var(--body);font-size:16px">({{ cart.item_count }})</span></h2>
+        <button type="button" class="icon-btn" data-dialog-close data-dialog-focus aria-label="{{ 'general.close' | t }}">✕</button>
+      </div>
+      {%- if section.settings.note != blank -%}<div class="drawer__note">{{ section.settings.note }}</div>{%- endif -%}
+
+      {%- if cart.item_count == 0 -%}
+        <div class="drawer__empty">
+          <p>{{ 'cart.empty' | t }}</p>
+          <a class="btn btn--ink" href="{{ routes.all_products_collection_url }}">{{ 'general.continue' | t }}</a>
+          {%- unless customer -%}{%- if shop.customer_accounts_enabled -%}<p class="mute" style="font-size:14px">{{ 'cart.login_prompt_html' | t: url: routes.account_login_url }}</p>{%- endif -%}{%- endunless -%}
+        </div>
+      {%- else -%}
+        <ul class="drawer__items">
+          {%- for item in cart.items -%}
+            <li class="drawer__item">
+              {%- if item.image -%}{%- assign i_alt = item.product.title | escape -%}<a href="{{ item.url }}">{{ item.image | image_url: width: 180 | image_tag: alt: i_alt, loading: 'lazy' }}</a>{%- endif -%}
+              <div class="drawer__info">
+                <a href="{{ item.url }}" class="drawer__name">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}<span class="mute">{{ item.variant.title }}</span>{%- endunless -%}
+                <span><b>{{ item.final_line_price | money }}</b>{%- if item.original_line_price > item.final_line_price -%} <s class="mute">{{ item.original_line_price | money }}</s>{%- endif -%}</span>
+                <div class="qty-step qty-step--sm">
+                  <button type="button" data-line-change="{{ item.quantity | minus: 1 }}" data-key="{{ item.key }}" aria-label="{{ 'cart.decrease' | t: title: item.product.title | escape }}">−</button>
+                  <input type="number" min="0" value="{{ item.quantity }}" data-line-qty data-key="{{ item.key }}" aria-label="{{ 'cart.quantity' | t }}: {{ item.product.title | escape }}">
+                  <button type="button" data-line-change="{{ item.quantity | plus: 1 }}" data-key="{{ item.key }}" aria-label="{{ 'cart.increase' | t: title: item.product.title | escape }}">+</button>
+                </div>
+              </div>
+              <button type="button" class="drawer__remove" data-line-change="0" data-key="{{ item.key }}" aria-label="{{ 'cart.remove' | t }}: {{ item.product.title | escape }}">{{ 'cart.remove' | t }}</button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- assign up = section.settings.collection -%}
+      {%- if up != blank and up.products_count > 0 -%}
+        <div class="drawer__upsell">
+          <div class="label" style="margin-bottom:10px">{{ section.settings.upsell_heading }}</div>
+          <div class="drawer__upsell-row">
+            {%- assign shown = 0 -%}
+            {%- for p in up.products -%}
+              {%- assign in_cart = false -%}
+              {%- for item in cart.items -%}{%- if item.product_id == p.id -%}{%- assign in_cart = true -%}{%- endif -%}{%- endfor -%}
+              {%- if in_cart == false and shown < 4 -%}
+                {%- assign shown = shown | plus: 1 -%}
+                <div class="mini">
+                  <a href="{{ p.url }}">{%- if p.featured_image -%}{{ p.featured_image | image_url: width: 240 | image_tag: alt: '', loading: 'lazy' }}{%- endif -%}</a>
+                  <a href="{{ p.url }}" class="mini__name">{{ p.title }}</a>
+                  <span class="mini__price">{{ p.price | money }}</span>
+                  <button type="button" class="mini__add" data-quick-add="{{ p.handle }}" aria-label="{{ 'products.quick_add' | t: title: p.title | escape }}">+</button>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- if cart.item_count > 0 -%}
+        <form action="{{ routes.cart_url }}" method="post" class="drawer__foot">
+          <div class="drawer__total"><span>{{ 'cart.subtotal' | t }}</span><b>{{ cart.total_price | money_with_currency }}</b></div>
+          <p class="mute" style="font-size:13px;margin:0">{{ 'cart.taxes' | t }}</p>
+          <button type="submit" name="checkout" class="btn btn--ink" style="width:100%">{{ 'cart.checkout' | t }}</button>
+          <a href="{{ routes.cart_url }}" class="link-strong" style="text-align:center">{{ 'products.view_bag' | t }}</a>
+        </form>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bag drawer",
+  "settings": [
+    { "type": "text", "id": "note", "label": "Message at the top", "default": "Free shipping worldwide · 30-day money-back guarantee" },
+    { "type": "collection", "id": "collection", "label": "'You may also like' collection" },
+    { "type": "text", "id": "upsell_heading", "label": "'You may also like' heading", "default": "You may also like" }
+  ]
+}
+{% endschema %}

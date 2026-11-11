@@ -17,7 +17,9 @@
     "password_label": "Store password",
     "not_found_title": "Lost the animal?",
     "not_found_text": "This page doesn't exist. Head back and pick another one.",
-    "continue": "Keep shopping"
+    "continue": "Keep shopping",
+    "close": "Close",
+    "language": "Language"
   },
   "products": {
     "add_to_bag": "Add to bag",
@@ -32,7 +34,21 @@
     "choose": "Choose {{ option }}",
     "quantity": "Quantity",
     "animal_count": "Animal [n] of [total]",
-    "bundle_total": "Together: {{ total }}"
+    "bundle_total": "Together: {{ total }}",
+    "view_details": "View full details",
+    "save": "Save [amount]",
+    "quick_add": "Quick add {{ title }}",
+    "rating_label": "Rated {{ rating }} out of 5 from {{ count }} reviews",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "get_it_by": "Get it by",
+    "ordered": "Ordered",
+    "shipped": "Shipped",
+    "delivered": "Delivered",
+    "trust_secure": "Secure shopping",
+    "trust_payments": "Safe payments",
+    "trust_privacy": "Privacy protection",
+    "trust_shipping": "Free shipping worldwide"
   },
   "collections": {
     "filter_sort": "Filter & sort",
@@ -54,12 +70,17 @@
     "taxes": "Taxes and shipping calculated at checkout.",
     "checkout": "Check out",
     "update": "Update bag",
-    "note": "Order note"
+    "note": "Order note",
+    "decrease": "Decrease quantity for {{ title }}",
+    "increase": "Increase quantity for {{ title }}",
+    "login_prompt_html": "Have an account? <a href=\"{{ url }}\">Log in</a> to check out faster."
   },
   "search": {
     "title": "Search",
     "results": "{{ count }} results for \"{{ terms }}\"",
-    "none": "Nothing found for \"{{ terms }}\"."
+    "none": "Nothing found for \"{{ terms }}\".",
+    "none_js": "Nothing found for \"[q]\".",
+    "see_all": "See all results"
   },
   "blog": {
     "read_more": "Read more",
@@ -82,7 +103,8 @@
     "addresses": "Addresses",
     "submit": "Submit",
     "order": "Order {{ name }}",
-    "activate": "Activate account"
+    "activate": "Activate account",
+    "sign_in": "Sign in"
   },
   "contact": {
     "name": "Name",
@@ -99,5 +121,27 @@
     "title": "Your gift card",
     "code": "Code",
     "print": "Print"
+  },
+  "reviews": {
+    "write": "Write a review",
+    "more": "Show more reviews",
+    "count": "[avg] out of 5 · [count] reviews",
+    "none": "No reviews yet. Be the first to share yours.",
+    "error": "Reviews couldn't be loaded right now.",
+    "pending": "Awaiting approval",
+    "thanks": "Thank you! Your review is live.",
+    "thanks_moderated": "Thank you! Your review will appear once it's approved.",
+    "photo_from": "Photo from [name]",
+    "stars": "[n] out of 5 stars",
+    "need_rating": "Please choose a star rating.",
+    "need_name": "Please add your first name.",
+    "need_email": "Please add a valid email.",
+    "send_error": "Your review couldn't be sent. Please try again.",
+    "rate_title": "How would you rate it?",
+    "your_rating": "Your rating",
+    "tell_more": "Tell us more",
+    "photos": "Add photos (up to 3)",
+    "consent": "Your review, first name and last initial will be posted publicly. Your email stays private.",
+    "submit": "Submit review"
   }
 }
