@@ -30,7 +30,7 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
 - Grouped products (drafts until launch): The Animal Onesies (default product template), The Christmas Onesies
   (`product.christmas`), The Baby Snowsuit (`product.snowsuit`). The old one-per-animal products stay live until launch.
 - Live theme (Nov 16, 2026): "Horizon + Bundles" (copy of the old Horizon theme, not in this repo). Its CalmBuds
-  template (`templates/product.the-snuzzo-calmbuds.json`) has the Black Friday pack selector block (live Nov 16, 2026; banner hides itself after Nov 30) from
+  template (`templates/product.the-snuzzo-calmbuds.json`) has the Black Friday pack selector block (live Nov 16, 2026; countdown ends Nov 18 midnight New York time, then the banner hides itself) from
   `tools/bundles/calmbuds-pack-selector.liquid`, backed by 3 automatic discounts "CalmBuds Duo/Family Pack/Big Happy
   Family" (16.6556% / 33.3222% / 36.6539% off at 2/3/4+). Change prices in both places together.
   The new Snuzzo theme from this repo is unpublished (relaunch pending).
