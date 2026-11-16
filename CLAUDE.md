@@ -34,7 +34,8 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   `tools/bundles/calmbuds-pack-selector.liquid`, backed by 3 automatic discounts "CalmBuds Duo/Family Pack/Big Happy
   Family" (16.6556% / 33.3222% / 36.6539% off at 2/3/4+). Change prices in both places together.
   The new Snuzzo theme from this repo is unpublished (relaunch pending).
-- Shipping (Nov 16, 2026): one "General profile" (all variants), 6 zones / 237 countries, all 6 markets active.
-  Every zone: "Standard Shipping" $6.99 USD for orders ≤ $59, "Free Shipping" for orders ≥ $59 (rates in USD).
-  The theme shows the threshold via `window.SNZ_SHIP_USD = 59` (script in the announcement bar, `sections/header-group.json`
-  of the live theme) + `[data-snz-ship]` spans; the cart shows a progress bar. Change both together.
+- Shipping (Nov 16, 2026, Black Friday): FREE shipping on every order. One "General profile" (all variants),
+  6 zones / 237 countries, all 6 markets active, each zone has a single "Free Shipping" $0 rate (no minimum).
+  Site texts say "Black Friday: free shipping on every order". If a threshold comes back: add rates per zone and
+  set `window.SNZ_SHIP_USD` (announcement bar script in the live theme's `sections/header-group.json`, currently 0)
+  and put `<span data-snz-ship>` amounts back in the texts.

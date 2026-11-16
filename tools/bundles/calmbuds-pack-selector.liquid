@@ -4,7 +4,7 @@
      If you change a discount in Shopify, change the matching number in "pct" below.
      Crossed-out "was" price = the variant's compare-at price (set in Shopify Admin).
      bf_end = when the Black Friday banner and countdown disappear (UTC time).
-     ship_qty = number of CalmBuds that unlocks free shipping (must match Shopify shipping settings). -->
+     Free shipping on every order (Black Friday), set in Shopify > Settings > Shipping. -->
 {%- liquid
   assign v0 = product.selected_or_first_available_variant
   assign unit = v0.price
@@ -38,7 +38,7 @@
         <span class="snzb__bf-clock"><span data-bf-d>00</span>d <span data-bf-h>00</span>h <span data-bf-m>00</span>m <span data-bf-s>00</span>s</span>
       </div>
     </div>
-    <p class="snzb__bf-foot">Free shipping on orders over <span data-snz-ship>$59</span></p>
+    <p class="snzb__bf-foot">+ Free shipping on every order</p>
   </div>
   <div class="snzb__head"><span></span><h2 class="snzb__title">Pick your pack</h2><span></span></div>
   <p class="snzb__sub">Mix &amp; match animals in every pack</p>
@@ -64,7 +64,6 @@
         <span class="snzb__info">
           <span class="snzb__name">{{ t_name[i] }} <span class="snzb__count">({{ qn }})</span></span>
           <span class="snzb__line">{{ t_line[i] }}</span>
-          {%- if qn >= ship_qty -%}<span class="snzb__ship-tag"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Free shipping</span>{%- endif -%}
         </span>
         <span class="snzb__prices">
           <span class="snzb__price">{{ price | money }}</span>
@@ -104,11 +103,7 @@
   <div class="snzb__summary" aria-live="polite">
     <div class="snzb__total"><span>Total</span><span><s data-sum-was></s> <b data-sum-price></b></span></div>
     <div class="snzb__saving" data-sum-saved></div>
-    <div class="snzb__ship" data-ship>
-      <p class="snzb__ship-text" data-ship-text></p>
-      <div class="snzb__ship-bar" aria-hidden="true"><span data-ship-fill></span></div>
-    </div>
-    <p class="snzb__note">Black Friday prices applied automatically at checkout · 30-day money-back guarantee</p>
+    <p class="snzb__note">Black Friday prices applied automatically at checkout · Free shipping on every order · 30-day money-back guarantee</p>
   </div>
 
   <button type="button" class="snzb__btn" data-add>Add to cart</button>
