@@ -1,0 +1,193 @@
+<!-- SNUZZO PACK SELECTOR (bundles). Prices follow the automatic quantity discounts:
+     2 = 16.66% off, 3 = 33.32% off, 4 = 36.65% off (so in USD: 49.99 / 59.99 / 75.99).
+     If you change a discount in Shopify, change the matching number in "pct" below. -->
+{%- liquid
+  assign v0 = product.selected_or_first_available_variant
+  assign unit = v0.price
+  assign t_qty = '1,2,3,4' | split: ','
+  assign t_pct = '0,0.166556,0.333222,0.366539' | split: ','
+  assign t_name = 'Just one|Duo|Family Pack|Big Happy Family' | split: '|'
+  assign t_line = 'Try it out. One cozy listener, one happy nap.|Mix 2 animals. Siblings, travel or a spare.|Home, car and grandma’s house, covered.|Our lowest price per CalmBuds.' | split: '|'
+  assign t_badge = '||Great gift|Best value' | split: '|'
+  assign avail = product.variants | where: 'available', true
+-%}
+<div class="snzb" data-snzb data-product-url="{{ product.url }}">
+  <div class="snzb__head"><span></span><h2 class="snzb__title">Pick your pack</h2><span></span></div>
+  <p class="snzb__sub">Mix &amp; match animals in every pack</p>
+
+  <fieldset class="snzb__tiers">
+    <legend class="snzb__sr">Choose how many CalmBuds</legend>
+    {%- for q in t_qty -%}
+      {%- liquid
+        assign i = forloop.index0
+        assign qn = q | plus: 0
+        assign regular = unit | times: qn
+        assign keep = 1 | minus: t_pct[i]
+        assign price = regular | times: keep | round
+        assign each = price | divided_by: qn
+        assign saved = regular | minus: price
+        assign pct_int = t_pct[i] | times: 100 | round
+      -%}
+      <label class="snzb__tier{% if qn == 2 %} is-on{% endif %}" data-tier="{{ qn }}">
+        <input type="radio" name="snzb-qty-{{ section.id }}" value="{{ qn }}"{% if qn == 2 %} checked{% endif %}>
+        <span class="snzb__dot" aria-hidden="true"></span>
+        <span class="snzb__info">
+          <span class="snzb__name">{{ t_name[i] }} <span class="snzb__count">({{ qn }})</span></span>
+          {%- if qn > 1 -%}<span class="snzb__pill">Save {{ pct_int }}% · {{ saved | money }}</span>{%- endif -%}
+          <span class="snzb__line">{{ t_line[i] }}</span>
+        </span>
+        <span class="snzb__prices">
+          <span class="snzb__price">{{ price | money }}</span>
+          {%- if qn > 1 -%}<s class="snzb__was">{{ regular | money }}</s><span class="snzb__each">{{ each | money }} each</span>{%- endif -%}
+        </span>
+        {%- if t_badge[i] != blank -%}<span class="snzb__badge">{{ t_badge[i] }}</span>{%- endif -%}
+        <script type="application/json" data-tier-data>{"qty": {{ qn }}, "price": {{ price | money | json }}, "regular": {{ regular | money | json }}, "saved": {{ saved | money | json }}}</script>
+      </label>
+    {%- endfor -%}
+  </fieldset>
+
+  <div class="snzb__picks" data-picks>
+    <p class="snzb__picks-title">Choose an animal for each CalmBuds</p>
+    {%- for n in (1..4) -%}
+      {%- assign idx = n | minus: 1 -%}
+      {%- assign def = avail[idx] | default: avail.first | default: v0 -%}
+      <div class="snzb__pick" data-pick="{{ n }}"{% if n > 2 %} hidden{% endif %}>
+        <div class="snzb__pick-head">
+          <span class="snzb__pick-num">CalmBuds {{ n }}</span>
+          <span class="snzb__pick-name" data-pick-name>{{ def.title }}</span>
+        </div>
+        <div class="snzb__swatches" role="radiogroup" aria-label="Animal for CalmBuds {{ n }}">
+          {%- for v in product.variants -%}
+            {%- assign img = v.featured_media | default: product.featured_media -%}
+            <button type="button" class="snzb__sw{% if v.id == def.id %} is-on{% endif %}" role="radio" aria-checked="{% if v.id == def.id %}true{% else %}false{% endif %}" data-variant="{{ v.id }}" data-title="{{ v.title | escape }}" aria-label="{{ v.title | escape }}"{% unless v.available %} disabled{% endunless %}>
+              {%- if img -%}{{ img | image_url: width: 120, height: 120, crop: 'center' | image_tag: alt: '', loading: 'lazy', width: 54, height: 54 }}{%- else -%}<span>{{ v.title | slice: 0 }}</span>{%- endif -%}
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="snzb__summary" aria-live="polite">
+    <div class="snzb__total"><span>Total</span><span><s data-sum-was></s> <b data-sum-price></b></span></div>
+    <div class="snzb__saving" data-sum-saved></div>
+    <p class="snzb__note">Pack price applied automatically at checkout · Free shipping worldwide · 30-day money-back guarantee</p>
+  </div>
+
+  <button type="button" class="snzb__btn" data-add>Add to cart</button>
+  <button type="button" class="snzb__btn snzb__btn--alt" data-buy>Buy it now</button>
+  <p class="snzb__msg" data-msg role="status"></p>
+</div>
+
+<style>
+  .snzb { --snzb-ink: #3C2619; --snzb-blush: #F6D5C7; --snzb-cream: #FDF6EE; --snzb-line: #EAD9CC; --snzb-mute: #7A6458; margin: 8px 0 4px; color: var(--snzb-ink); font-family: inherit; }
+  .snzb__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .snzb__head { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; }
+  .snzb__head span { height: 2px; background: var(--snzb-blush); border-radius: 2px; }
+  .snzb__title { margin: 0; font-size: 18px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; }
+  .snzb__sub { text-align: center; margin: 4px 0 14px; font-size: 14px; color: var(--snzb-mute); }
+  .snzb__tiers { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .snzb__tier { position: relative; display: grid; grid-template-columns: 26px 1fr auto; gap: 12px; align-items: center; padding: 16px 16px 16px 14px; border: 1.5px solid var(--snzb-line); border-radius: 22px; background: #fff; cursor: pointer; transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease; }
+  .snzb__tier:hover { border-color: #D9B9A8; }
+  .snzb__tier.is-on { border-color: var(--snzb-ink); box-shadow: 0 0 0 1px var(--snzb-ink); background: var(--snzb-cream); }
+  .snzb__tier input { position: absolute; opacity: 0; pointer-events: none; }
+  .snzb__tier:focus-within { outline: 2px solid var(--snzb-ink); outline-offset: 3px; }
+  .snzb__dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--snzb-line); background: #fff; display: grid; place-items: center; }
+  .snzb__tier.is-on .snzb__dot { border-color: var(--snzb-ink); }
+  .snzb__tier.is-on .snzb__dot::after { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--snzb-ink); }
+  .snzb__info { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .snzb__name { font-size: 18px; font-weight: 700; line-height: 1.15; }
+  .snzb__count { font-weight: 500; color: var(--snzb-mute); }
+  .snzb__pill { align-self: flex-start; background: var(--snzb-blush); border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+  .snzb__line { font-size: 13.5px; color: var(--snzb-mute); line-height: 1.35; }
+  .snzb__prices { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; text-align: right; }
+  .snzb__price { font-size: 20px; font-weight: 800; }
+  .snzb__was { font-size: 13px; color: var(--snzb-mute); }
+  .snzb__each { font-size: 12px; font-weight: 600; color: var(--snzb-ink); background: #fff; border: 1px solid var(--snzb-line); border-radius: 999px; padding: 1px 8px; margin-top: 2px; white-space: nowrap; }
+  .snzb__badge { position: absolute; top: -11px; right: 18px; background: var(--snzb-ink); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 11px; border-radius: 999px; }
+  .snzb__picks { margin-top: 18px; padding: 16px; border-radius: 22px; background: var(--snzb-cream); display: flex; flex-direction: column; gap: 14px; }
+  .snzb__picks-title { margin: 0; font-weight: 700; font-size: 15px; }
+  .snzb__pick[hidden] { display: none; }
+  .snzb__pick-head { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; }
+  .snzb__pick-num { font-weight: 700; }
+  .snzb__pick-name { color: var(--snzb-mute); }
+  .snzb__swatches { display: flex; gap: 8px; overflow-x: auto; padding: 3px; scrollbar-width: none; }
+  .snzb__swatches::-webkit-scrollbar { display: none; }
+  .snzb__sw { flex: none; width: 54px; height: 54px; border-radius: 50%; padding: 0; border: 0; background: #fff; overflow: hidden; cursor: pointer; box-shadow: 0 0 0 1px var(--snzb-line); transition: box-shadow .12s ease; }
+  .snzb__sw img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .snzb__sw.is-on { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--snzb-ink); }
+  .snzb__sw:focus-visible { outline: 2px solid var(--snzb-ink); outline-offset: 3px; }
+  .snzb__sw[disabled] { opacity: .35; cursor: not-allowed; }
+  .snzb__summary { margin-top: 16px; padding: 4px 2px; }
+  .snzb__total { display: flex; justify-content: space-between; align-items: baseline; font-size: 17px; font-weight: 700; }
+  .snzb__total s { color: var(--snzb-mute); font-weight: 500; font-size: 14px; }
+  .snzb__total b { font-size: 22px; }
+  .snzb__saving { color: #2F7A4B; font-weight: 700; font-size: 14px; min-height: 1.2em; text-align: right; }
+  .snzb__note { margin: 8px 0 0; font-size: 12.5px; color: var(--snzb-mute); text-align: center; }
+  .snzb__btn { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 56px; margin-top: 12px; border: 0; border-radius: 999px; background: var(--snzb-ink); color: #fff; font: inherit; font-size: 17px; font-weight: 700; cursor: pointer; transition: opacity .15s ease; }
+  .snzb__btn:hover { opacity: .92; }
+  .snzb__btn[disabled] { opacity: .5; cursor: wait; }
+  .snzb__btn--alt { background: #fff; color: var(--snzb-ink); box-shadow: inset 0 0 0 1.5px var(--snzb-ink); min-height: 50px; font-size: 15px; margin-top: 10px; }
+  .snzb__msg { margin: 8px 0 0; font-size: 13px; text-align: center; min-height: 1em; }
+  @media (max-width: 420px) { .snzb__name { font-size: 16.5px; } .snzb__price { font-size: 18px; } .snzb__tier { padding: 14px 12px; gap: 10px; } }
+  @media (prefers-reduced-motion: reduce) { .snzb * { transition: none !important; } }
+</style>
+
+<script>
+(function () {
+  var root = document.currentScript && document.currentScript.previousElementSibling && document.currentScript.previousElementSibling.previousElementSibling;
+  if (!root || !root.matches('[data-snzb]')) root = document.querySelector('[data-snzb]');
+  if (!root || root.dataset.ready) return;
+  root.dataset.ready = '1';
+  var tiers = root.querySelectorAll('[data-tier]');
+  var picks = root.querySelectorAll('[data-pick]');
+  var sumPrice = root.querySelector('[data-sum-price]'), sumWas = root.querySelector('[data-sum-was]'), sumSaved = root.querySelector('[data-sum-saved]');
+  var msg = root.querySelector('[data-msg]');
+  var qty = 2;
+  function update() {
+    tiers.forEach(function (t) {
+      var on = Number(t.getAttribute('data-tier')) === qty;
+      t.classList.toggle('is-on', on);
+      if (on) {
+        var d = JSON.parse(t.querySelector('[data-tier-data]').textContent);
+        sumPrice.textContent = d.price;
+        sumWas.textContent = qty > 1 ? d.regular : '';
+        sumSaved.textContent = qty > 1 ? 'You save ' + d.saved : '';
+      }
+    });
+    picks.forEach(function (p) { p.hidden = Number(p.getAttribute('data-pick')) > qty; });
+  }
+  root.addEventListener('change', function (e) {
+    if (e.target.name && e.target.name.indexOf('snzb-qty') === 0) { qty = Number(e.target.value); update(); }
+  });
+  root.addEventListener('click', function (e) {
+    var sw = e.target.closest('.snzb__sw');
+    if (!sw || sw.disabled) return;
+    var pick = sw.closest('[data-pick]');
+    pick.querySelectorAll('.snzb__sw').forEach(function (b) { var on = b === sw; b.classList.toggle('is-on', on); b.setAttribute('aria-checked', on ? 'true' : 'false'); });
+    pick.querySelector('[data-pick-name]').textContent = sw.getAttribute('data-title');
+  });
+  function items() {
+    var map = {};
+    picks.forEach(function (p) {
+      if (Number(p.getAttribute('data-pick')) > qty) return;
+      var on = p.querySelector('.snzb__sw.is-on');
+      if (on) map[on.getAttribute('data-variant')] = (map[on.getAttribute('data-variant')] || 0) + 1;
+    });
+    return Object.keys(map).map(function (id) { return { id: Number(id), quantity: map[id] }; });
+  }
+  function add(goCheckout) {
+    var btns = root.querySelectorAll('.snzb__btn');
+    btns.forEach(function (b) { b.disabled = true; });
+    msg.textContent = '';
+    var base = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
+    fetch(base + 'cart/add.js', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ items: items() }) })
+      .then(function (r) { return r.json().then(function (d) { if (!r.ok) throw new Error(d.description || d.message || 'Could not add to cart'); return d; }); })
+      .then(function () { window.location.href = base + (goCheckout ? 'checkout' : 'cart'); })
+      .catch(function (err) { msg.textContent = err.message; btns.forEach(function (b) { b.disabled = false; }); });
+  }
+  root.querySelector('[data-add]').addEventListener('click', function () { add(false); });
+  root.querySelector('[data-buy]').addEventListener('click', function () { add(true); });
+  update();
+})();
+</script>

@@ -10,5 +10,5 @@ if [ ! -s "$TOK" ] || [ "$(python3 -I -c "import json,sys;print(json.load(open(s
   chmod 600 "$TOK"
 fi
 T=$(python3 -I -c "import json,sys;print(json.load(open(sys.argv[1]))['access_token'])" "$TOK")
-Q=$(python3 -I -c "import json,sys;q=open(sys.argv[1]).read();v=json.load(open(sys.argv[2])) if len(sys.argv)>2 else {};print(json.dumps({'query':q,'variables':v}))" "$@")
-curl -sS -m 60 -X POST "https://$SHOP/admin/api/$API/graphql.json" -H "Content-Type: application/json" -H "X-Shopify-Access-Token: $T" --data "$Q"
+python3 -I -c "import json,sys;q=open(sys.argv[1]).read();v=json.load(open(sys.argv[2])) if len(sys.argv)>2 else {};sys.stdout.write(json.dumps({'query':q,'variables':v}))" "$@" \
+  | curl -sS -m 120 -X POST "https://$SHOP/admin/api/$API/graphql.json" -H "Content-Type: application/json" -H "X-Shopify-Access-Token: $T" --data-binary @-
