@@ -77,10 +77,19 @@
   <button type="button" class="snzb__btn" data-add>Add to cart</button>
   <button type="button" class="snzb__btn snzb__btn--alt" data-buy>Buy it now</button>
   <p class="snzb__msg" data-msg role="status"></p>
+
+  <div class="snzb__sticky" data-sticky>
+    <div class="snzb__sticky-info">
+      <span class="snzb__sticky-pack" data-sticky-pack></span>
+      <span class="snzb__sticky-price"><s data-sticky-was></s> <b data-sticky-price></b></span>
+    </div>
+    <button type="button" class="snzb__btn snzb__sticky-btn" data-add-sticky>Add to cart</button>
+  </div>
 </div>
 
 <style>
-  .snzb { --snzb-ink: #3C2619; --snzb-blush: #F6D5C7; --snzb-cream: #FDF6EE; --snzb-line: #EAD9CC; --snzb-mute: #7A6458; margin: 8px 0 4px; color: var(--snzb-ink); font-family: inherit; }
+  .snzb, .snzb__sticky { --snzb-ink: #3C2619; --snzb-blush: #F6D5C7; --snzb-cream: #FDF6EE; --snzb-line: #EAD9CC; --snzb-mute: #7A6458; color: var(--snzb-ink); font-family: inherit; }
+  .snzb { margin: 8px 0 4px; }
   .snzb__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .snzb__head { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; }
   .snzb__head span { height: 2px; background: var(--snzb-blush); border-radius: 2px; }
@@ -129,6 +138,14 @@
   .snzb__btn[disabled] { opacity: .5; cursor: wait; }
   .snzb__btn--alt { background: #fff; color: var(--snzb-ink); box-shadow: inset 0 0 0 1.5px var(--snzb-ink); min-height: 50px; font-size: 15px; margin-top: 10px; }
   .snzb__msg { margin: 8px 0 0; font-size: 13px; text-align: center; min-height: 1em; }
+  .snzb__sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; display: flex; align-items: center; gap: 14px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid var(--snzb-line); box-shadow: 0 -6px 24px rgba(60,38,25,.10); }
+  .snzb__sticky-info { display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.2; }
+  .snzb__sticky-pack { font-size: 13px; color: var(--snzb-mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .snzb__sticky-price { font-size: 17px; }
+  .snzb__sticky-price s { font-size: 12.5px; color: var(--snzb-mute); font-weight: 500; }
+  .snzb__sticky-btn { width: auto; flex: 0 0 auto; min-height: 50px; margin: 0; padding: 0 26px; font-size: 16px; }
+  @media (min-width: 990px) { .snzb__sticky { left: auto; right: 24px; bottom: 24px; width: 420px; border: 1px solid var(--snzb-line); border-radius: 999px; padding: 8px 8px 8px 24px; } }
+  body.snzb-has-sticky { padding-bottom: 84px; }
   @media (max-width: 420px) { .snzb__name { font-size: 16.5px; } .snzb__price { font-size: 18px; } .snzb__tier { padding: 14px 12px; gap: 10px; } }
   @media (prefers-reduced-motion: reduce) { .snzb * { transition: none !important; } }
 </style>
@@ -143,6 +160,9 @@
   var picks = root.querySelectorAll('[data-pick]');
   var sumPrice = root.querySelector('[data-sum-price]'), sumWas = root.querySelector('[data-sum-was]'), sumSaved = root.querySelector('[data-sum-saved]');
   var msg = root.querySelector('[data-msg]');
+  var stPack = root.querySelector('[data-sticky-pack]'), stPrice = root.querySelector('[data-sticky-price]'), stWas = root.querySelector('[data-sticky-was]');
+  var sticky = root.querySelector('[data-sticky]');
+  if (sticky) { document.body.appendChild(sticky); document.body.classList.add('snzb-has-sticky'); }
   var qty = 2;
   function update() {
     tiers.forEach(function (t) {
@@ -153,6 +173,11 @@
         sumPrice.textContent = d.price;
         sumWas.textContent = qty > 1 ? d.regular : '';
         sumSaved.textContent = qty > 1 ? 'You save ' + d.saved : '';
+        if (stPrice) {
+          stPrice.textContent = d.price;
+          stWas.textContent = qty > 1 ? d.regular : '';
+          stPack.textContent = t.querySelector('.snzb__name').firstChild.textContent.trim() + ' · ' + qty + ' CalmBuds';
+        }
       }
     });
     picks.forEach(function (p) { p.hidden = Number(p.getAttribute('data-pick')) > qty; });
@@ -177,7 +202,7 @@
     return Object.keys(map).map(function (id) { return { id: Number(id), quantity: map[id] }; });
   }
   function add(goCheckout) {
-    var btns = root.querySelectorAll('.snzb__btn');
+    var btns = document.querySelectorAll('.snzb__btn');
     btns.forEach(function (b) { b.disabled = true; });
     msg.textContent = '';
     var base = (window.Shopify && Shopify.routes && Shopify.routes.root) || '/';
@@ -188,6 +213,7 @@
   }
   root.querySelector('[data-add]').addEventListener('click', function () { add(false); });
   root.querySelector('[data-buy]').addEventListener('click', function () { add(true); });
+  if (sticky) sticky.querySelector('[data-add-sticky]').addEventListener('click', function () { add(false); });
   update();
 })();
 </script>
