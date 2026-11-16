@@ -28,7 +28,8 @@
         assign saved = regular | minus: price
         assign pct_int = t_pct[i] | times: 100 | round
       -%}
-      <label class="snzb__tier{% if qn == 2 %} is-on{% endif %}" data-tier="{{ qn }}">
+      <div class="snzb__tier{% if qn == 2 %} is-on{% endif %}" data-tier="{{ qn }}">
+       <label class="snzb__tier-head">
         <input type="radio" name="snzb-qty-{{ section.id }}" value="{{ qn }}"{% if qn == 2 %} checked{% endif %}>
         <span class="snzb__dot" aria-hidden="true"></span>
         <span class="snzb__info">
@@ -40,14 +41,16 @@
           <span class="snzb__price">{{ price | money }}</span>
           {%- if qn > 1 -%}<s class="snzb__was">{{ regular | money }}</s><span class="snzb__each">{{ each | money }} each</span>{%- endif -%}
         </span>
+       </label>
         {%- if t_badge[i] != blank -%}<span class="snzb__badge">{{ t_badge[i] }}</span>{%- endif -%}
+        <div class="snzb__slot" data-slot></div>
         <script type="application/json" data-tier-data>{"qty": {{ qn }}, "price": {{ price | money | json }}, "regular": {{ regular | money | json }}, "saved": {{ saved | money | json }}}</script>
-      </label>
+      </div>
     {%- endfor -%}
   </fieldset>
 
   <div class="snzb__picks" data-picks>
-    <p class="snzb__picks-title">Choose an animal for each CalmBuds</p>
+    <p class="snzb__picks-title" data-picks-title>Choose your animals</p>
     {%- for n in (1..4) -%}
       {%- assign idx = n | minus: 1 -%}
       {%- assign def = avail[idx] | default: avail.first | default: v0 -%}
@@ -95,8 +98,9 @@
   .snzb__head span { height: 2px; background: var(--snzb-blush); border-radius: 2px; }
   .snzb__title { margin: 0; font-size: 18px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; }
   .snzb__sub { text-align: center; margin: 4px 0 14px; font-size: 14px; color: var(--snzb-mute); }
-  .snzb__tiers { border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
-  .snzb__tier { position: relative; display: grid; grid-template-columns: 26px 1fr auto; gap: 12px; align-items: center; padding: 16px 16px 16px 14px; border: 1.5px solid var(--snzb-line); border-radius: 22px; background: #fff; cursor: pointer; transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease; }
+  .snzb__tiers { border: 0; padding: 0; margin: 0; min-width: 0; min-inline-size: 0; display: flex; flex-direction: column; gap: 12px; }
+  .snzb__tier-head { display: grid; grid-template-columns: 26px 1fr auto; gap: 12px; align-items: center; cursor: pointer; }
+  .snzb__tier { position: relative; display: block; min-width: 0; padding: 16px 16px 16px 14px; border: 1.5px solid var(--snzb-line); border-radius: 22px; background: #fff; cursor: pointer; transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease; }
   .snzb__tier:hover { border-color: #D9B9A8; }
   .snzb__tier.is-on { border-color: var(--snzb-ink); box-shadow: 0 0 0 1px var(--snzb-ink); background: var(--snzb-cream); }
   .snzb__tier input { position: absolute; opacity: 0; pointer-events: none; }
@@ -114,15 +118,17 @@
   .snzb__was { font-size: 13px; color: var(--snzb-mute); }
   .snzb__each { font-size: 12px; font-weight: 600; color: var(--snzb-ink); background: #fff; border: 1px solid var(--snzb-line); border-radius: 999px; padding: 1px 8px; margin-top: 2px; white-space: nowrap; }
   .snzb__badge { position: absolute; top: -11px; right: 18px; background: var(--snzb-ink); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 4px 11px; border-radius: 999px; }
-  .snzb__picks { margin-top: 18px; padding: 16px; border-radius: 22px; background: var(--snzb-cream); display: flex; flex-direction: column; gap: 14px; }
+  .snzb__picks { margin-top: 14px; padding: 14px 12px; border-radius: 16px; background: #fff; border: 1px solid var(--snzb-line); display: flex; flex-direction: column; gap: 12px; cursor: default; }
+  .snzb__slot:empty { display: none; }
+  .snzb__picks-title { font-size: 14px; }
   .snzb__picks-title { margin: 0; font-weight: 700; font-size: 15px; }
   .snzb__pick[hidden] { display: none; }
   .snzb__pick-head { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; }
   .snzb__pick-num { font-weight: 700; }
   .snzb__pick-name { color: var(--snzb-mute); }
-  .snzb__swatches { display: flex; gap: 8px; overflow-x: auto; padding: 3px; scrollbar-width: none; }
+  .snzb__swatches { display: flex; flex-wrap: wrap; gap: 8px; padding: 3px; }
   .snzb__swatches::-webkit-scrollbar { display: none; }
-  .snzb__sw { flex: none; width: 54px; height: 54px; border-radius: 50%; padding: 0; border: 0; background: #fff; overflow: hidden; cursor: pointer; box-shadow: 0 0 0 1px var(--snzb-line); transition: box-shadow .12s ease; }
+  .snzb__sw { flex: none; width: 50px; height: 50px; border-radius: 50%; padding: 0; border: 0; background: #fff; overflow: hidden; cursor: pointer; box-shadow: 0 0 0 1px var(--snzb-line); transition: box-shadow .12s ease; }
   .snzb__sw img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .snzb__sw.is-on { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--snzb-ink); }
   .snzb__sw:focus-visible { outline: 2px solid var(--snzb-ink); outline-offset: 3px; }
@@ -158,6 +164,7 @@
   root.dataset.ready = '1';
   var tiers = root.querySelectorAll('[data-tier]');
   var picks = root.querySelectorAll('[data-pick]');
+  var picksBox = root.querySelector('[data-picks]'), picksTitle = root.querySelector('[data-picks-title]');
   var sumPrice = root.querySelector('[data-sum-price]'), sumWas = root.querySelector('[data-sum-was]'), sumSaved = root.querySelector('[data-sum-saved]');
   var msg = root.querySelector('[data-msg]');
   var stPack = root.querySelector('[data-sticky-pack]'), stPrice = root.querySelector('[data-sticky-price]'), stWas = root.querySelector('[data-sticky-was]');
@@ -181,6 +188,9 @@
       }
     });
     picks.forEach(function (p) { p.hidden = Number(p.getAttribute('data-pick')) > qty; });
+    var on = root.querySelector('.snzb__tier.is-on [data-slot]');
+    if (on && picksBox.parentNode !== on) on.appendChild(picksBox);
+    picksTitle.textContent = qty > 1 ? 'Choose an animal for each CalmBuds' : 'Choose your animal';
   }
   root.addEventListener('change', function (e) {
     if (e.target.name && e.target.name.indexOf('snzb-qty') === 0) { qty = Number(e.target.value); update(); }
