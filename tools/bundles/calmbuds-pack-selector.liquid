@@ -16,7 +16,7 @@
   assign avail = product.variants | where: 'available', true
   assign bf_end = '2026-12-01T04:59:00Z'
   assign ship_qty = 3
-  assign def_q = 3
+  assign def_q = 1
   assign cmp_unit = v0.compare_at_price | default: unit
   if cmp_unit < unit
     assign cmp_unit = unit
@@ -227,7 +227,7 @@
   var shipQty = Number(root.getAttribute('data-ship-qty')) || 3;
   var shipBox = root.querySelector('[data-ship]'), shipText = root.querySelector('[data-ship-text]'), shipFill = root.querySelector('[data-ship-fill]');
   var checked = root.querySelector('input[name^="snzb-qty"]:checked');
-  var qty = checked ? Number(checked.value) : 3;
+  var qty = checked ? Number(checked.value) : 1;
   var bf = root.querySelector('[data-bf]');
   if (bf) {
     var end = Date.parse(bf.getAttribute('data-end'));
