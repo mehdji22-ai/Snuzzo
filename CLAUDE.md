@@ -34,6 +34,8 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   `tools/bundles/calmbuds-pack-selector.liquid`, backed by 3 automatic discounts "CalmBuds Duo/Family Pack/Big Happy
   Family" (16.6556% / 33.3222% / 36.6539% off at 2/3/4+). Change prices in both places together.
   The new Snuzzo theme from this repo is unpublished (relaunch pending).
+  Country/currency pop-up: disabled on the live theme (footer-group custom_liquid_EDXeTC, `disabled: true`; set false to bring it back).
+  Cart photos (live `sections/main-cart.liquid` + `snippets/cart-products.liquid`): whole photo in a white square, never cropped.
 - Shipping (Nov 16, 2026, Black Friday): FREE shipping on every order. One "General profile" (all variants),
   6 zones / 237 countries, all 6 markets active, each zone has a single "Free Shipping" $0 rate (no minimum).
   Site texts say "Black Friday: free shipping on every order". If a threshold comes back: add rates per zone and
