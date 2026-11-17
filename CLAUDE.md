@@ -34,7 +34,10 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   `tools/bundles/calmbuds-pack-selector.liquid`, backed by 3 automatic discounts "CalmBuds Duo/Family Pack/Big Happy
   Family" (16.6556% / 33.3222% / 36.6539% off at 2/3/4+). Change prices in both places together.
   The new Snuzzo theme from this repo is unpublished (relaunch pending).
-  Country/currency pop-up: disabled on the live theme (footer-group custom_liquid_EDXeTC, `disabled: true`; set false to bring it back).
+  Country/currency card (Nov 17, 2026): live theme footer-group custom_liquid_EDXeTC = `tools/popups/country-card.liquid`
+  (old full pop-up kept in `tools/popups/country-picker-old.liquid`). Small bottom card, once per visit, after page load;
+  uses /browsing_context_suggestions.json to detect the real country; switching posts /localization then reloads with
+  `?currency=XXX` (needed: shopping links like YouTube force a currency that sticks for the visit).
   Cart photos (live `sections/main-cart.liquid` + `snippets/cart-products.liquid`): whole photo in a white square, never cropped.
   CalmBuds reviews (real, confirmed by owner Nov 17, 2026): 172 reviews, 4.8/5, stored in the product's standard
   `reviews.rating` / `reviews.rating_count` metafields. Collection cards and the product page rating block both read them.

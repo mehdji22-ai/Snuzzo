@@ -1,0 +1,136 @@
+{%- comment -%}
+  SNUZZO COUNTRY & CURRENCY CARD (light, non-blocking)
+  - A small card at the bottom of the screen, once per visit, shown only after the page has fully loaded.
+  - It asks Shopify which country the visitor is really in. If the store opened in another country/currency
+    (for example from a YouTube Shopping link), it offers to switch to the right one in one tap.
+  - The country list is built only when the customer taps "Change country".
+  - Preview it any time by adding ?choose-country to a page address.
+  EDIT the words below.
+{%- endcomment -%}
+{%- liquid
+  assign cc_ship_line = 'We ship worldwide · Free shipping on every order'
+  assign cc_change = 'Change country'
+  assign cc_title_confirm = 'Shopping from'
+  assign cc_title_suggest = 'Looks like you’re in'
+-%}
+<div id="snz-cc" class="snz-cc" hidden role="dialog" aria-modal="false" aria-labelledby="snz-cc-title">
+  <button type="button" class="snz-cc__x" data-cc-close aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <div class="snz-cc__head">
+    <span class="snz-cc__globe" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg></span>
+    <div>
+      <p class="snz-cc__title" id="snz-cc-title"><span data-cc-lead></span> <b data-cc-country></b>?</p>
+      <p class="snz-cc__ship">{{ cc_ship_line }}</p>
+    </div>
+  </div>
+  <div class="snz-cc__actions" data-cc-actions>
+    <button type="button" class="snz-cc__btn" data-cc-go></button>
+    <button type="button" class="snz-cc__link" data-cc-other></button>
+  </div>
+  <div class="snz-cc__pick" data-cc-pick hidden>
+    <label class="snz-cc__sr" for="snz-cc-select">Country</label>
+    <select id="snz-cc-select" class="snz-cc__select" data-cc-select></select>
+    <button type="button" class="snz-cc__btn" data-cc-apply>Continue</button>
+  </div>
+  {%- form 'localization', id: 'snz-cc-form', class: 'snz-cc__sr' -%}
+    <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+    <input type="hidden" name="return_to" value="{{ request.path }}">
+  {%- endform -%}
+</div>
+<script type="application/json" id="snz-cc-data">{"current":{{ localization.country.iso_code | json }},"currency":{{ cart.currency.iso_code | json }},"list":[{%- for c in localization.available_countries -%}[{{ c.iso_code | json }},{{ c.name | json }},{{ c.currency.iso_code | json }},{{ c.currency.symbol | json }}]{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]}</script>
+<style>
+  .snz-cc{position:fixed;z-index:2147483000;left:12px;right:12px;bottom:12px;max-width:400px;margin:0 auto;padding:16px 16px 14px;background:#fff;color:#3C2820;border:1px solid #EAD9CC;border-radius:20px;box-shadow:0 12px 40px rgba(60,40,32,.18);font:inherit;transform:translateY(16px);opacity:0;transition:transform .28s ease,opacity .28s ease}
+  .snz-cc.is-in{transform:none;opacity:1}
+  .snz-cc[hidden]{display:none}
+  @media (min-width:750px){.snz-cc{left:auto;right:24px;bottom:24px;margin:0;width:380px}}
+  .snz-cc__x{position:absolute;top:8px;right:8px;width:36px;height:36px;display:grid;place-items:center;border:0;background:none;color:#7A6458;cursor:pointer;border-radius:50%}
+  .snz-cc__x:hover{background:#FDF6EE}
+  .snz-cc__head{display:flex;gap:12px;align-items:flex-start;padding-right:28px}
+  .snz-cc__globe{flex:none;width:40px;height:40px;border-radius:50%;background:#FDF6EE;display:grid;place-items:center}
+  .snz-cc__title{margin:2px 0 3px;font-size:16px;line-height:1.3;font-weight:500}
+  .snz-cc__title b{font-weight:700}
+  .snz-cc__ship{margin:0;font-size:13px;line-height:1.35;color:#7A6458}
+  .snz-cc__actions,.snz-cc__pick{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+  .snz-cc__actions[hidden],.snz-cc__pick[hidden]{display:none}
+  .snz-cc__btn{width:100%;min-height:48px;border:0;border-radius:999px;background:#3C2820;color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+  .snz-cc__btn:hover{opacity:.92}
+  .snz-cc__link{min-height:40px;border:0;background:none;color:#3C2820;font:inherit;font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+  .snz-cc__select{width:100%;min-height:48px;padding:0 14px;border:1px solid #EAD9CC;border-radius:14px;background:#fff;color:#3C2820;font:inherit;font-size:15px}
+  .snz-cc__sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  @media (prefers-reduced-motion:reduce){.snz-cc{transition:none}}
+</style>
+<script>
+(function () {
+  var KEY = 'snzCountryChosen';
+  var forced = location.search.indexOf('choose-country') > -1;
+  try { if (!forced && sessionStorage.getItem(KEY)) return; } catch (e) {}
+
+  function start() {
+    var box = document.getElementById('snz-cc'); if (!box) return;
+    var data; try { data = JSON.parse(document.getElementById('snz-cc-data').textContent); } catch (e) { return; }
+    var byCode = {}; data.list.forEach(function (c) { byCode[c[0]] = c; });
+    var cur = byCode[data.current]; if (!cur) return;
+    var $ = function (s) { return box.querySelector(s); };
+    var form = document.getElementById('snz-cc-form');
+    function label(c) { return c[2] + (c[3] && c[3] !== c[2] ? ' ' + c[3] : ''); }
+    function done() { try { sessionStorage.setItem(KEY, '1'); } catch (e) {} }
+    function close() { done(); box.classList.remove('is-in'); setTimeout(function () { box.hidden = true; }, 280); }
+    /* Currency really shown right now (a YouTube / Google Shopping link can force one that doesn't match the country). */
+    var shownCur = (window.Shopify && Shopify.currency && Shopify.currency.active) || data.currency;
+    function choose(code) {
+      done();
+      if (code === data.current && byCode[code][2] === shownCur) return close();
+      form.querySelector('[name="country_code"]').value = code;
+      var go = $('[data-cc-go]'), apply = $('[data-cc-apply]');
+      go.disabled = apply.disabled = true; go.textContent = apply.textContent = '…';
+      /* Save the country in the background, then reload the same page (keeps the link's details). */
+      /* Same page, without the settings a shopping link uses to force a currency or country. */
+      var q = new URLSearchParams(location.search);
+      ['currency', 'country', 'choose-country', '_pos', '_sid', '_ss'].forEach(function (k) { q.delete(k); });
+      var back = location.pathname + (q.toString() ? '?' + q.toString() : '');
+      fetch(form.action, { method: 'POST', body: new FormData(form), credentials: 'same-origin', redirect: 'manual' })
+        .then(function () { location.replace(back); })
+        .catch(function () { form.submit(); });
+    }
+    function show(detected) {
+      var target = (detected && byCode[detected]) ? byCode[detected] : cur;
+      var suggest = target[0] !== cur[0] || target[2] !== shownCur;
+      $('[data-cc-lead]').textContent = suggest ? {{ cc_title_suggest | json }} : {{ cc_title_confirm | json }};
+      $('[data-cc-country]').textContent = target[1];
+      var go = $('[data-cc-go]'), other = $('[data-cc-other]');
+      go.textContent = 'Shop in ' + label(target);
+      go.onclick = function () { choose(target[0]); };
+      var stay = target[0] !== cur[0];
+      other.textContent = stay ? 'Stay in ' + label(cur) : {{ cc_change | json }};
+      other.onclick = stay ? function () { choose(cur[0]); } : openPicker;
+      box.hidden = false;
+      requestAnimationFrame(function () { requestAnimationFrame(function () { box.classList.add('is-in'); }); });
+    }
+    function openPicker() {
+      var sel = $('[data-cc-select]');
+      if (!sel.options.length) {
+        var list = data.list.slice().sort(function (a, b) { return a[1].localeCompare(b[1]); });
+        var html = '';
+        list.forEach(function (c) { html += '<option value="' + c[0] + '"' + (c[0] === data.current ? ' selected' : '') + '>' + c[1].replace(/</g, '&lt;') + ' (' + label(c).replace(/</g, '&lt;') + ')</option>'; });
+        sel.innerHTML = html;
+      }
+      $('[data-cc-actions]').hidden = true; $('[data-cc-pick]').hidden = false; sel.focus();
+    }
+    $('[data-cc-apply]').onclick = function () { choose($('[data-cc-select]').value); };
+    $('[data-cc-close]').onclick = close;
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
+
+    /* Ask Shopify where the visitor really is (1.5 s max), then show the card. */
+    var shown = false, t = setTimeout(function () { if (!shown) { shown = true; show(null); } }, 1500);
+    fetch('/browsing_context_suggestions.json?country[enabled]=true&currency[enabled]=true', { credentials: 'same-origin' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (shown) return; shown = true; clearTimeout(t); show(d && d.detected_values && d.detected_values.country && d.detected_values.country.handle); })
+      .catch(function () { if (!shown) { shown = true; clearTimeout(t); show(null); } });
+  }
+
+  /* Wait until the page has fully loaded and the browser is idle, so the card never slows the page down. */
+  function later() { (window.requestIdleCallback || function (f) { setTimeout(f, 200); })(function () { setTimeout(start, 600); }); }
+  if (document.readyState === 'complete') later(); else window.addEventListener('load', later);
+})();
+</script>
