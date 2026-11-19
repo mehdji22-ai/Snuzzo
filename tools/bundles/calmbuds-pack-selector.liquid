@@ -28,25 +28,16 @@
 -%}
 <div class="snzb" data-snzb data-product-url="{{ product.url }}" data-ship-qty="{{ ship_qty }}">
   <div class="snzb__bf" data-bf data-end="{{ bf_end }}">
-    <div class="snzb__bf-top">
-      <p class="snzb__bf-word">Black<br>Friday</p>
-      <p class="snzb__bf-deal"><span>Up to</span><b>{{ max_off }}%</b><span>off</span></p>
+    <div class="snzb__bf-l">
+      <p class="snzb__bf-word">Black Friday</p>
+      <p class="snzb__bf-deal">Up to {{ max_off }}% off · Free shipping</p>
     </div>
-    <div class="snzb__bf-clock" aria-label="Time left in the sale">
-      <p class="snzb__bf-ends">Sale ends in</p>
-      <div class="snzb__bf-digits">
-        <span class="snzb__bf-u"><b data-bf-d>00</b><i>Days</i></span><span class="snzb__bf-sep">:</span>
-        <span class="snzb__bf-u"><b data-bf-h>00</b><i>Hrs</i></span><span class="snzb__bf-sep">:</span>
-        <span class="snzb__bf-u"><b data-bf-m>00</b><i>Min</i></span><span class="snzb__bf-sep">:</span>
-        <span class="snzb__bf-u"><b data-bf-s>00</b><i>Sec</i></span>
-      </div>
-    </div>
-    <div class="snzb__bf-ticker" aria-label="Free shipping on every order. Mix and match 12 animals.">
-      <div class="snzb__bf-track" aria-hidden="true"><span>Free shipping on every order</span><span>Mix &amp; match 12 animals</span><span>Up to {{ max_off }}% off</span><span>Free shipping on every order</span><span>Mix &amp; match 12 animals</span><span>Up to {{ max_off }}% off</span><span>Free shipping on every order</span><span>Mix &amp; match 12 animals</span><span>Up to {{ max_off }}% off</span><span>Free shipping on every order</span><span>Mix &amp; match 12 animals</span><span>Up to {{ max_off }}% off</span></div>
+    <div class="snzb__bf-r" aria-label="Time left in the sale">
+      <p class="snzb__bf-ends">Ends in</p>
+      <p class="snzb__bf-digits"><b data-bf-d>00</b><i>d</i><b data-bf-h>00</b><i>h</i><b data-bf-m>00</b><i>m</i><b data-bf-s>00</b><i>s</i></p>
     </div>
   </div>
-  <div class="snzb__head"><span></span><h2 class="snzb__title">Pick your pack</h2><span></span></div>
-  <p class="snzb__sub">Mix &amp; match animals in every pack</p>
+  <div class="snzb__head2"><h2 class="snzb__title2">Pick your pack</h2><p class="snzb__sub2">Mix &amp; match animals</p></div>
 
   <fieldset class="snzb__tiers">
     <legend class="snzb__sr">Choose how many CalmBuds</legend>
@@ -128,27 +119,44 @@
   .snzb, .snzb__sticky { --snzb-ink: #3C2619; --snzb-blush: #F6D5C7; --snzb-cream: #FDF6EE; --snzb-line: #EAD9CC; --snzb-mute: #7A6458; color: var(--snzb-ink); font-family: inherit; }
   .snzb { margin: 8px 0 4px; }
   .snzb, .snzb__sticky { --snzb-hot: #FF5A36; }
-  .snzb__bf { position: relative; overflow: hidden; min-width: 0; max-width: 100%; contain: inline-size; background: #0B0B0B; color: #fff; border-radius: 20px; margin-bottom: 22px; box-shadow: 0 14px 34px rgba(11,11,11,.22); }
+  .snzb__bf { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; margin-bottom: 14px; background: #0B0B0B; color: #fff; border-radius: 14px; min-width: 0; }
   .snzb__bf[hidden] { display: none; }
   .snzb__bf p { margin: 0; }
-  .snzb__bf-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 20px 20px 0; }
-  .snzb__bf-word { font-size: 34px; line-height: .9; font-weight: 900; letter-spacing: -.035em; text-transform: uppercase; }
-  .snzb__bf-deal { display: flex; flex-direction: column; align-items: flex-end; line-height: .9; text-transform: uppercase; color: var(--snzb-hot); }
-  .snzb__bf-deal span { font-size: 12px; font-weight: 800; letter-spacing: .14em; }
-  .snzb__bf-deal b { font-size: 46px; font-weight: 900; letter-spacing: -.045em; margin: 2px 0 1px; }
-  .snzb__bf-clock { padding: 18px 20px 16px; }
-  .snzb__bf-ends { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 6px !important; }
-  .snzb__bf-digits { display: flex; align-items: flex-start; gap: 8px; }
-  .snzb__bf-u { display: flex; flex-direction: column; align-items: center; min-width: 46px; }
-  .snzb__bf-u b { font-size: 30px; line-height: 1; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
-  .snzb__bf-u i { font-style: normal; margin-top: 4px; font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.5); }
-  .snzb__bf-sep { font-size: 26px; line-height: 1; font-weight: 700; color: rgba(255,255,255,.3); }
-  .snzb__bf-ticker { position: relative; height: 38px; background: var(--snzb-hot); color: #0B0B0B; overflow: hidden; white-space: nowrap; }
-  .snzb__bf-track { position: absolute; left: 0; top: 0; display: inline-flex; align-items: center; height: 38px; animation: snzb-tick 22s linear infinite; }
-  .snzb__bf-track span { font-size: 12.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 0 16px; }
-  .snzb__bf-track span::after { content: ""; display: inline-block; width: 5px; height: 5px; margin-left: 32px; border-radius: 50%; background: #0B0B0B; vertical-align: middle; }
-  @keyframes snzb-tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .snzb__bf-track { animation: none; } }
+  .snzb__bf-l { min-width: 0; }
+  .snzb__bf-word { font-size: 17px; line-height: 1; font-weight: 900; letter-spacing: -.01em; text-transform: uppercase; }
+  .snzb__bf-deal { margin-top: 5px !important; font-size: 11.5px; line-height: 1.2; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--snzb-hot); white-space: nowrap; }
+  .snzb__bf-r { flex: none; text-align: right; }
+  .snzb__bf-ends { font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+  .snzb__bf-digits { margin-top: 3px !important; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .snzb__bf-digits b { font-size: 17px; font-weight: 800; letter-spacing: -.01em; }
+  .snzb__bf-digits i { font-style: normal; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.5); margin: 0 5px 0 1px; }
+  .snzb__bf-digits i:last-child { margin-right: 0; }
+  .snzb__head2 { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin: 0 2px 10px; }
+  .snzb__title2 { margin: 0; font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--snzb-ink); }
+  .snzb__sub2 { margin: 0; font-size: 13px; color: var(--snzb-mute); }
+  /* Only the selected pack shows its description: shorter list, faster choice */
+  .snzb__tier:not(.is-on) .snzb__line { display: none; }
+  .snzb__tiers { gap: 10px; }
+  @media (max-width: 749px) {
+    .snzb__tier { padding: 12px 14px 12px 12px; border-radius: 18px; }
+    .snzb__sw { width: 44px; height: 44px; }
+    .snzb__picks { margin-top: 10px; padding: 12px 10px; gap: 10px; }
+    /* Compact photo on phones: whole photo in a slightly wide frame, dots instead of thumbnails */
+    .product-information__media .sg-gallery__viewport { aspect-ratio: 4 / 3 !important; background: #fff; }
+    .product-information__media .sg-gallery__slide img { object-fit: cover !important; object-position: 50% 55%; background: #fff; }
+    /* Stars + title closer together */
+    .ls-story { margin: 12px 0 2px !important; padding: 0 !important; }
+    .ls-story__reviews { margin: 0 !important; }
+    .ls-story__review-line { display: none !important; }
+    .ls-story__title { font-size: 24px !important; line-height: 1.15 !important; margin: 6px 0 12px !important; }
+    .product-details > .group-block { padding-top: 12px !important; }
+    .product-details .group-block-content.layout-panel-flex--col { row-gap: 12px !important; gap: 12px !important; }
+    .product-details .ls-story { margin-top: 0 !important; }
+    .product-information__media .sg-gallery__thumbs { display: none !important; }
+    .product-information__media .sg-gallery__dots { display: flex !important; justify-content: center; align-items: center; gap: 6px; padding: 10px 0 2px; position: static !important; }
+    .product-information__media .sg-gallery__dot { display: block !important; width: 6px !important; height: 6px !important; padding: 0 !important; border: 0 !important; border-radius: 3px !important; background: #DCCBC0 !important; transition: width .2s ease, background-color .2s ease; }
+    .product-information__media .sg-gallery__dot.is-active { width: 18px !important; background: #3C2820 !important; }
+  }
   .snzb__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .snzb__head { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; }
   .snzb__head span { height: 2px; background: var(--snzb-blush); border-radius: 2px; }
@@ -218,7 +226,9 @@
   .snzb__sticky-btn { width: auto; flex: 0 0 auto; min-height: 50px; margin: 0; padding: 0 26px; font-size: 16px; }
   @media (min-width: 990px) { .snzb__sticky { left: auto; right: 24px; bottom: 24px; width: 420px; border: 1px solid var(--snzb-line); border-radius: 999px; padding: 8px 8px 8px 24px; } }
   body.snzb-has-sticky { padding-bottom: 84px; }
-  @media (max-width: 420px) { .snzb__bf-top { padding: 18px 16px 0; } .snzb__bf-word { font-size: 30px; } .snzb__bf-deal b { font-size: 40px; } .snzb__bf-clock { padding: 16px 16px 14px; } .snzb__bf-u { min-width: 40px; } .snzb__bf-u b { font-size: 26px; } .snzb__name { font-size: 16.5px; } .snzb__price { font-size: 18px; } .snzb__tier { padding: 14px 12px; gap: 10px; } }
+  .snzb__sticky { transition: transform .3s ease, opacity .3s ease; }
+  .snzb__sticky.is-away { transform: translateY(130%); opacity: 0; pointer-events: none; }
+  @media (max-width: 420px) { .snzb__bf { padding: 11px 13px; } .snzb__bf-word { font-size: 15.5px; } .snzb__bf-deal { font-size: 10.5px; letter-spacing: .04em; } .snzb__bf-digits b { font-size: 15.5px; } .snzb__bf-digits i { margin-right: 4px; } .snzb__name { font-size: 16.5px; } .snzb__price { font-size: 18px; } .snzb__tier { padding: 14px 12px; gap: 10px; } }
   @media (prefers-reduced-motion: reduce) { .snzb * { transition: none !important; } }
 </style>
 
@@ -235,7 +245,14 @@
   var msg = root.querySelector('[data-msg]');
   var stPack = root.querySelector('[data-sticky-pack]'), stPrice = root.querySelector('[data-sticky-price]'), stWas = root.querySelector('[data-sticky-was]');
   var sticky = root.querySelector('[data-sticky]');
-  if (sticky) { document.body.appendChild(sticky); document.body.classList.add('snzb-has-sticky'); }
+  if (sticky) {
+    document.body.appendChild(sticky); document.body.classList.add('snzb-has-sticky');
+    /* Hidden on the first screen (so it never covers the packs) and while the real buttons are visible */
+    var mainBtns = root.querySelector('[data-add]'), btnsVisible = false;
+    var placeSticky = function () { sticky.classList.toggle('is-away', window.scrollY < 220 || btnsVisible); };
+    if ('IntersectionObserver' in window && mainBtns) new IntersectionObserver(function (e) { btnsVisible = e[0].isIntersecting; placeSticky(); }).observe(mainBtns);
+    window.addEventListener('scroll', placeSticky, { passive: true }); placeSticky();
+  }
   var shipQty = Number(root.getAttribute('data-ship-qty')) || 3;
   var shipBox = root.querySelector('[data-ship]'), shipText = root.querySelector('[data-ship-text]'), shipFill = root.querySelector('[data-ship-fill]');
   var checked = root.querySelector('input[name^="snzb-qty"]:checked');
@@ -292,6 +309,9 @@
     var pick = sw.closest('[data-pick]');
     pick.querySelectorAll('.snzb__sw').forEach(function (b) { var on = b === sw; b.classList.toggle('is-on', on); b.setAttribute('aria-checked', on ? 'true' : 'false'); });
     pick.querySelector('[data-pick-name]').textContent = sw.getAttribute('data-title');
+    /* Show this animal in the main photo, so nobody has to scroll back up */
+    var slide = document.querySelector('.sg-gallery__slide[data-variant-id="' + sw.getAttribute('data-variant') + '"]');
+    if (slide) { var th = document.querySelector('.sg-gallery__thumb[data-index="' + slide.getAttribute('data-index') + '"]'); if (th) th.click(); }
   });
   function items() {
     var map = {};
