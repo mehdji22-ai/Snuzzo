@@ -1,0 +1,275 @@
+<!-- LITTLE SNUZZO "WHY PARENTS CHOOSE" SECTION (for a Custom Liquid block) -->
+<!-- EDIT HERE: why_image = the photo shown on the right. To change the rating line, title, benefits or button text, edit the words in the HTML underneath. The button scrolls the page to your Add to Cart button. -->
+{%- assign why_image = 'https://cdn.shopify.com/s/files/1/1004/8621/8019/files/Image_ChatGPT_18_nov._2026_22_53_23.png?v=1795060413' -%}
+{%- assign why_image_alt = 'Mom hugging her smiling baby, who wears the fox CalmBuds' -%}
+{%- comment -%} RATING: same numbers as the stars at the top of the page (Shopify review fields reviews.rating / reviews.rating_count). {%- endcomment -%}
+{%- liquid
+  assign why_rating = product.metafields.reviews.rating.value.rating | default: 4.8 | times: 1.0 | round: 1
+  assign why_count = product.metafields.reviews.rating_count.value
+  assign why_fill = why_rating | times: 20
+-%}
+
+<section class="ls-why" style="--ls-why-rating-fill: {{ why_fill }}%;">
+  <div class="ls-why__inner">
+
+    <div class="ls-why__content">
+      <!-- RATING LINE: edit the number or words below. The star fill is set by --ls-why-rating-fill in the styles (95.8% = 4.79 out of 5). -->
+      <div class="ls-why__rating">
+        <span class="ls-why__stars" role="img" aria-label="Rated {{ why_rating }} out of 5 stars">
+          <span class="ls-why__stars-base" aria-hidden="true">★★★★★</span>
+          <span class="ls-why__stars-fill" aria-hidden="true">★★★★★</span>
+        </span>
+        <span class="ls-why__rating-text">Rated <strong>{{ why_rating }}/5</strong>{% if why_count %} · {{ why_count }} reviews{% else %} by parents{% endif %}</span>
+      </div>
+
+      <h2 class="ls-why__title">Why parents choose CalmBuds</h2>
+
+      <!-- BENEFITS: each <li> is one benefit. Copy a whole <li> to add more, delete one to remove it. The numbers are added automatically. -->
+      <ul class="ls-why__list">
+        <li class="ls-why__item">
+          <p class="ls-why__copy"><strong>Gentle on little ears</strong> nothing goes inside tiny ears: slim speakers rest softly over them, wrapped in cozy fleece.</p>
+        </li>
+        <li class="ls-why__item">
+          <p class="ls-why__copy"><strong>Designed with safety in mind</strong> no earbuds to lose, no wires to tangle, just one soft band.</p>
+        </li>
+        <li class="ls-why__item">
+          <p class="ls-why__copy"><strong>One size fits all</strong> no sizes to guess. Simply pick the animal they’ll love.</p>
+        </li>
+        <li class="ls-why__item">
+          <p class="ls-why__copy"><strong>Wireless and easy</strong> pairs with any phone or tablet over Bluetooth, with play and volume buttons right on the band.</p>
+        </li>
+        <li class="ls-why__item">
+          <p class="ls-why__copy"><strong>Calm wherever you go</strong> car rides, flights, waiting rooms and bedtime: their stories and lullabies come along.</p>
+        </li>
+        <li class="ls-why__item">
+          <p class="ls-why__copy"><strong>A gift they’ll actually wear</strong> 9 adorable animals to mix and match, for siblings, cousins and friends.</p>
+        </li>
+      </ul>
+
+      <!-- BUTTON TEXT: edit the words below. Clicking it scrolls the page to the Add to Cart button. -->
+      <button class="ls-why__btn" type="button" id="ls-why-btn">Shop now</button>
+    </div>
+
+    {%- if why_image != blank -%}
+      <figure class="ls-why__figure">
+        <img class="ls-why__img" src="{{ why_image }}" alt="{{ why_image_alt | escape }}" loading="lazy" decoding="async">
+      </figure>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap');
+
+  /* WRAPPER: colors live here */
+  .ls-why {
+    --ls-why-title: #4a453f;     /* TITLE COLOR */
+    --ls-why-strong: #4a453f;    /* BOLD BENEFIT COLOR */
+    --ls-why-text: #6b665f;      /* BENEFIT TEXT COLOR */
+    --ls-why-num: #b4ad9f;       /* NUMBER COLOR */
+    --ls-why-outline: #E5DFD0;   /* LINES + BUTTON OUTLINE COLOR */
+    --ls-why-star: #F2B33D;      /* STAR COLOR */
+    --ls-why-star-empty: #EDE8DD; /* EMPTY STAR COLOR */
+    /* STAR FILL: set from the real rating on the section tag */
+    padding: 64px 20px;
+    font-family: 'Nunito Sans', Arial, sans-serif;
+  }
+  .ls-why *, .ls-why *::before, .ls-why *::after { box-sizing: border-box; }
+
+  /* LAYOUT: text on the left, photo on the right */
+  .ls-why .ls-why__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    gap: clamp(36px, 6vw, 80px);
+    align-items: center;
+  }
+  .ls-why .ls-why__content { min-width: 0; }
+
+  /* PHOTO */
+  .ls-why .ls-why__figure { margin: 0 !important; padding: 0 !important; }
+  .ls-why .ls-why__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 24px;
+    background: #F4F4F4;
+  }
+
+  /* RATING LINE (above the title) */
+  .ls-why .ls-why__rating {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 16px !important;
+    padding: 0 !important;
+  }
+  .ls-why .ls-why__stars {
+    position: relative;
+    display: inline-block;
+    font-family: Arial, sans-serif !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .ls-why .ls-why__stars-base { color: var(--ls-why-star-empty); }
+  .ls-why .ls-why__stars-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: var(--ls-why-rating-fill);
+    overflow: hidden;
+    color: var(--ls-why-star);
+  }
+  .ls-why .ls-why__rating-text {
+    font-family: 'Nunito Sans', Arial, sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+    color: var(--ls-why-text) !important;
+  }
+  .ls-why .ls-why__rating-text strong { font-weight: 700 !important; color: var(--ls-why-strong) !important; }
+
+  /* TITLE */
+  .ls-why .ls-why__title {
+    font-family: 'Nunito Sans', Arial, sans-serif !important;
+    font-weight: 600 !important;
+    font-size: clamp(34px, 4vw, 48px) !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.01em !important;
+    text-transform: none !important;
+    color: var(--ls-why-title) !important;
+    margin: 0 0 30px !important;
+    padding: 0 !important;
+  }
+
+  /* LIST: numbered like the points of an article, with thin lines between them */
+  .ls-why .ls-why__list {
+    list-style: none !important;
+    counter-reset: ls-why;
+    margin: 0 0 34px !important;
+    padding: 0 !important;
+    border-top: 1px solid var(--ls-why-outline);
+  }
+  .ls-why .ls-why__item {
+    counter-increment: ls-why;
+    display: flex;
+    align-items: baseline;
+    gap: 22px;
+    margin: 0 !important;
+    padding: 20px 0 !important;
+    border-bottom: 1px solid var(--ls-why-outline);
+  }
+  .ls-why .ls-why__item::before {
+    content: counter(ls-why, decimal-leading-zero);
+    flex: 0 0 auto;
+    font-family: 'Nunito Sans', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: .08em;
+    color: var(--ls-why-num);
+  }
+
+  /* BENEFIT TEXT */
+  .ls-why .ls-why__copy {
+    font-family: 'Nunito Sans', Arial, sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 17px !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0 !important;
+    color: var(--ls-why-text) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .ls-why .ls-why__copy strong { font-weight: 700 !important; color: var(--ls-why-strong) !important; }
+
+  /* BUTTON: outline style. Add a background color below if you want it filled */
+  .ls-why .ls-why__btn {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 36px;
+    background: transparent;
+    border: 2px solid var(--ls-why-outline);
+    border-radius: 999px;
+    font-family: 'Nunito Sans', Arial, sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+    text-decoration: none !important;
+    color: var(--ls-why-title) !important;
+    transition: background 0.2s ease;
+  }
+  .ls-why .ls-why__btn:hover { background: var(--ls-why-outline); }
+
+  /* TABLET + MOBILE (under 900px wide): photo goes on top, text below */
+  @media (max-width: 899px) {
+    .ls-why { padding: 40px 18px; }
+    .ls-why .ls-why__inner { grid-template-columns: 1fr; gap: 28px; }
+    .ls-why .ls-why__figure { order: -1; }
+    .ls-why .ls-why__img { aspect-ratio: 4 / 4.2; border-radius: 20px; }
+  }
+  @media (max-width: 749px) {
+    .ls-why .ls-why__stars { font-size: 16px !important; }
+    .ls-why .ls-why__rating-text { font-size: 14px !important; }
+    .ls-why .ls-why__title { margin-bottom: 22px !important; }
+    .ls-why .ls-why__item { gap: 16px; padding: 16px 0 !important; }
+    .ls-why .ls-why__copy { font-size: 16px !important; }
+    .ls-why .ls-why__list { margin-bottom: 28px !important; }
+    .ls-why .ls-why__btn { width: 100%; }
+  }
+</style>
+
+<script>
+  (function () {
+    var btn = document.getElementById('ls-why-btn');
+    if (!btn) return;
+
+    /* ADD TO CART BUTTON: the code looks for these in order. If your theme uses something different, add its selector to the top of this list. */
+    var SELECTORS = [
+      'form[action*="/cart/add"] button[name="add"]',
+      'form[action*="/cart/add"] [type="submit"]',
+      'button[name="add"]',
+      '[data-add-to-cart]',
+      '.product-form__submit',
+      '.add-to-cart',
+      '#AddToCart',
+      'add-to-cart-component button'
+    ];
+
+    /* Skips buttons inside sticky bars that are fixed to the screen, since scrolling to them does nothing */
+    function inFixedBar(el) {
+      for (var n = el; n && n !== document.body; n = n.parentElement) {
+        if (window.getComputedStyle(n).position === 'fixed') return true;
+      }
+      return false;
+    }
+
+    function findButton() {
+      for (var i = 0; i < SELECTORS.length; i++) {
+        var list = document.querySelectorAll(SELECTORS[i]);
+        for (var j = 0; j < list.length; j++) {
+          var el = list[j];
+          if (el.offsetParent !== null && !inFixedBar(el)) return el;
+        }
+      }
+      return null;
+    }
+
+    btn.addEventListener('click', function () {
+      var target = findButton();
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  })();
+</script>

@@ -1,0 +1,90 @@
+<!-- SNUZZO CALMBUDS FAQ (Custom Liquid block)
+     EDIT: each <details> is one question. Copy a whole <details> ... </details> to add one, delete one to remove it.
+     The first question opens by default (the word "open" on its <details> tag). -->
+<section class="snzfaq" aria-labelledby="snzfaq-title">
+  <div class="snzfaq__inner">
+    <div class="snzfaq__head">
+      <p class="snzfaq__eyebrow">Good to know</p>
+      <h2 class="snzfaq__title" id="snzfaq-title">Questions parents ask</h2>
+      <p class="snzfaq__sub">Everything you need to choose with confidence.</p>
+    </div>
+
+    <div class="snzfaq__list">
+      <details class="snzfaq__item" open>
+        <summary>What size should I choose?</summary>
+        <div class="snzfaq__a"><p><strong>One size fits all.</strong> There’s no size to pick: every CalmBuds is made to fit comfortably. Just choose the animal your little one will love.</p></div>
+      </details>
+
+      <details class="snzfaq__item">
+        <summary>Is it safe for my little one?</summary>
+        <div class="snzfaq__a"><p>CalmBuds were designed with little ones in mind. Nothing goes inside the ears: slim speakers rest softly over them, wrapped in cozy fleece. No earbuds to lose, no wires to tangle. As with any headphones, keep the volume low and stay close to young children.</p></div>
+      </details>
+
+      <details class="snzfaq__item">
+        <summary>How does it connect?</summary>
+        <div class="snzfaq__a"><p>By Bluetooth, with any phone or tablet. Turn it on, pair it once, and play their favorite stories, music or lullabies. The play/pause and volume buttons are right on the side of the band.</p></div>
+      </details>
+
+      <details class="snzfaq__item">
+        <summary>When do families use it?</summary>
+        <div class="snzfaq__a"><p>Anywhere they need a calmer moment: car rides, flights, waiting rooms, busy family dinners, and winding down at bedtime with a story.</p></div>
+      </details>
+
+      <details class="snzfaq__item">
+        <summary>Can I mix different animals in one pack?</summary>
+        <div class="snzfaq__a"><p>Yes. Choose a pack, then pick a different animal for each CalmBuds, from our 9 designs. The pack price is applied automatically at checkout, no code needed.</p></div>
+      </details>
+
+      <details class="snzfaq__item">
+        <summary>Is it a good gift?</summary>
+        <div class="snzfaq__a"><p>It’s one of our favorite gifts for birthdays, holidays and new siblings: playful, useful every day, and the 2- to 4-packs make it easy to spoil cousins and friends too.</p></div>
+      </details>
+
+      <details class="snzfaq__item">
+        <summary>Do you ship to my country?</summary>
+        <div class="snzfaq__a"><p>We ship worldwide, and shipping is free on every order right now. Prices show in your own currency, and the estimated delivery date appears on this page before you order.</p></div>
+      </details>
+
+      <details class="snzfaq__item">
+        <summary>What if it’s not right for us?</summary>
+        <div class="snzfaq__a"><p>Every order comes with our 30-day money-back guarantee. If you’re not happy, contact us and we’ll make it right.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<style>
+  .snzfaq{--ink:#3C2820;--mute:#7A6458;--line:#EAD9CC;--cream:#FDF6EE;color:var(--ink);padding:56px 16px}
+  .snzfaq__inner{max-width:760px;margin:0 auto}
+  .snzfaq__head{text-align:center;margin-bottom:26px}
+  .snzfaq__eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B07A5C}
+  .snzfaq__title{margin:0;font-size:clamp(26px,4vw,34px);line-height:1.15;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .snzfaq__sub{margin:8px 0 0;font-size:15px;color:var(--mute)}
+  .snzfaq__list{display:flex;flex-direction:column;gap:10px}
+  .snzfaq__item{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:border-color .2s ease,background-color .2s ease}
+  .snzfaq__item[open]{background:var(--cream);border-color:#DCC3B2}
+  .snzfaq__item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;font-size:16px;font-weight:600;line-height:1.35}
+  .snzfaq__item summary::-webkit-details-marker{display:none}
+  .snzfaq__item summary::after{content:"";flex:none;width:30px;height:30px;border-radius:50%;background:var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 6v12M6 12h12' stroke='%233C2820' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/16px no-repeat;transition:transform .25s ease}
+  .snzfaq__item[open] summary::after{transform:rotate(45deg);background-color:#fff}
+  .snzfaq__item summary:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;border-radius:18px}
+  .snzfaq__a{padding:0 20px 18px}
+  .snzfaq__a p{margin:0;font-size:15px;line-height:1.6;color:#5C4A40}
+  .snzfaq__a strong{color:var(--ink)}
+  @media (max-width:480px){.snzfaq{padding:44px 16px}.snzfaq__item summary{padding:16px;font-size:15px}.snzfaq__a{padding:0 16px 16px}}
+  @media (prefers-reduced-motion:reduce){.snzfaq__item,.snzfaq__item summary::after{transition:none}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"What size should I choose?","acceptedAnswer":{"@type":"Answer","text":"One size fits all. There’s no size to pick: every CalmBuds is made to fit comfortably. Just choose the animal your little one will love."}},
+    {"@type":"Question","name":"Is it safe for my little one?","acceptedAnswer":{"@type":"Answer","text":"CalmBuds were designed with little ones in mind. Nothing goes inside the ears: slim speakers rest softly over them, wrapped in cozy fleece. No earbuds to lose, no wires to tangle. As with any headphones, keep the volume low and stay close to young children."}},
+    {"@type":"Question","name":"How does it connect?","acceptedAnswer":{"@type":"Answer","text":"By Bluetooth, with any phone or tablet. Turn it on, pair it once, and play their favorite stories, music or lullabies. The play/pause and volume buttons are right on the side of the band."}},
+    {"@type":"Question","name":"Can I mix different animals in one pack?","acceptedAnswer":{"@type":"Answer","text":"Yes. Choose a pack, then pick a different animal for each CalmBuds, from our 9 designs. The pack price is applied automatically at checkout, no code needed."}},
+    {"@type":"Question","name":"What if it’s not right for us?","acceptedAnswer":{"@type":"Answer","text":"Every order comes with our 30-day money-back guarantee. If you’re not happy, contact us and we’ll make it right."}}
+  ]
+}
+</script>

@@ -34,6 +34,10 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   On the live theme's CalmBuds template: video stories block `snuzzo_videos` (from `tools/videos/calmbuds-video-stories.liquid`,
   6 videos from Shopify Files) right after `snuzzo_bundles`; upsell "You might also like" (custom_liquid_wRxKbV) and the old
   video gallery (custom_liquid_zCe7Kr) are disabled.
+  Same template (Nov 19): "Why parents choose CalmBuds" (custom_liquid_nGdyjV, `tools/calmbuds-page/why-parents-choose.liquid`,
+  new mom + fox photo, rating read from the reviews metafields like the top stars), FAQ (custom_liquid_6jYqpU,
+  `tools/calmbuds-page/faq.liquid`), "The story behind each onesie" (custom_liquid_b4FMLH) disabled.
+  CalmBuds rating metafield is currently 4.7 (changed outside this session), count 172.
 - Previous live theme (Nov 16, 2026): "Horizon + Bundles" (copy of the old Horizon theme, not in this repo). Its CalmBuds
   template (`templates/product.the-snuzzo-calmbuds.json`) has the Black Friday pack selector block (live Nov 16, 2026; countdown ends Nov 18 midnight New York time, then the banner hides itself) from
   `tools/bundles/calmbuds-pack-selector.liquid`, backed by 3 automatic discounts "CalmBuds Duo/Family Pack/Big Happy
