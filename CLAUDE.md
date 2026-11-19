@@ -38,6 +38,9 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   new mom + fox photo, rating read from the reviews metafields like the top stars), FAQ (custom_liquid_6jYqpU,
   `tools/calmbuds-page/faq.liquid`), "The story behind each onesie" (custom_liquid_b4FMLH) disabled.
   CalmBuds rating metafield is currently 4.7 (changed outside this session), count 172.
+  Comparison table after the FAQ (custom_liquid_htCcQq, `tools/calmbuds-page/comparison-table.liquid`): CalmBuds vs
+  Earbuds vs Headphones, only true rows. CalmBuds now has 12 animals (Nov 19 added Monster, Puppy, Koala, $29.99 / $49.99,
+  CONTINUE). Pack discounts target the whole product, so new variants are included automatically.
 - Previous live theme (Nov 16, 2026): "Horizon + Bundles" (copy of the old Horizon theme, not in this repo). Its CalmBuds
   template (`templates/product.the-snuzzo-calmbuds.json`) has the Black Friday pack selector block (live Nov 16, 2026; countdown ends Nov 18 midnight New York time, then the banner hides itself) from
   `tools/bundles/calmbuds-pack-selector.liquid`, backed by 3 automatic discounts "CalmBuds Duo/Family Pack/Big Happy
