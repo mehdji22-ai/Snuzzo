@@ -29,7 +29,8 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   changing live store data (prices, products, publishing).
 - Grouped products (drafts until launch): The Animal Onesies (default product template), The Christmas Onesies
   (`product.christmas`), The Baby Snowsuit (`product.snowsuit`). The old one-per-animal products stay live until launch.
-- LIVE THEME CHANGED (Nov 19, 2026): "Snuzzo (prochaine version 2)" (gid 190213751075) is now published. Always check
+- LIVE THEME CHANGED (Nov 19, 2026): "Snuzzo (prochaine version 2)" (gid 190213751075) was published, then "Snuzzo (prochaine version 4)"
+  (Nov 19 evening). Black Friday banner redesigned (black + coral #FF5A36, big countdown, scrolling strip); bf_end = Nov 28 midnight NY. Always check
   `themes(roles: MAIN)` before editing: earlier notes below were written for "Horizon + Bundles" (190100209955, now unpublished).
   On the live theme's CalmBuds template: video stories block `snuzzo_videos` (from `tools/videos/calmbuds-video-stories.liquid`,
   6 videos from Shopify Files) right after `snuzzo_bundles`; upsell "You might also like" (custom_liquid_wRxKbV) and the old
