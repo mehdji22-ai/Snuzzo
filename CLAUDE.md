@@ -29,7 +29,7 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   changing live store data (prices, products, publishing).
 - Grouped products (drafts until launch): The Animal Onesies (default product template), The Christmas Onesies
   (`product.christmas`), The Baby Snowsuit (`product.snowsuit`). The old one-per-animal products stay live until launch.
-- LIVE THEME CHANGED (Nov 19, 2026): "Snuzzo (prochaine version 2)" (gid 190213751075) was published, then "Snuzzo (prochaine version 4)"
+- LIVE THEME on Nov 20, 2026: "Thème brun Matisse". - LIVE THEME CHANGED (Nov 19, 2026): "Snuzzo (prochaine version 2)" (gid 190213751075) was published, then "Snuzzo (prochaine version 4)"
   (Nov 19 evening), then "version 5". New theme copies keep appearing: always read the MAIN theme before editing.
   Black Friday bar is now compact (one line, black + coral #FF5A36); bf_end = Nov 28 midnight NY. The pack selector block also
   holds mobile layout CSS for this page (4:3 photo, dots instead of thumbnails, tighter spacing), hides the sticky bar on the
@@ -52,8 +52,10 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   The new Snuzzo theme from this repo is unpublished (relaunch pending).
   Country/currency card (Nov 17, 2026): live theme footer-group custom_liquid_EDXeTC = `tools/popups/country-card.liquid`
   (old full pop-up kept in `tools/popups/country-picker-old.liquid`). Small bottom card, once per visit, after page load;
-  uses /browsing_context_suggestions.json to detect the real country; switching posts /localization then reloads with
-  `?currency=XXX` (needed: shopping links like YouTube force a currency that sticks for the visit).
+  uses /browsing_context_suggestions.json to detect the real country. AUTO-FIX (Nov 20): on the first page of each visit,
+  if a link forced another country/currency (YouTube adds ?country=XX, which Shopify keeps for the whole visit), the
+  page reloads once with `?country=<real country>` (NOT ?currency=, which picks the first country using that currency,
+  e.g. EUR -> Andorra). Manual choice in the card uses the same ?country= reload.
   Cart photos (live `sections/main-cart.liquid` + `snippets/cart-products.liquid`): whole photo in a white square, never cropped.
   CalmBuds reviews (real, confirmed by owner Nov 17, 2026): 172 reviews, 4.8/5, stored in the product's standard
   `reviews.rating` / `reviews.rating_count` metafields. Collection cards and the product page rating block both read them.

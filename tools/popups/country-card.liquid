@@ -5,6 +5,7 @@
     (for example from a YouTube Shopping link), it offers to switch to the right one in one tap.
   - The country list is built only when the customer taps "Change country".
   - Preview it any time by adding ?choose-country to a page address.
+  - AUTO-FIX: on the first page of a visit, a wrong country/currency forced by a link is corrected automatically.
   EDIT the words below.
 {%- endcomment -%}
 {%- liquid
@@ -29,9 +30,10 @@
     <button type="button" class="snz-cc__link" data-cc-other></button>
   </div>
   <div class="snz-cc__pick" data-cc-pick hidden>
-    <label class="snz-cc__sr" for="snz-cc-select">Country</label>
-    <select id="snz-cc-select" class="snz-cc__select" data-cc-select></select>
-    <button type="button" class="snz-cc__btn" data-cc-apply>Continue</button>
+    <label class="snz-cc__sr" for="snz-cc-search">Search your country</label>
+    <input id="snz-cc-search" class="snz-cc__select snz-cc__search" data-cc-search type="search" placeholder="Search your country…" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="go">
+    <ul class="snz-cc__list" data-cc-list role="listbox" aria-label="Countries"></ul>
+    <p class="snz-cc__empty" data-cc-empty hidden>No country found</p>
   </div>
   {%- form 'localization', id: 'snz-cc-form', class: 'snz-cc__sr' -%}
     <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
@@ -57,11 +59,45 @@
   .snz-cc__btn:hover{opacity:.92}
   .snz-cc__link{min-height:40px;border:0;background:none;color:#3C2820;font:inherit;font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
   .snz-cc__select{width:100%;min-height:48px;padding:0 14px;border:1px solid #EAD9CC;border-radius:14px;background:#fff;color:#3C2820;font:inherit;font-size:15px}
+  .snz-cc__search{font-size:16px;-webkit-appearance:none;appearance:none}
+  .snz-cc__search:focus{outline:none;border-color:#3C2820}
+  .snz-cc__list{list-style:none;margin:0;padding:4px;max-height:220px;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;border:1px solid #EAD9CC;border-radius:14px}
+  .snz-cc__list:empty{display:none}
+  .snz-cc__opt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:44px;padding:0 12px;border:0;border-radius:10px;background:none;color:#3C2820;font:inherit;font-size:15px;text-align:left;cursor:pointer}
+  .snz-cc__opt:hover,.snz-cc__opt.is-active{background:#FDF6EE}
+  .snz-cc__opt small{flex:none;color:#7A6458;font-size:13px}
+  .snz-cc__empty{margin:2px 4px 0;font-size:13px;color:#7A6458}
+  .snz-cc__empty[hidden]{display:none}
   .snz-cc__sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   @media (prefers-reduced-motion:reduce){.snz-cc{transition:none}}
 </style>
 <script>
 (function () {
+  /* AUTO-FIX (first page of each visit only): shopping links (YouTube, Google Shopping...) can force a random country and
+     currency with ?country= / ?currency=, and Shopify then keeps it for the whole visit. We ask Shopify where the visitor
+     really is and, if the store shows another country or currency, switch to the visitor's own right away (no click).
+     Never runs again in the same visit, and never overrides a country the customer picked in the card. */
+  (function () {
+    var FIX = 'snzGeoChecked';
+    try { if (sessionStorage.getItem(FIX) || sessionStorage.getItem('snzCountryChosen')) return; sessionStorage.setItem(FIX, '1'); } catch (e) { return; }
+    var el = document.getElementById('snz-cc-data'); if (!el || !window.fetch) return;
+    var data; try { data = JSON.parse(el.textContent); } catch (e) { return; }
+    var byCode = {}; data.list.forEach(function (c) { byCode[c[0]] = c; });
+    var shown = (window.Shopify && Shopify.currency && Shopify.currency.active) || data.currency;
+    fetch('/browsing_context_suggestions.json?country[enabled]=true&currency[enabled]=true', { credentials: 'same-origin' })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var real = d && d.detected_values && d.detected_values.country && d.detected_values.country.handle;
+        var c = real && byCode[real]; if (!c) return;
+        if (c[0] === data.current && c[2] === shown) return;
+        var q = new URLSearchParams(location.search);
+        ['country', 'currency', '_pos', '_sid', '_ss'].forEach(function (k) { q.delete(k); });
+        q.set('country', c[0]);
+        location.replace(location.pathname + '?' + q.toString() + location.hash);
+      })
+      .catch(function () {});
+  })();
+
   var KEY = 'snzCountryChosen';
   var forced = location.search.indexOf('choose-country') > -1;
   try { if (!forced && sessionStorage.getItem(KEY)) return; } catch (e) {}
@@ -82,18 +118,14 @@
       done();
       if (code === data.current && byCode[code][2] === shownCur) return close();
       form.querySelector('[name="country_code"]').value = code;
-      var go = $('[data-cc-go]'), apply = $('[data-cc-apply]');
-      go.disabled = apply.disabled = true; go.textContent = apply.textContent = '…';
-      /* Save the country in the background, then reload the same page (keeps the link's details). */
-      /* Same page, without the settings a shopping link uses to force a currency or country. */
+      var go = $('[data-cc-go]'), inp = $('[data-cc-search]');
+      go.disabled = true; go.textContent = '…'; if (inp) inp.disabled = true;
+      /* Reload the same page (keeps the link's details) in the chosen country: Shopify then shows that country's
+         currency for the whole visit. We remove the country/currency a shopping link may have forced. */
       var q = new URLSearchParams(location.search);
       ['currency', 'country', 'choose-country', '_pos', '_sid', '_ss'].forEach(function (k) { q.delete(k); });
-      /* ...and with the chosen currency, which replaces any currency the link had forced (it stays for the whole visit). */
-      q.set('currency', byCode[code][2]);
-      var back = location.pathname + '?' + q.toString();
-      if (code === data.current) return location.replace(back);
-      fetch(form.action, { method: 'POST', body: new FormData(form), credentials: 'same-origin', redirect: 'manual' })
-        .then(function () { location.replace(back); }, function () { location.replace(back); });
+      q.set('country', code);
+      location.replace(location.pathname + '?' + q.toString() + location.hash);
     }
     function show(detected) {
       var target = (detected && byCode[detected]) ? byCode[detected] : cur;
@@ -109,17 +141,42 @@
       box.hidden = false;
       requestAnimationFrame(function () { requestAnimationFrame(function () { box.classList.add('is-in'); }); });
     }
-    function openPicker() {
-      var sel = $('[data-cc-select]');
-      if (!sel.options.length) {
-        var list = data.list.slice().sort(function (a, b) { return a[1].localeCompare(b[1]); });
-        var html = '';
-        list.forEach(function (c) { html += '<option value="' + c[0] + '"' + (c[0] === data.current ? ' selected' : '') + '>' + c[1].replace(/</g, '&lt;') + ' (' + label(c).replace(/</g, '&lt;') + ')</option>'; });
-        sel.innerHTML = html;
-      }
-      $('[data-cc-actions]').hidden = true; $('[data-cc-pick]').hidden = false; sel.focus();
+    /* COUNTRY SEARCH: the customer types their country, the list filters as they type (accents and capitals ignored). */
+    var sorted = null;
+    function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); }
+    function render(q) {
+      var n = norm(q), html = '', count = 0;
+      sorted.forEach(function (c) {
+        var name = norm(c[1]);
+        if (n && name.indexOf(n) === -1 && norm(c[0]) !== n) return;
+        count++;
+        html += '<li><button type="button" role="option" class="snz-cc__opt' + (n && count === 1 ? ' is-active' : '') + '" data-code="' + c[0] + '">' + c[1].replace(/</g, '&lt;') + ' <small>' + label(c).replace(/</g, '&lt;') + '</small></button></li>';
+      });
+      $('[data-cc-list]').innerHTML = html;
+      $('[data-cc-empty]').hidden = count > 0;
     }
-    $('[data-cc-apply]').onclick = function () { choose($('[data-cc-select]').value); };
+    function openPicker() {
+      var input = $('[data-cc-search]');
+      if (!sorted) {
+        sorted = data.list.slice().sort(function (a, b) {
+          if (a[0] === data.current) return -1; if (b[0] === data.current) return 1;
+          return a[1].localeCompare(b[1]);
+        });
+        input.addEventListener('input', function () { render(input.value); });
+        input.addEventListener('keydown', function (e) {
+          if (e.key !== 'Enter') return;
+          e.preventDefault();
+          var first = box.querySelector('[data-cc-list] .snz-cc__opt');
+          if (first) choose(first.getAttribute('data-code'));
+        });
+        $('[data-cc-list]').addEventListener('click', function (e) {
+          var b = e.target.closest('.snz-cc__opt');
+          if (b) choose(b.getAttribute('data-code'));
+        });
+        render('');
+      }
+      $('[data-cc-actions]').hidden = true; $('[data-cc-pick]').hidden = false; input.focus();
+    }
     $('[data-cc-close]').onclick = close;
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
 
