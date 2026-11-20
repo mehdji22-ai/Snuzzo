@@ -56,6 +56,7 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   if a link forced another country/currency (YouTube adds ?country=XX, which Shopify keeps for the whole visit), the
   page reloads once with `?country=<real country>` (NOT ?currency=, which picks the first country using that currency,
   e.g. EUR -> Andorra). Manual choice in the card uses the same ?country= reload.
+  Nov 20: the card itself is TURNED OFF at the owner's request (SHOW_CARD = false in the script); only the auto-fix runs.
   Cart photos (live `sections/main-cart.liquid` + `snippets/cart-products.liquid`): whole photo in a white square, never cropped.
   CalmBuds reviews (real, confirmed by owner Nov 17, 2026): 172 reviews, 4.8/5, stored in the product's standard
   `reviews.rating` / `reviews.rating_count` metafields. Collection cards and the product page rating block both read them.
