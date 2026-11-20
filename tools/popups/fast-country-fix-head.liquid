@@ -1,0 +1,42 @@
+    {%- comment -%}
+      SNUZZO FAST COUNTRY FIX (runs first, before the page shows).
+      Shopping links (YouTube...) can force a random country with ?country= or ?currency=, which Shopify keeps for the
+      whole visit. When the address has one, we hide the page for a split second, find the visitor's real country
+      (remembered on their device for 7 days, otherwise asked to Shopify) and reload once in that country.
+      The page always shows within 1.5 s, even if something doesn't answer. Once per visit.
+      The fuller check for visitors without such a link is in the footer (country card block, AUTO-FIX).
+    {%- endcomment -%}
+    {%- unless request.design_mode -%}
+    <script>
+      (function () {
+        try {
+          var ss = sessionStorage;
+          if (ss.getItem('snzGeoChecked') || ss.getItem('snzCountryChosen')) return;
+          var q = new URLSearchParams(location.search);
+          if (!q.has('country') && !q.has('currency')) return;
+          ss.setItem('snzGeoChecked', '1');
+          var html = document.documentElement, t = setTimeout(show, 1500);
+          function show() { html.style.visibility = ''; }
+          html.style.visibility = 'hidden';
+          var forced = (q.get('country') || '').toUpperCase();
+          function go(cc) {
+            if (!cc || (cc === forced && !q.has('currency'))) { clearTimeout(t); return show(); }
+            ['country', 'currency', '_pos', '_sid', '_ss'].forEach(function (k) { q.delete(k); });
+            q.set('country', cc);
+            location.replace(location.pathname + '?' + q.toString() + location.hash);
+          }
+          var mem = null;
+          try { mem = JSON.parse(localStorage.getItem('snzRealCountry') || 'null'); } catch (e) {}
+          if (mem && mem.cc && Date.now() - mem.t < 604800000) return go(mem.cc);
+          fetch('/browsing_context_suggestions.json?country[enabled]=true', { credentials: 'same-origin' })
+            .then(function (r) { return r.json(); })
+            .then(function (d) {
+              var cc = d && d.detected_values && d.detected_values.country && d.detected_values.country.handle;
+              if (cc) { try { localStorage.setItem('snzRealCountry', JSON.stringify({ cc: cc, t: Date.now() })); } catch (e) {} }
+              go(cc);
+            })
+            .catch(function () { clearTimeout(t); show(); });
+        } catch (e) { document.documentElement.style.visibility = ''; }
+      })();
+    </script>
+    {%- endunless -%}

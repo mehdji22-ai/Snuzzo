@@ -57,6 +57,10 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   page reloads once with `?country=<real country>` (NOT ?currency=, which picks the first country using that currency,
   e.g. EUR -> Andorra). Manual choice in the card uses the same ?country= reload.
   Nov 20: the card itself is TURNED OFF at the owner's request (SHOW_CARD = false in the script); only the auto-fix runs.
+  FAST FIX (Nov 20): live `layout/theme.liquid` has a small script right after <head> (`tools/popups/fast-country-fix-head.liquid`):
+  when the URL has ?country= or ?currency=, it hides the page (max 1.5 s), gets the real country (localStorage
+  `snzRealCountry`, 7 days, else /browsing_context_suggestions.json) and reloads once with ?country=<real>. Shares the
+  `snzGeoChecked` session flag with the footer AUTO-FIX, which still covers visits without such a parameter.
   Cart photos (live `sections/main-cart.liquid` + `snippets/cart-products.liquid`): whole photo in a white square, never cropped.
   CalmBuds reviews (real, confirmed by owner Nov 17, 2026): 172 reviews, 4.8/5, stored in the product's standard
   `reviews.rating` / `reviews.rating_count` metafields. Collection cards and the product page rating block both read them.
