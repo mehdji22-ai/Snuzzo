@@ -64,6 +64,9 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   Cart photos (live `sections/main-cart.liquid` + `snippets/cart-products.liquid`): whole photo in a white square, never cropped.
   CalmBuds reviews (real, confirmed by owner Nov 17, 2026): 172 reviews, 4.8/5, stored in the product's standard
   `reviews.rating` / `reviews.rating_count` metafields. Collection cards and the product page rating block both read them.
+- New product (Nov 21, 2026): "The Snuzzo StepBuddy" (gid://shopify/Product/10455616422179, handle the-snuzzo-stepbuddy),
+  a walking-assist harness for first steps. DRAFT, no price/photos yet. Uses template `templates/product.stepbuddy.json`
+  on the live theme (copy of the default product template). Avoid the word "leash" in its copy.
 - Shipping (Nov 16, 2026, Black Friday): FREE shipping on every order. One "General profile" (all variants),
   6 zones / 237 countries, all 6 markets active, each zone has a single "Free Shipping" $0 rate (no minimum).
   Site texts say "Black Friday: free shipping on every order". If a threshold comes back: add rates per zone and
