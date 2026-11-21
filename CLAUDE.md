@@ -71,6 +71,11 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   photo. Template blocks from `tools/stepbuddy-page/` (head, points, story = problem/answer/how it works, compare, faq);
   star rating, onesie reviews, "Loved by 5k+ parents", onesie videos/story and upsell are disabled on this template.
   Draft products can't be viewed from this sandbox (shopifypreview.com blocked): check layout with any live product + ?view=stepbuddy.
+  Nov 21 (later): page restyled like CalmBuds: block `snuzzo_bundles` = `tools/stepbuddy-page/selector.liquid` (CalmBuds pack
+  selector reduced to 1 item: Black Friday bar, color photo swatches, brown sticky bar); theme price/variant picker/qty/buy
+  buttons and the theme sticky bar are off on this template. No reviews/stars until real StepBuddy reviews exist (the CalmBuds
+  review cards are CalmBuds-specific). Price now $39.99 (set by owner). Product is ACTIVE but NOT published on any channel.
+  Collections: Baby Comfort & Essentials, and Best Sellers in 3rd position (manual sort).
 - Shipping (Nov 16, 2026, Black Friday): FREE shipping on every order. One "General profile" (all variants),
   6 zones / 237 countries, all 6 markets active, each zone has a single "Free Shipping" $0 rate (no minimum).
   Site texts say "Black Friday: free shipping on every order". If a threshold comes back: add rates per zone and
