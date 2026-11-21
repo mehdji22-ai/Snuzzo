@@ -76,6 +76,7 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
   buttons and the theme sticky bar are off on this template. No reviews/stars until real StepBuddy reviews exist (the CalmBuds
   review cards are CalmBuds-specific). Price now $39.99 (set by owner). Product is ACTIVE but NOT published on any channel.
   Collections: Baby Comfort & Essentials, and Best Sellers in 3rd position (manual sort).
+- Announcement bar (live header-group custom_liquid_3nJNtw, Nov 21): Snuzzo brown #3C2619 (same as the Add to cart buttons), white text.
 - Shipping (Nov 16, 2026, Black Friday): FREE shipping on every order. One "General profile" (all variants),
   6 zones / 237 countries, all 6 markets active, each zone has a single "Free Shipping" $0 rate (no minimum).
   Site texts say "Black Friday: free shipping on every order". If a threshold comes back: add rates per zone and
