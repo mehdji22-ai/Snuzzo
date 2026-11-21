@@ -1,0 +1,72 @@
+<!-- STEPBUDDY: the problem -> our answer -> how it works -->
+<section class="snzsb-st" aria-label="Why StepBuddy">
+  <div class="snzsb-st__inner">
+    <div class="snzsb-st__card snzsb-st__card--problem">
+      <p class="snzsb-st__eyebrow">The problem</p>
+      <h2 class="snzsb-st__title">Learning to walk shouldn’t hurt.</h2>
+      <p>When little ones take their first steps, we do what every loving parent does: we hold their hands, hover close and hope for the best.</p>
+      <p>But tiny legs are wobbly, and a fall happens in a split second. A bumped head, a hurt chin, tears, and a little one who’s suddenly afraid to try again.</p>
+      <p><strong>It always starts with the best intentions. It just isn’t safe enough.</strong></p>
+    </div>
+
+    <div class="snzsb-st__card snzsb-st__card--answer">
+      {%- if product.featured_media -%}
+        <div class="snzsb-st__img">{{ product.featured_media | image_url: width: 900 | image_tag: loading: 'lazy', widths: '400, 600, 900', sizes: '(min-width: 990px) 420px, 90vw', alt: product.title }}</div>
+      {%- endif -%}
+      <div>
+        <p class="snzsb-st__eyebrow">Our answer</p>
+        <h2 class="snzsb-st__title">Free to walk. Safe to try.</h2>
+        <p>StepBuddy wraps softly around your baby and gives you a handle at your height. Your little one walks on their own, at their own pace, and the moment they wobble, you’re already holding them.</p>
+        <p>They build confidence with every step. You keep them safe, without bending over.</p>
+      </div>
+    </div>
+
+    <div class="snzsb-st__how">
+      <p class="snzsb-st__eyebrow">How it works</p>
+      <h2 class="snzsb-st__title">Ready in seconds</h2>
+      <ol class="snzsb-st__steps">
+        <li><b>1</b><h3>Put it on</h3><p>Slip the soft harness on your baby and adjust the straps for a snug, comfy fit.</p></li>
+        <li><b>2</b><h3>Hold the handle</h3><p>Stand tall and hold the padded handle at your own height.</p></li>
+        <li><b>3</b><h3>Let them walk</h3><p>They explore freely. A wobble? You catch it before it becomes a fall.</p></li>
+      </ol>
+      <button type="button" class="snzsb-st__cta" data-snzsb-cta>Choose my color</button>
+    </div>
+  </div>
+</section>
+<style>
+  .snzsb-st{--ink:#3C2820;--mute:#6B5A50;--line:#EAD9CC;--cream:#FDF6EE;color:var(--ink);padding:56px 16px 24px}
+  .snzsb-st__inner{max-width:980px;margin:0 auto;display:grid;gap:16px}
+  .snzsb-st__card{border-radius:24px;padding:28px 24px;border:1px solid var(--line)}
+  .snzsb-st__card p{margin:0 0 12px;font-size:16px;line-height:1.6;color:var(--mute)}
+  .snzsb-st__card p:last-child{margin-bottom:0}
+  .snzsb-st__card strong{color:var(--ink)}
+  .snzsb-st__card--problem{background:#fff}
+  .snzsb-st__card--answer{background:var(--cream);display:grid;gap:20px;align-items:center}
+  .snzsb-st__img{border-radius:18px;overflow:hidden;background:#fff}
+  .snzsb-st__img img{display:block;width:100%;height:auto}
+  .snzsb-st__eyebrow{margin:0 0 6px!important;font-size:12px!important;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B07A5C!important}
+  .snzsb-st__title{margin:0 0 14px;font-size:clamp(26px,4vw,34px);line-height:1.12;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .snzsb-st__how{text-align:center;padding:28px 8px 8px}
+  .snzsb-st__steps{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:12px;text-align:left}
+  .snzsb-st__steps li{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 18px 18px 64px;position:relative}
+  .snzsb-st__steps b{position:absolute;left:18px;top:18px;width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:15px}
+  .snzsb-st__steps h3{margin:4px 0 4px;font-size:17px;font-weight:700;color:var(--ink)}
+  .snzsb-st__steps p{margin:0;font-size:15px;line-height:1.5;color:var(--mute)}
+  .snzsb-st__cta{margin-top:22px;min-height:54px;padding:0 34px;border:0;border-radius:999px;background:var(--ink);color:#fff;font:inherit;font-size:16px;font-weight:700;cursor:pointer}
+  @media (min-width:750px){
+    .snzsb-st__inner{grid-template-columns:1fr 1fr}
+    .snzsb-st__card{padding:36px 32px}
+    .snzsb-st__how{grid-column:1 / -1}
+    .snzsb-st__steps{grid-template-columns:repeat(3,1fr)}
+  }
+  @media (max-width:480px){.snzsb-st{padding:40px 16px 16px}.snzsb-st__cta{width:100%}}
+</style>
+<script>
+  (function () {
+    var b = document.querySelector('[data-snzsb-cta]'); if (!b) return;
+    b.addEventListener('click', function () {
+      var t = document.querySelector('.product-details') || document.querySelector('form[action*="/cart/add"]');
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  })();
+</script>

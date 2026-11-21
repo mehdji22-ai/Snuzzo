@@ -1,0 +1,66 @@
+<!-- SNUZZO STEPBUDDY FAQ (Custom Liquid block). Each <details> is one question. -->
+<section class="snzfaq" aria-labelledby="snzfaq-title">
+  <div class="snzfaq__inner">
+    <div class="snzfaq__head">
+      <p class="snzfaq__eyebrow">Good to know</p>
+      <h2 class="snzfaq__title" id="snzfaq-title">Questions parents ask</h2>
+      <p class="snzfaq__sub">Everything you need to choose with confidence.</p>
+    </div>
+    <div class="snzfaq__list">
+      <details class="snzfaq__item" open>
+        <summary>When can my baby start using it?</summary>
+        <div class="snzfaq__a"><p>As soon as your little one starts pulling up to stand and trying their first steps. StepBuddy supports them while they practice, so they can keep going at their own pace.</p></div>
+      </details>
+      <details class="snzfaq__item">
+        <summary>Will it fit my baby?</summary>
+        <div class="snzfaq__a"><p>Yes. The straps adjust for a snug, comfortable fit and can be loosened as your little one grows.</p></div>
+      </details>
+      <details class="snzfaq__item">
+        <summary>Is it comfortable for my baby?</summary>
+        <div class="snzfaq__a"><p>It’s made of soft fabric that wraps gently around your baby, with a padded handle for you. Nothing hard presses on their body, so they can focus on walking.</p></div>
+      </details>
+      <details class="snzfaq__item">
+        <summary>Does it help my back too?</summary>
+        <div class="snzfaq__a"><p>Yes. Instead of bending over to hold both hands, you stand tall and hold the handle at your own height, so walks can last longer for both of you.</p></div>
+      </details>
+      <details class="snzfaq__item">
+        <summary>Does it replace watching my baby?</summary>
+        <div class="snzfaq__a"><p>No. StepBuddy is a helper, not a babysitter: always stay with your little one and keep hold of the handle while they walk.</p></div>
+      </details>
+      <details class="snzfaq__item">
+        <summary>Which colors are available?</summary>
+        <div class="snzfaq__a"><p>Three soft colors with a cute bear face: Pastel Blue, Mint and Pastel Pink.</p></div>
+      </details>
+      <details class="snzfaq__item">
+        <summary>Do you ship to my country?</summary>
+        <div class="snzfaq__a"><p>We ship worldwide, and shipping is free on every order right now. Prices show in your own currency, and the estimated delivery date appears on this page before you order.</p></div>
+      </details>
+      <details class="snzfaq__item">
+        <summary>What if it’s not right for us?</summary>
+        <div class="snzfaq__a"><p>Every order comes with our 30-day money-back guarantee. If you’re not happy, contact us and we’ll make it right.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<style>
+  .snzfaq{--ink:#3C2820;--mute:#7A6458;--line:#EAD9CC;--cream:#FDF6EE;color:var(--ink);padding:56px 16px}
+  .snzfaq__inner{max-width:760px;margin:0 auto}
+  .snzfaq__head{text-align:center;margin-bottom:26px}
+  .snzfaq__eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B07A5C}
+  .snzfaq__title{margin:0;font-size:clamp(26px,4vw,34px);line-height:1.15;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .snzfaq__sub{margin:8px 0 0;font-size:15px;color:var(--mute)}
+  .snzfaq__list{display:flex;flex-direction:column;gap:10px}
+  .snzfaq__item{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:border-color .2s ease,background-color .2s ease}
+  .snzfaq__item[open]{background:var(--cream);border-color:#DCC3B2}
+  .snzfaq__item summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;font-size:16px;font-weight:600;line-height:1.35}
+  .snzfaq__item summary::-webkit-details-marker{display:none}
+  .snzfaq__item summary::after{content:"";flex:none;width:30px;height:30px;border-radius:50%;background:var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 6v12M6 12h12' stroke='%233C2820' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/16px no-repeat;transition:transform .25s ease}
+  .snzfaq__item[open] summary::after{transform:rotate(45deg);background-color:#fff}
+  .snzfaq__item summary:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;border-radius:18px}
+  .snzfaq__a{padding:0 20px 18px}
+  .snzfaq__a p{margin:0;font-size:15px;line-height:1.6;color:#5C4A40}
+  .snzfaq__a strong{color:var(--ink)}
+  @media (max-width:480px){.snzfaq{padding:44px 16px}.snzfaq__item summary{padding:16px;font-size:15px}.snzfaq__a{padding:0 16px 16px}}
+  @media (prefers-reduced-motion:reduce){.snzfaq__item,.snzfaq__item summary::after{transition:none}}
+</style>

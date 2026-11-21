@@ -1,0 +1,78 @@
+<!-- SNUZZO STEPBUDDY COMPARISON TABLE (Custom Liquid block)
+     EDIT: each <tr> is one row. Use <td class="snzc__yes"> for a check and <td class="snzc__no"> for a cross.
+     Keep every row true: only compare what StepBuddy really does. -->
+<section class="snzc" aria-labelledby="snzc-title">
+  <div class="snzc__inner">
+    <div class="snzc__head">
+      <p class="snzc__eyebrow">The difference</p>
+      <h2 class="snzc__title" id="snzc-title">Why not just hold their hands?</h2>
+      <p class="snzc__sub">Holding both hands is what we all do. StepBuddy makes those first steps easier on everyone.</p>
+    </div>
+
+    <div class="snzc__card">
+      <table class="snzc__table">
+        <thead>
+          <tr>
+            <th scope="col"><span class="snzc__sr">Feature</span></th>
+            <th scope="col" class="snzc__us"><span class="snzc__badge">StepBuddy</span></th>
+            <th scope="col" class="snzc__them">Holding<br>hands</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Your back stays straight</th><td class="snzc__yes">Yes</td><td class="snzc__no">No</td></tr>
+          <tr><th scope="row">Baby’s arms stay free for balance</th><td class="snzc__yes">Yes</td><td class="snzc__no">No</td></tr>
+          <tr><th scope="row">Baby walks at their own pace</th><td class="snzc__yes">Yes</td><td class="snzc__no">No</td></tr>
+          <tr><th scope="row">Comfortable for longer walks</th><td class="snzc__yes">Yes</td><td class="snzc__no">No</td></tr>
+          <tr><th scope="row">You’re holding them the moment they wobble</th><td class="snzc__yes">Yes</td><td class="snzc__yes">Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="snzc__cta-wrap"><button type="button" class="snzc__cta" data-snzc-cta>Choose my StepBuddy</button></div>
+  </div>
+</section>
+
+<style>
+  .snzc{--ink:#3C2820;--mute:#7A6458;--line:#EAD9CC;--cream:#FDF6EE;--blush:#F6D5C7;color:var(--ink);padding:24px 16px 64px}
+  .snzc__inner{max-width:760px;margin:0 auto}
+  .snzc__head{text-align:center;margin-bottom:24px}
+  .snzc__eyebrow{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#B07A5C}
+  .snzc__title{margin:0;font-size:clamp(26px,4vw,34px);line-height:1.15;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .snzc__sub{margin:8px auto 0;max-width:460px;font-size:15px;line-height:1.5;color:var(--mute)}
+  .snzc__card{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 10px 30px rgba(60,40,32,.06)}
+  .snzc__table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}
+  .snzc__table th,.snzc__table td{padding:15px 12px;text-align:center;vertical-align:middle;border-bottom:1px solid #F2E7DE}
+  .snzc__table tbody tr:last-child th,.snzc__table tbody tr:last-child td{border-bottom:0}
+  .snzc__table thead th{padding:18px 10px 14px;font-size:13px;font-weight:600;color:var(--mute);line-height:1.25}
+  .snzc__table thead th:first-child,.snzc__table tbody th{width:43%;text-align:left;padding-left:20px}
+  .snzc__table tbody th{font-size:15px;font-weight:600;line-height:1.35;color:var(--ink)}
+  .snzc__us{background:var(--cream)}
+  .snzc__table tbody td:nth-child(2){background:var(--cream)}
+  .snzc__badge{display:inline-block;padding:6px 14px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:700;letter-spacing:.02em}
+  .snzc__yes,.snzc__no{font-size:0;color:transparent}
+  .snzc__yes::before,.snzc__no::before{content:"";display:inline-block;width:28px;height:28px;border-radius:50%;background-position:center;background-repeat:no-repeat;background-size:16px}
+  .snzc__yes::before{background-color:var(--ink);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%23fff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+  .snzc__no::before{background-color:#F3ECE7;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 7l10 10M17 7L7 17' fill='none' stroke='%23A8968C' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E")}
+  .snzc__table td.snzc__yes:nth-child(n+3)::before{background-color:#CDBFB6}
+  .snzc__cta-wrap{text-align:center;margin-top:22px}
+  .snzc__cta{min-height:54px;padding:0 34px;border:0;border-radius:999px;background:var(--ink);color:#fff;font:inherit;font-size:16px;font-weight:700;cursor:pointer}
+  .snzc__cta:hover{opacity:.92}
+  .snzc__sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  @media (max-width:480px){
+    .snzc{padding:16px 16px 52px}
+    .snzc__table thead th:first-child,.snzc__table tbody th{width:48%;padding-left:12px}
+    .snzc__table th,.snzc__table td{padding:13px 6px}
+    .snzc__table tbody th{font-size:14px}
+    .snzc__table thead th{font-size:12px}
+    .snzc__badge{padding:4px 7px;font-size:11px;letter-spacing:0}
+    .snzc__table thead th{padding:16px 2px 12px}
+    .snzc__yes::before,.snzc__no::before{width:26px;height:26px;background-size:14px}
+    .snzc__cta{width:100%}
+  }
+</style>
+<script>
+  (function () {
+    var b = document.querySelector('[data-snzc-cta]'); if (!b) return;
+    b.addEventListener('click', function () { var t = document.querySelector('.product-details'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+  })();
+</script>

@@ -67,6 +67,10 @@ It is connected to Shopify through the Shopify GitHub integration on branch `mai
 - New product (Nov 21, 2026): "The Snuzzo StepBuddy" (gid://shopify/Product/10455616422179, handle the-snuzzo-stepbuddy),
   a walking-assist harness for first steps. DRAFT, no price/photos yet. Uses template `templates/product.stepbuddy.json`
   on the live theme (copy of the default product template). Avoid the word "leash" in its copy.
+  Nov 21: 3 color variants (Pastel Blue, Mint, Pastel Pink, price $0 until the owner gives one, CONTINUE), each with its
+  photo. Template blocks from `tools/stepbuddy-page/` (head, points, story = problem/answer/how it works, compare, faq);
+  star rating, onesie reviews, "Loved by 5k+ parents", onesie videos/story and upsell are disabled on this template.
+  Draft products can't be viewed from this sandbox (shopifypreview.com blocked): check layout with any live product + ?view=stepbuddy.
 - Shipping (Nov 16, 2026, Black Friday): FREE shipping on every order. One "General profile" (all variants),
   6 zones / 237 countries, all 6 markets active, each zone has a single "Free Shipping" $0 rate (no minimum).
   Site texts say "Black Friday: free shipping on every order". If a threshold comes back: add rates per zone and
